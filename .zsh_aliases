@@ -1,8 +1,3 @@
-# SSHing into telephone servers # 
-function tele() {
-    ssh -p 22000 asterisk@$1.exotel.in $2
-}
-
 # credentials
 alias creds="less ~/creds"
 
@@ -33,40 +28,6 @@ function gdiff(){
     git diff master..$branch --no-prefix -U999999 "$@"
 }
 
-# Exoaliases
-alias e="cd /home/exotel/exotel_code"
-
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
-
-################### AWS ########################
-
-alias aws-link-mum="rm -rf ~/.aws; ln -s ~/.aws_mum ~/.aws; cat ~/.aws/credentials_default > ~/.aws/credentials;"
-alias aws-link-sg="rm -rf ~/.aws; ln -s ~/.aws_sg ~/.aws; cat ~/.aws/credentials_default > ~/.aws/credentials;"
-
-export AWS_FUZZ_USER="unix-arjun"
-export AWS_FUZZ_PRIVATE_IP='true' # Delete this one if you want to use public IP's
-
-# aws sts token
-function aws_sts_sg () {
-    echo "Linking AWS SG credentials";
-    aws-link-sg 
-    echo "Generating STS Session Token";
-    aws sts get-session-token --serial-number arn:aws:iam::350027074327:mfa/arjun --token-code "$1" --duration-seconds 129600  > /tmp/temp_token;
-    cat /tmp/temp_token | sed "s/ //g;s/\"//g;s/\:/ =/g;s/,//g"|grep -vE "\{|\}"| (echo "[default]" && cat) > ~/.aws/credentials;
-    sed -i "s/SecretAccessKey/aws_secret_access_key/g;s/AccessKeyId/aws_access_key_id/g;s/SessionToken/aws_session_token/g;/Expiration/d"  ~/.aws/credentials;
-    echo "Generated new config file valid for 36 hours";
-    cat ~/.aws/credentials
-}
-
-function aws_sts_mum () {
-    echo "Linking AWS MUM credentials";
-    aws-link-mum 
-    echo "Generating STS Session Token";
-    aws sts get-session-token --serial-number arn:aws:iam::350027074327:mfa/arjun --token-code "$1" --duration-seconds 129600  > /tmp/temp_token;
-    cat /tmp/temp_token | sed "s/ //g;s/\"//g;s/\:/ =/g;s/,//g"|grep -vE "\{|\}"| (echo "[default]" && cat) > ~/.aws/credentials;
-    sed -i "s/SecretAccessKey/aws_secret_access_key/g;s/AccessKeyId/aws_access_key_id/g;s/SessionToken/aws_session_token/g;/Expiration/d"  ~/.aws/credentials;
-    echo "Generated new config file valid for 36 hours";
-    cat ~/.aws/credentials
-}
 

@@ -124,4 +124,5 @@ export PATH=$PATH:/home/bin/chromedriver
 
 # source the aliases file
 source ~/.zsh_aliases
+source ~/.exo_aliases
 
