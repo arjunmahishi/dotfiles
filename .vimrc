@@ -4,8 +4,7 @@ execute pathogen#infect()
 syntax on
 color jellybeans
 
-" set number
-set rnu
+set number
 map <C-O> :NERDTreeToggle<CR>
 set rtp+=~/.fzf
 
