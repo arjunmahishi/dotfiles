@@ -27,6 +27,8 @@ alias gpull="git pull origin $1 -r"
 function gco() {
     if [[ $1 == "-b"  ]];then 
         git checkout -b $2
+    elif [[ $1 != "" ]];then
+        git checkout $2
     else
         git checkout `git branch|fzf`
     fi
