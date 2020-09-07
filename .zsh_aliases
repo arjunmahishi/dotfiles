@@ -7,10 +7,12 @@ alias lm="ls -l --block-size=M"
 # get all todo comments in the dir
 alias todo="/home/arjunmahishi/scripts/todo.py"
 
+alias pbcopy='xclip -selection clipboard'
+
+
 # general aliases
 alias gri="grep -ri"
 alias zrc="vim ~/.zshrc"
-alias notes="vim ~/notes/$1"
 alias d="cd ~/Documents/dev"
 
 # docker aliases
@@ -23,12 +25,21 @@ alias gpm="git push origin master"
 alias gac="git add -A && git commit $1"
 alias grh="git reset HEAD~1"
 alias gpull="git pull origin $1 -r"
+alias dsf="git diff|diff-so-fancy|less"
+
+# K8s 
+function kexec() {
+    pod=`kubectl get pods --namespace $1|grep -v NAME|fzf|awk '{print $1}'`
+    kubectl exec -it $pod --namespace $1 -- sh
+}
+
+function notes(){
+    vim ~/notes/`ls ~/notes|fzf`
+}
 
 function gco() {
     if [[ $1 == "-b"  ]];then 
         git checkout -b $2
-    elif [[ $1 != "" ]];then
-        git checkout $2
     else
         git checkout `git branch|fzf`
     fi
@@ -39,8 +50,25 @@ function gdiff() {
     git diff master..$branch --no-prefix -U999999 "$@"
 }
 
+function fsed() {
+    out=`cat $3|sed 's/$1/$2/g'`
+    echo $out > $3
+}
+
+function ipof() {
+    ping $1 -c1|head -n1|awk '{print $3}'|sed 's/(\|)//g'
+}
+
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
 
 #pitivi
 alias pitivi="flatpak run org.pitivi.Pitivi//stable > /var/log/pitivi.log 2>&1 &"
+
+# SSH into bandit servers based on level name
+alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
+
+# Open firefox with a specific profile
+alias firefoxw="nohup firefox -P work > /dev/null 2>&1 &"
+alias firefoxp="nohup firefox -P personal > /dev/null 2>&1 &"
+

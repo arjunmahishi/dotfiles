@@ -1,28 +1,26 @@
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf " fzf path
 
 execute pathogen#infect()
 syntax on
 color jellybeans
 
-set number
+set relativenumber
+set nu
 map <C-O> :NERDTreeToggle<CR>
 set rtp+=~/.fzf
 
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-
-" general plugins
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tomtom/tcomment_vim' 
-
-" Airline plugins
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
-" Git plugins
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end() 
 
@@ -50,3 +48,5 @@ set t_Co=256
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set incsearch
+set smartcase

@@ -14,7 +14,8 @@ tk() { tmux kill-session -t "$1" ; }
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bureau"
+#ZSH_THEME="bureau"
+ZSH_THEME="custom"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -68,6 +69,7 @@ ZSH_THEME="bureau"
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
+  git virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,6 +105,7 @@ source $ZSH/oh-my-zsh.sh
 
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 export NVM_DIR="$HOME/.nvm"
@@ -126,3 +129,9 @@ export PATH=$PATH:~/.cargo/bin
 source ~/.zsh_aliases
 source ~/.exo_aliases
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export WORKON_HOME=~/.venvs
+export PIP_VIRTUALENV_BASE=~/.venvs
