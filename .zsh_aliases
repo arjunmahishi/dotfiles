@@ -72,3 +72,5 @@ alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 alias firefoxw="nohup firefox -P work > /dev/null 2>&1 &"
 alias firefoxp="nohup firefox -P personal > /dev/null 2>&1 &"
 
+# Default python path to 3.7
+alias python3="python3.7"
