@@ -11,14 +11,16 @@ map <C-O> :NERDTreeToggle<CR>
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'fatih/vim-go'
 Plugin 'ycm-core/YouCompleteMe'
+Plugin 'preservim/nerdtree'
 Plugin 'tomtom/tcomment_vim' 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end() 
 
