@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # clean 
-find . -maxdepth 1 -name ".*" | grep -v git | xargs sudo rm -rf
+find . -maxdepth 1 -name ".*" | grep -v "git\|^.$" | xargs sudo rm -rf
 
 # copy
 sudo cp ~/.vimrc .
