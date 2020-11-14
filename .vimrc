@@ -4,6 +4,7 @@ set rtp+=~/.fzf " fzf path
 syntax on
 color jellybeans
 
+inoremap jj <Esc>
 set relativenumber
 set nu
 map <C-O> :NERDTreeToggle<CR>
@@ -13,6 +14,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fatih/vim-go'
 " Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'zxqfl/tabnine-vim'
 Plugin 'preservim/nerdtree'
 Plugin 'tomtom/tcomment_vim' 
 Plugin 'vim-airline/vim-airline'
