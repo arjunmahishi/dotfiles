@@ -12,7 +12,6 @@ map <C-O> :NERDTreeToggle<CR>
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'fatih/vim-go'
 " Plugin 'ycm-core/YouCompleteMe'
 " Plugin 'zxqfl/tabnine-vim'
 Plugin 'preservim/nerdtree'
