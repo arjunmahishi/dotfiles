@@ -20,6 +20,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'mileszs/ack.vim'
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 
 call plug#end()
@@ -34,6 +35,12 @@ set shiftwidth=4
 set expandtab
 set incsearch
 set smartcase
+
+" switch between windows with leader key
+ map <leader>h <C-w>h
+ map <leader>j <C-w>j
+ map <leader>k <C-w>k
+ map <leader>l <C-w>l
 
 " ctrl-p config
 let g:ctrlp_cmd = 'CtrlP'
@@ -51,10 +58,14 @@ let g:go_fmt_command = "goimports"
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " nerdtree config
-map <C-O> :NERDTreeToggle<CR>
+map <leader>o :NERDTreeToggle<CR>
 let g:NERDTreeMinimalUI = 1
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" ack config
+nmap <leader>a :Ack "<C-R><C-W>"<CR>
+let g:ack_autoclose = 1
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
