@@ -1,10 +1,10 @@
 set relativenumber
 set number
-
 syntax on
-color jellybeans
+
 
 inoremap jj <Esc>
+let mapleader=","
 
 call plug#begin('~/.vim/plugged')
 
@@ -17,8 +17,17 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomtom/tcomment_vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-rails'
 
 call plug#end()
+
+color jellybeans
+set cursorline
+highlight clear CursorLine
+highlight CursorLine gui=underline cterm=underline
 
 set tabstop=4
 set shiftwidth=4
@@ -26,31 +35,32 @@ set expandtab
 set incsearch
 set smartcase
 
-" remap ctrl-p to cmd + p
+" ctrl-p config
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_map = '<c-p>'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " vim-go config
-
-" Go syntax highlighting
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
-
-" Auto formatting and importing
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " nerdtree config
 map <C-O> :NERDTreeToggle<CR>
+let g:NERDTreeMinimalUI = 1
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" COC config
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
 " -------------------------------------------------------------------------------------------------
+
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -89,28 +99,3 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use U to show documentation in preview window
-nnoremap <silent> U :call <SID>show_documentation()<CR>
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>

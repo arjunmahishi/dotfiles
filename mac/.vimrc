@@ -3,6 +3,7 @@ set rtp+=~/.fzf " fzf path
 
 syntax on
 color jellybeans
+inoremap jj <Esc>
 
 set relativenumber
 set nu

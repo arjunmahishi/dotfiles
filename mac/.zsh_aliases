@@ -9,11 +9,16 @@ alias todo="/home/arjunmahishi/scripts/todo.py"
 
 alias pbcopy='xclip -selection clipboard'
 
+# remap vim to nvim
+alias vim="nvim"
 
 # general aliases
 alias gri="grep -ri"
 alias zrc="vim ~/.zshrc"
 alias d="cd ~/Documents/dev"
+alias pg_start="pg_ctl -D /usr/local/var/postgresql@10 start"
+alias pg_stop="pg_ctl -D /usr/local/var/postgresql@10 stop"
+alias pg_status="pg_ctl -D /usr/local/var/postgresql@10 status"
 
 # docker aliases
 alias dprune="docker container prune"
