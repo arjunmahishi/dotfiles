@@ -78,6 +78,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh_aliases
+source ~/.clarisights_aliases
 
 # User configuration
 

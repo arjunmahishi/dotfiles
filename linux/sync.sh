@@ -8,3 +8,5 @@ sudo cp ~/.vimrc .
 sudo cp ~/.zshrc .
 sudo cp ~/.zsh_aliases .
 sudo cp ~/.config/nvim/init.vim .
+
+git status .

@@ -1,24 +1,19 @@
-# credentials
-alias creds="less ~/creds"
-
-# ls with size as MB
-alias lm="ls -l --block-size=M"
-
-# get all todo comments in the dir
-alias todo="/home/arjunmahishi/scripts/todo.py"
-
-alias pbcopy='xclip -selection clipboard'
-
-# remap vim to nvim
-alias vim="nvim"
-
 # general aliases
+alias vim="nvim"
 alias gri="grep -ri"
 alias zrc="vim ~/.zshrc"
 alias d="cd ~/Documents/dev"
+alias lm="ls -l --block-size=M"
+alias notes="vim ~/notes/\`ls ~/notes|fzf\`"
+alias pbcopy='xclip -selection clipboard'
 alias pg_start="pg_ctl -D /usr/local/var/postgresql@10 start"
 alias pg_stop="pg_ctl -D /usr/local/var/postgresql@10 stop"
 alias pg_status="pg_ctl -D /usr/local/var/postgresql@10 status"
+
+# tmux 
+alias tm="tmux new -s $1"
+alias ta="tmux attach -t $1"
+alias tl="tmux ls"
 
 # docker aliases
 alias dprune="docker container prune"
@@ -36,10 +31,6 @@ alias dsf="git diff|diff-so-fancy|less"
 function kexec() {
     pod=`kubectl get pods --namespace $1|grep -v NAME|fzf|awk '{print $1}'`
     kubectl exec -it $pod --namespace $1 -- sh
-}
-
-function notes(){
-    vim ~/notes/`ls ~/notes|fzf`
 }
 
 function gco() {
@@ -60,23 +51,12 @@ function fsed() {
     echo $out > $3
 }
 
-function ipof() {
-    ping $1 -c1|head -n1|awk '{print $3}'|sed 's/(\|)//g'
-}
-
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
-
-#pitivi
-alias pitivi="flatpak run org.pitivi.Pitivi//stable > /var/log/pitivi.log 2>&1 &"
 
 # SSH into bandit servers based on level name
 alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 
 # Open firefox with a specific profile
-alias firefoxw="nohup firefox -P work > /dev/null 2>&1 &"
-alias firefoxp="nohup firefox -P personal > /dev/null 2>&1 &"
-
-# Default python path to 3.7
-alias p35="sudo rm /usr/bin/python3; sudo ln -s /usr/bin/python3.5 /usr/bin/python3"
-alias p37="sudo rm /usr/bin/python3; sudo ln -s /usr/bin/python3.7 /usr/bin/python3"
+# alias firefoxw="nohup firefox -P work > /dev/null 2>&1 &"
+# alias firefoxp="nohup firefox -P personal > /dev/null 2>&1 &"
