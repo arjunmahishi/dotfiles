@@ -8,5 +8,3 @@ sudo cp ~/.vimrc .
 sudo cp ~/.zshrc .
 sudo cp ~/.zsh_aliases .
 sudo cp ~/.config/nvim/init.vim .
-git commit -am "Linux: `date|awk '{print $NF"-"$2"-"$3,$4}'`"
-git push origin master
