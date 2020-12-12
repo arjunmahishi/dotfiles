@@ -1,10 +1,3 @@
-set relativenumber
-set number
-syntax on
-
-
-inoremap jj <Esc>
-let mapleader=","
 
 call plug#begin('~/.vim/plugged')
 
@@ -17,30 +10,39 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'tomtom/tcomment_vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
 Plug 'mileszs/ack.vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
+Plug 'ianks/vim-tsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
 color jellybeans
-set cursorline
+let mapleader=","
+syntax on
+imap jj <Esc>
+nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 highlight clear CursorLine
 highlight CursorLine gui=underline cterm=underline
 
+set relativenumber
+set number
+set cursorline
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set incsearch
 set smartcase
+set colorcolumn=81
 
 " switch between windows with leader key
- map <leader>h <C-w>h
- map <leader>j <C-w>j
- map <leader>k <C-w>k
- map <leader>l <C-w>l
+map <leader>w <c-w><c-w>
+map <leader>h <C-w>h
+map <leader>j <C-w>j
+map <leader>k <C-w>k
+map <leader>l <C-w>l
 
 " ctrl-p config
 let g:ctrlp_cmd = 'CtrlP'
@@ -56,6 +58,8 @@ let g:go_highlight_operators = 1
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 au filetype go inoremap <buffer> . .<C-x><C-o>
+au filetype go nmap <leader>t :GoTestFunc<CR>
+au filetype go nmap <leader>T :GoTest<CR>
 
 " nerdtree config
 map <leader>o :NERDTreeToggle<CR>
@@ -66,6 +70,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " ack config
 nmap <leader>a :Ack "<C-R><C-W>"<CR>
 let g:ack_autoclose = 1
+
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
