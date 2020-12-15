@@ -77,8 +77,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zsh_aliases
-source ~/.clarisights_aliases
 
 # User configuration
 
@@ -127,3 +125,6 @@ if [ -f '/Users/arjunmahishi/gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '/U
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/arjunmahishi/gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/arjunmahishi/gcloud/google-cloud-sdk/completion.zsh.inc'; fi
+
+source ~/.zsh_aliases
+source ~/.clarisights_aliases

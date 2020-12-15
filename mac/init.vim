@@ -1,29 +1,21 @@
-
 call plug#begin('~/.vim/plugged')
 
-Plug 'fatih/vim-go', { 'tag': '*' }
-Plug 'kien/ctrlp.vim'
-Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'wakatime/vim-wakatime'
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
-Plug 'airblade/vim-gitgutter'
-Plug 'tomtom/tcomment_vim'
-Plug 'mileszs/ack.vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'ianks/vim-tsx'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+    Plug 'fatih/vim-go', { 'tag': '*' }
+    Plug 'kien/ctrlp.vim'
+    Plug 'preservim/nerdtree'
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'wakatime/vim-wakatime'
+    Plug 'tpope/vim-surround'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tomtom/tcomment_vim'
+    Plug 'mileszs/ack.vim'
+    Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
 color jellybeans
-let mapleader=","
 syntax on
-imap jj <Esc>
-nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 highlight clear CursorLine
 highlight CursorLine gui=underline cterm=underline
 
@@ -36,13 +28,8 @@ set expandtab
 set incsearch
 set smartcase
 set colorcolumn=81
-
-" switch between windows with leader key
-map <leader>w <c-w><c-w>
-map <leader>h <C-w>h
-map <leader>j <C-w>j
-map <leader>k <C-w>k
-map <leader>l <C-w>l
+set listchars=trail:~
+set list
 
 " ctrl-p config
 let g:ctrlp_cmd = 'CtrlP'
@@ -58,23 +45,49 @@ let g:go_highlight_operators = 1
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 au filetype go inoremap <buffer> . .<C-x><C-o>
-au filetype go nmap <leader>t :GoTestFunc<CR>
-au filetype go nmap <leader>T :GoTest<CR>
 
 " nerdtree config
-map <leader>o :NERDTreeToggle<CR>
 let g:NERDTreeMinimalUI = 1
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ack config
-nmap <leader>a :Ack "<C-R><C-W>"<CR>
 let g:ack_autoclose = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom key mapping
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" -------------------------------------------------------------------------------------------------
-" coc.nvim default settings
-" -------------------------------------------------------------------------------------------------
+let mapleader=","
+imap jj <Esc>
+nmap <C-s> :source ~/.config/nvim/init.vim<CR>
+vmap <leader>y "*y
+nmap <leader>o :NERDTreeToggle<CR>
+
+" switch between windows with leader key
+nmap <leader>w <c-w><c-w>
+nmap <leader>h <C-w>h
+nmap <leader>j <C-w>j
+nmap <leader>k <C-w>k
+nmap <leader>l <C-w>l
+
+" Go specific mapping
+au filetype go nmap <leader>t :GoTestFunc<CR>
+au filetype go nmap <leader>T :GoTest<CR>
+au filetype go nmap <leader>r :GoRun<CR>
+
+" Ruby specific mapping
+au filetype ruby nmap <leader>r :!ruby %<CR>
+
+" Python specific mapping
+au filetype python nmap <leader>r :!python %<CR>
+
+" Ack specific mapping
+nmap <leader>a :Ack "<C-R><C-W>"<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoC config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
