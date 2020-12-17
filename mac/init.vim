@@ -1,20 +1,24 @@
 call plug#begin('~/.vim/plugged')
 
-    Plug 'fatih/vim-go', { 'tag': '*' }
-    Plug 'kien/ctrlp.vim'
-    Plug 'preservim/nerdtree'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-    Plug 'wakatime/vim-wakatime'
-    Plug 'tpope/vim-surround'
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'tomtom/tcomment_vim'
-    Plug 'mileszs/ack.vim'
-    Plug 'tpope/vim-fugitive'
+Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'kien/ctrlp.vim'
+Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
+Plug 'tomtom/tcomment_vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'morhetz/gruvbox'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
-color jellybeans
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
 syntax on
 highlight clear CursorLine
 highlight CursorLine gui=underline cterm=underline
@@ -28,8 +32,10 @@ set expandtab
 set incsearch
 set smartcase
 set colorcolumn=81
-set listchars=trail:~
-set list
+set lazyredraw
+set termguicolors
+" set listchars=trail:~
+" set list
 
 " ctrl-p config
 let g:ctrlp_cmd = 'CtrlP'
@@ -78,12 +84,13 @@ au filetype go nmap <leader>r :GoRun<CR>
 
 " Ruby specific mapping
 au filetype ruby nmap <leader>r :!ruby %<CR>
+au filetype ruby nmap <leader>t :execute "!zeus rspec %:" . line(".")<CR>
 
 " Python specific mapping
 au filetype python nmap <leader>r :!python %<CR>
 
 " Ack specific mapping
-nmap <leader>a :Ack "<C-R><C-W>"<CR>
+nmap <leader>a :Ack! "<C-R><C-W>"<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
