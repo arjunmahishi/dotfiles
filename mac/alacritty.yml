@@ -39,3 +39,30 @@ key_bindings:
   - { key: N, mods: Option, chars: "\x1bn" }
   - { key: R, mods: Option, chars: "\x1br" }
 
+colors:
+  primary:
+    background: '#07090f'
+    foreground: '#c5c8c6'
+
+  # Normal colors
+  normal:
+    black:   '#07090f'
+    red:     '#c91b00'
+    green:   '#00c200'
+    yellow:  '#c7c400'
+    blue:    '#0225c7'
+    magenta: '#c930c7'
+    cyan:    '#00c5c7'
+    white:   '#c7c7c7'
+
+  # Bright colors
+  bright:
+    black:   '#676767'
+    red:     '#ff6d67'
+    green:   '#5ff967'
+    yellow:  '#fefb67'
+    blue:    '#6871ff'
+    magenta: '#ff76ff'
+    cyan:    '#5ffdff'
+    white:   '#feffff'
+
