@@ -37,4 +37,5 @@ live_config_reload: true
 
 key_bindings:
   - { key: N, mods: Option, chars: "\x1bn" }
+  - { key: R, mods: Option, chars: "\x1br" }
 

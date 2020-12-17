@@ -4,7 +4,6 @@
 find . -maxdepth 1 -name ".*" | grep -v "git\|^.$" | xargs rm -rf
 
 # copy
-cp ~/.vimrc .
 cp ~/.ackrc .
 cp ~/.zshrc .
 cp ~/.zsh_aliases .
