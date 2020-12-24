@@ -17,15 +17,17 @@ Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
-syntax on
-highlight clear CursorLine
-highlight CursorLine gui=underline cterm=underline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " look n feel
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_transparent_bg='1'
+
+set t_Co=256
+set termguicolors
+set background=dark
 
 set relativenumber
 set number
@@ -37,11 +39,12 @@ set incsearch
 set smartcase
 set colorcolumn=81
 set lazyredraw
-set termguicolors
-" set listchars=trail:~
-" set list
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colors gruvbox
+syntax on
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " status line config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -51,7 +54,8 @@ let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
 
 set statusline=
 set statusline+=\ %{g:currentmode[mode()]}
-set statusline+=\ \|\ %F\ %y\ %r
+set statusline+=%{GetGitBranch()}
+set statusline+=\ \|\ %t\ %y\ %r
 set statusline+=%=
 set statusline+=%p%%
 set statusline+=\ \|\ %l,%-3c
@@ -62,7 +66,8 @@ set statusline+=\ \|\ %l,%-3c
 
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_user_command = ['.git/',
+  \ 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go config
@@ -93,10 +98,15 @@ let g:ack_autoclose = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let mapleader=","
+let hlstate=0
 imap jj <Esc>
+imap kk <Esc>O
+nmap vv :vsplit<CR>,l
 nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 vmap <leader>y "*y
+vmap <leader>p "*p
 nmap <leader>o :NERDTreeToggle<CR>
+nnoremap <F4> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
 
 " switch between windows with leader key
 nmap <leader>w <c-w><c-w>
@@ -106,25 +116,30 @@ nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
 
 " Go specific mapping
-au filetype go nmap <leader>t :GoTestFunc<CR>
-au filetype go nmap <leader>T :GoTest<CR>
-au filetype go nmap <leader>r :GoRun<CR>
+au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
+au filetype go nmap <leader>T :w<CR>:GoTest<CR>
+au filetype go nmap <leader>r :w<CR>:GoRun<CR>
 
 " Ruby specific mapping
-au filetype ruby nmap <leader>r :!ruby %<CR>
-au filetype ruby nmap <leader>t :execute "!zeus rspec %:" . line(".")<CR>
+au filetype ruby nmap <leader>r :w<CR>:!ruby %<CR>
+au filetype ruby nmap <leader>t :w<CR>:execute "!zeus rspec %:" . line(".")<CR>
 
 " Python specific mapping
-au filetype python nmap <leader>r :!python %<CR>
+au filetype python nmap <leader>r :w<CR>:!python %<CR>
+
+" JS specific mapping
+au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
+au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 
 " Ack specific mapping
-nmap <leader>a :Ack! "<C-R><C-W>"<CR>
+nmap <leader>a :Ack! "<c-r><c-w>"<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 
+  \ 'coc-json', 'coc-prettier', 'coc-tsserver']
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -138,7 +153,8 @@ set shortmess+=c
 set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" Use command ':verbose imap <tab>' to make sure tab is not
+" mapped by other plugin.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -163,3 +179,14 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" helper functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function GetGitBranch()
+  let branchName = FugitiveHead()
+  if branchName != "" 
+    return "\  \|\ " . branchName
+  endif
+  return ""
+endfunction
