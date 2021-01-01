@@ -6,6 +6,7 @@
 
 # node js files
 --ignore-dir=node_modules
+--ignore-dir=coverage
 --type-set=coffee=.coffee
 --type-set=jade=.jade
 --type-set=feature=.feature

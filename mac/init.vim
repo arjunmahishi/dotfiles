@@ -22,8 +22,10 @@ call plug#end()
 " look n feel
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_transparent_bg='1'
+colorscheme gruvbox
+syntax on
+
+let g:gruvbox_contrast_dark = "hard"
 
 set t_Co=256
 set termguicolors
@@ -39,9 +41,9 @@ set incsearch
 set smartcase
 set colorcolumn=81
 set lazyredraw
+set splitbelow
+set splitright
 
-colors gruvbox
-syntax on
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -55,7 +57,7 @@ let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
 set statusline=
 set statusline+=\ %{g:currentmode[mode()]}
 set statusline+=%{GetGitBranch()}
-set statusline+=\ \|\ %t\ %y\ %r
+set statusline+=\ \|\ %0.50f\ %y\ %r
 set statusline+=%=
 set statusline+=%p%%
 set statusline+=\ \|\ %l,%-3c
