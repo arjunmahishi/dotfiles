@@ -73,7 +73,8 @@ export ZSH="/Users/arjunmahishi/.oh-my-zsh"
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
-  git virtualenv
+  git
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -129,3 +130,6 @@ if [ -f '/Users/arjunmahishi/gcloud/google-cloud-sdk/completion.zsh.inc' ]; then
 
 source ~/.zsh_aliases
 source ~/.clarisights_aliases
+
+export WORKON_HOME=~/.venvs
+export PIP_VIRTUALENV_BASE=~/.venvs

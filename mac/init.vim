@@ -28,7 +28,6 @@ syntax on
 let g:gruvbox_contrast_dark = "hard"
 
 set t_Co=256
-set termguicolors
 set background=dark
 
 set relativenumber
@@ -44,9 +43,7 @@ set lazyredraw
 set splitbelow
 set splitright
 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " status line config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
