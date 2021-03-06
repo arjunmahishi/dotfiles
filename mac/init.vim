@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go', { 'tag': '*' }
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'wakatime/vim-wakatime'
@@ -11,9 +11,20 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tomtom/tcomment_vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'morhetz/gruvbox'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'romgrk/barbar.nvim'
+
+" colorscheme
+Plug 'lifepillar/vim-gruvbox8'
+Plug 'romgrk/doom-one.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'jsit/toast.vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
@@ -22,13 +33,10 @@ call plug#end()
 " look n feel
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colorscheme gruvbox
-syntax on
-
-let g:gruvbox_contrast_dark = "hard"
-
-set t_Co=256
+syntax enable
+set termguicolors
 set background=dark
+colorscheme gruvbox
 
 set relativenumber
 set number
@@ -63,10 +71,10 @@ set statusline+=\ \|\ %l,%-3c
 " ctrl-p config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_user_command = ['.git/',
-  \ 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_user_command = ['.git/',
+"   \ 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go config
@@ -105,14 +113,19 @@ nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 vmap <leader>y "*y
 vmap <leader>p "*p
 nmap <leader>o :NERDTreeToggle<CR>
-nnoremap <F4> :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
+nmap <leader>O :NERDTreeFind<CR>
+nmap <leader><space> :nohlsearch<cr>
+nmap <c-p> <cmd>Telescope find_files<cr>
+nmap <c-f> <cmd>Telescope live_grep<cr>
+nmap <c-F> <cmd>Telescope grep_string<cr>
+nmap tt :tabnew<CR>
 
 " switch between windows with leader key
-nmap <leader>w <c-w><c-w>
-nmap <leader>h <C-w>h
-nmap <leader>j <C-w>j
-nmap <leader>k <C-w>k
-nmap <leader>l <C-w>l
+noremap <leader>w <c-w><c-w>
+noremap <leader>h <C-w>h
+noremap <leader>j <C-w>j
+noremap <leader>k <C-w>k
+noremap <leader>l <C-w>l
 
 " Go specific mapping
 au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
@@ -122,16 +135,34 @@ au filetype go nmap <leader>r :w<CR>:GoRun<CR>
 " Ruby specific mapping
 au filetype ruby nmap <leader>r :w<CR>:!ruby %<CR>
 au filetype ruby nmap <leader>t :w<CR>:execute "!zeus rspec %:" . line(".")<CR>
+au filetype ruby nmap <leader>T :w<CR>:execute "!rspec %:" . line(".")<CR>
 
 " Python specific mapping
 au filetype python nmap <leader>r :w<CR>:!python %<CR>
 
 " JS specific mapping
+au filetype javascript nmap <leader>r :w<CR>:!node %<CR>
 au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 
 " Ack specific mapping
 nmap <leader>a :Ack! "<c-r><c-w>"<CR>
+
+" BarBar mapping
+nmap gj :BufferPrevious<CR>
+nmap gk :BufferNext<CR>
+nmap g< :BufferMovePrevious<CR>
+nmap g> :BufferMoveNext<CR>
+nmap g1 :BufferGoto 1<CR>
+nmap g2 :BufferGoto 2<CR>
+nmap g3 :BufferGoto 3<CR>
+nmap g4 :BufferGoto 4<CR>
+nmap g5 :BufferGoto 5<CR>
+nmap g6 :BufferGoto 6<CR>
+nmap g7 :BufferGoto 7<CR>
+nmap g8 :BufferGoto 8<CR>
+nmap g9 :BufferLast<CR>
+nmap gx :BufferClose<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
@@ -177,6 +208,29 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BarBar config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:false
+let bufferline.icons = v:false
+let bufferline.closable = v:true
+let bufferline.clickable = v:true
+let bufferline.icon_close_tab_modified = '🔥'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lua config 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = {'node_modules', 'coverage'},
+  }
+}
+EOF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions

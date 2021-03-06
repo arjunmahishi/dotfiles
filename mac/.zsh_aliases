@@ -1,5 +1,5 @@
 # general aliases
-alias vim="nvim"
+alias vim="nvim-nightly-0.5"
 alias gri="grep -ri"
 alias zrc="vim ~/.zshrc"
 alias d="cd ~/Documents/dev"
