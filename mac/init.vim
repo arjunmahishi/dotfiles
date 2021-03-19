@@ -1,7 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go', { 'tag': '*' }
-" Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'wakatime/vim-wakatime'
@@ -17,6 +16,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'romgrk/barbar.nvim'
+Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh', 'on': ['Spotify'] }
+Plug 'lifepillar/vim-colortemplate'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
@@ -62,7 +63,7 @@ let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
 set statusline=
 set statusline+=\ %{g:currentmode[mode()]}
 set statusline+=%{GetGitBranch()}
-set statusline+=\ \|\ %0.50f\ %y\ %r
+set statusline+=\ \|\ %0.50f\ %y%r%m
 set statusline+=%=
 set statusline+=%p%%
 set statusline+=\ \|\ %l,%-3c
@@ -144,6 +145,7 @@ au filetype python nmap <leader>r :w<CR>:!python %<CR>
 au filetype javascript nmap <leader>r :w<CR>:!node %<CR>
 au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
+au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 
 " Ack specific mapping
 nmap <leader>a :Ack! "<c-r><c-w>"<CR>
