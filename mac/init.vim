@@ -37,7 +37,7 @@ call plug#end()
 syntax enable
 set termguicolors
 set background=dark
-colorscheme gruvbox8_hard
+colorscheme ayu
 
 set relativenumber
 set number
@@ -220,6 +220,7 @@ let bufferline.animation = v:false
 let bufferline.icons = v:false
 let bufferline.closable = v:true
 let bufferline.clickable = v:true
+let bufferline.icon_close_tab = ''
 let bufferline.icon_close_tab_modified = '🔥'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
