@@ -9,6 +9,8 @@ alias pbcopy='xclip -selection clipboard'
 alias pg_start="pg_ctl -D /usr/local/var/postgresql@10 start"
 alias pg_stop="pg_ctl -D /usr/local/var/postgresql@10 stop"
 alias pg_status="pg_ctl -D /usr/local/var/postgresql@10 status"
+alias python="python3"
+alias pip="pip3"
 
 # tmux 
 alias tm="tmux new -s $1"

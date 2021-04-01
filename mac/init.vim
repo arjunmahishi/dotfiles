@@ -132,6 +132,11 @@ noremap <leader>l <C-w>l
 au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
 au filetype go nmap <leader>T :w<CR>:GoTest<CR>
 au filetype go nmap <leader>r :w<CR>:GoRun<CR>
+au filetype go nmap <leader>b :GoDebugBreakpoint<CR>
+au filetype go nmap <leader>d :GoDebugStart<CR>
+au filetype go nmap <leader>s :GoDebugStop<CR>
+au filetype go nmap <leader>n :GoDebugNext<CR>
+au filetype go nmap <leader>c :GoDebugContinue<CR>
 
 " Ruby specific mapping
 au filetype ruby nmap <leader>r :w<CR>:!ruby %<CR>
