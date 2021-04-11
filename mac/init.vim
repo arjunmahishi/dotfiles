@@ -18,6 +18,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh', 'on': ['Spotify'] }
 Plug 'lifepillar/vim-colortemplate'
+Plug 'posva/vim-vue'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
