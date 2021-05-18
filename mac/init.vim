@@ -19,6 +19,10 @@ Plug 'romgrk/barbar.nvim'
 Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh', 'on': ['Spotify'] }
 Plug 'lifepillar/vim-colortemplate'
 Plug 'posva/vim-vue'
+Plug 'jremmen/vim-ripgrep'
+Plug 'jvirtanen/vim-hcl'
+Plug 'hashivim/vim-terraform'
+
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
@@ -104,6 +108,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " ack config
 let g:ack_autoclose = 1
+let g:NERDTreeShowHidden=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom key mapping
@@ -121,8 +126,8 @@ nmap <leader>o :NERDTreeToggle<CR>
 nmap <leader>O :NERDTreeFind<CR>
 nmap <leader><space> :nohlsearch<cr>
 nmap <c-p> <cmd>Telescope find_files<cr>
-nmap <c-f> <cmd>Telescope live_grep<cr>
-nmap <c-F> <cmd>Telescope grep_string<cr>
+" nmap <c-f> <cmd>Telescope live_grep<cr>
+" nmap <c-f> <cmd>Telescope grep_string<cr>
 nmap tt :tabnew<CR>
 
 " switch between windows with leader key
@@ -157,7 +162,7 @@ au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 
 " Ack specific mapping
-nmap <leader>a :Ack! "<c-r><c-w>"<CR>
+nmap <leader>a :Rg "<c-r><c-w>"<CR>
 
 " BarBar mapping
 nmap gj :BufferPrevious<CR>
