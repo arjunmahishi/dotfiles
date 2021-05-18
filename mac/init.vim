@@ -31,6 +31,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'jsit/toast.vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -42,7 +43,7 @@ call plug#end()
 syntax enable
 set termguicolors
 set background=dark
-colorscheme ayu
+colorscheme gruvbox8_hard
 
 set relativenumber
 set number
