@@ -43,7 +43,7 @@ call plug#end()
 syntax enable
 set termguicolors
 set background=dark
-colorscheme gruvbox8_hard
+colorscheme onedark
 
 set relativenumber
 set number
