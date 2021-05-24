@@ -26,11 +26,8 @@ Plug 'hashivim/vim-terraform'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'romgrk/doom-one.vim'
 Plug 'ayu-theme/ayu-vim'
-Plug 'joshdick/onedark.vim'
-Plug 'jsit/toast.vim'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'arjunmahishi/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
