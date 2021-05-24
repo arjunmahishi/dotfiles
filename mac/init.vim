@@ -123,10 +123,9 @@ vmap <leader>p "*p
 nmap <leader>o :NERDTreeToggle<CR>
 nmap <leader>O :NERDTreeFind<CR>
 nmap <leader><space> :nohlsearch<cr>
-nmap <c-p> <cmd>Telescope find_files<cr>
-" nmap <c-f> <cmd>Telescope live_grep<cr>
-" nmap <c-f> <cmd>Telescope grep_string<cr>
-nmap tt :tabnew<CR>
+nmap <C-p> <cmd>Telescope find_files<cr>
+nmap <C-f> <cmd>Telescope live_grep<cr>
+nmap <C-c> <cmd>copen<cr>
 
 " switch between windows with leader key
 noremap <leader>w <c-w><c-w>
@@ -163,10 +162,8 @@ au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 nmap <leader>a :Rg "<c-r><c-w>"<CR>
 
 " BarBar mapping
-nmap gj :BufferPrevious<CR>
-nmap gk :BufferNext<CR>
-nmap g< :BufferMovePrevious<CR>
-nmap g> :BufferMoveNext<CR>
+nmap <C-j> :BufferPrevious<CR>
+nmap <C-k> :BufferNext<CR>
 nmap g1 :BufferGoto 1<CR>
 nmap g2 :BufferGoto 2<CR>
 nmap g3 :BufferGoto 3<CR>
@@ -176,7 +173,7 @@ nmap g6 :BufferGoto 6<CR>
 nmap g7 :BufferGoto 7<CR>
 nmap g8 :BufferGoto 8<CR>
 nmap g9 :BufferLast<CR>
-nmap gx :BufferClose<CR>
+nmap <C-x> :BufferClose<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
