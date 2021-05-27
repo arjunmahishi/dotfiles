@@ -1,6 +1,5 @@
 # general aliases
 alias vim="nvim"
-alias gri="grep -ri"
 alias zrc="vim ~/.zshrc"
 alias d="cd ~/dev"
 alias lm="ls -l --block-size=M"
@@ -29,12 +28,6 @@ alias grh="git reset HEAD~1"
 alias gpull="git pull origin $1 -r"
 alias dsf="git diff|diff-so-fancy|less"
 
-# K8s 
-function kexec() {
-    pod=`kubectl get pods --namespace $1|grep -v NAME|fzf|awk '{print $1}'`
-    kubectl exec -it $pod --namespace $1 -- sh
-}
-
 function gco() {
     if [[ $1 == "-b"  ]];then 
         git checkout -b $2
@@ -46,6 +39,12 @@ function gco() {
 function gdiff() {
     branch=`git branch | grep \* | cut -d ' ' -f2`
     git diff master..$branch --no-prefix -U999999 "$@"
+}
+
+# K8s 
+function kexec() {
+    pod=`kubectl get pods --namespace $1|grep -v NAME|fzf|awk '{print $1}'`
+    kubectl exec -it $pod --namespace $1 -- sh
 }
 
 function fsed() {
