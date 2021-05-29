@@ -17,6 +17,7 @@ Plug 'romgrk/barbar.nvim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
+Plug 'itchyny/lightline.vim'
 
 
 " colorscheme
@@ -55,16 +56,19 @@ set splitright
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set noshowmode
-let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
-      \ 'i':'INSERT','R':'R','Rv':'V·REPLACE','c':'COMMAND'}
+" let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
+"       \ 'i':'INSERT','R':'R','Rv':'V·REPLACE','c':'COMMAND'}
+"
+" set statusline=
+" set statusline+=\ %{g:currentmode[mode()]}
+" set statusline+=%{GetGitBranch()}
+" set statusline+=\ \|\ %0.50f\ %y%r%m
+" set statusline+=%=
+" set statusline+=%p%%
+" set statusline+=\ \|\ %l,%-3c
 
-set statusline=
-set statusline+=\ %{g:currentmode[mode()]}
-set statusline+=%{GetGitBranch()}
-set statusline+=\ \|\ %0.50f\ %y%r%m
-set statusline+=%=
-set statusline+=%p%%
-set statusline+=\ \|\ %l,%-3c
+let g:lightline = { 'colorscheme': 'onedark' }
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrl-p config
