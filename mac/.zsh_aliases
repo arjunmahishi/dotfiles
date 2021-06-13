@@ -19,15 +19,6 @@ alias tl="tmux ls"
 # docker aliases
 alias dprune="docker container prune"
 
-# Git aliases
-alias gst="git status"
-alias glg="git log"
-alias gpm="git push origin master"
-alias gac="git add -A && git commit $1"
-alias grh="git reset HEAD~1"
-alias gpull="git pull origin $1 -r"
-alias dsf="git diff|diff-so-fancy|less"
-
 function gco() {
     if [[ $1 == "-b"  ]];then 
         git checkout -b $2
@@ -58,3 +49,7 @@ alias go-build-all="~/scripts/go-build-all.sh"
 # SSH into bandit servers based on level name
 alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 
+# AWS
+function aws-switch-profile() {
+  export AWS_PROFILE=`cat ~/.aws/credentials|grep "\[.*\]"|awk -F'[][]' '{print $2}'|fzf`
+}
