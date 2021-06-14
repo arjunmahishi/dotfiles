@@ -7,7 +7,6 @@ Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
-Plug 'tomtom/tcomment_vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/popup.nvim'
@@ -52,32 +51,25 @@ set splitbelow
 set splitright
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" status line config
+" " line config (lightline)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set noshowmode
-" let g:currentmode={'n':'NORMAL','v':'VISUAL','V':'V·LINE','':'V·BLOCK',
-"       \ 'i':'INSERT','R':'R','Rv':'V·REPLACE','c':'COMMAND'}
-"
-" set statusline=
-" set statusline+=\ %{g:currentmode[mode()]}
-" set statusline+=%{GetGitBranch()}
-" set statusline+=\ \|\ %0.50f\ %y%r%m
-" set statusline+=%=
-" set statusline+=%p%%
-" set statusline+=\ \|\ %l,%-3c
+let g:lightline = {
+\ 'component_function': {
+\   'filename': 'LightlineFilename',
+\ },
+\ 'colorscheme': 'onedark'
+\ }
 
-let g:lightline = { 'colorscheme': 'onedark' }
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrl-p config
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_user_command = ['.git/',
-"   \ 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go config
