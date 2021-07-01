@@ -18,6 +18,8 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
 Plug 'itchyny/lightline.vim'
+Plug 'buoto/gotests-vim'
+Plug 'AndrewRadev/splitjoin.vim'
 
 
 " colorscheme
