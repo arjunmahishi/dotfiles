@@ -48,7 +48,7 @@ set shiftwidth=2
 set expandtab
 set incsearch
 set smartcase
-set colorcolumn=81
+set colorcolumn=121
 set lazyredraw
 set splitbelow
 set splitright
@@ -118,7 +118,7 @@ imap kk <Esc>O
 nmap vv :vsplit<CR>,l
 nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 vmap <leader>y "*y
-vmap <leader>p "*p
+nmap <leader>p "*p
 nmap <leader>o :NERDTreeToggle<CR>
 nmap <leader>O :NERDTreeFind<CR>
 nmap <leader><space> :nohlsearch<cr>
@@ -242,6 +242,13 @@ require('telescope').setup{
   }
 }
 EOF
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neovide config 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:neovide_cursor_trail_length=0.0
+let g:neovide_cursor_animation_length=0.03
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions
