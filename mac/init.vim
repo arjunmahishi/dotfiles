@@ -173,6 +173,7 @@ nmap g7 :BufferGoto 7<CR>
 nmap g8 :BufferGoto 8<CR>
 nmap g9 :BufferLast<CR>
 nmap <C-x> :BufferClose<CR>
+nmap <leader>d :Gdiffsplit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
