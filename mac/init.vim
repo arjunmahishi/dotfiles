@@ -58,6 +58,7 @@ set splitright
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set noshowmode
+set laststatus=2
 let g:lightline = {
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
@@ -237,11 +238,11 @@ let bufferline.icon_close_tab_modified = '🔥'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
-require('telescope').setup{
-  defaults = {
-    file_ignore_patterns = {'node_modules', 'coverage'},
-  }
-}
+-- require('telescope').setup{
+--   defaults = {
+--     file_ignore_patterns = {'node_modules', 'coverage'},
+--   }
+-- }
 EOF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

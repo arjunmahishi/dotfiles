@@ -86,7 +86,7 @@ _USERNAME="$_USERNAME%{$reset_color%}@%m"
 _LIBERTY="$_LIBERTY%{$reset_color%}"
 
 _1LEFT="$_PATH"
-_1RIGHT="[%*] "
+_1RIGHT=""
 
 bureau_precmd () {
   print
