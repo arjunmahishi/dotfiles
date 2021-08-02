@@ -20,6 +20,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'itchyny/lightline.vim'
 Plug 'buoto/gotests-vim'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
 
 
 " colorscheme
@@ -91,11 +92,9 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
-" au filetype go inoremap <buffer> . .<C-x><C-o>
-
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+let g:go_auto_type_info = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,6 +142,7 @@ au filetype go nmap <leader>d :GoDebugStart<CR>
 au filetype go nmap <leader>s :GoDebugStop<CR>
 au filetype go nmap <leader>n :GoDebugNext<CR>
 au filetype go nmap <leader>c :GoDebugContinue<CR>
+au filetype go nmap <leader>i <Plug>(go-info)
 
 " Ruby specific mapping
 au filetype ruby nmap <leader>r :w<CR>:!ruby %<CR>
@@ -238,11 +238,11 @@ let bufferline.icon_close_tab_modified = '🔥'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
--- require('telescope').setup{
---   defaults = {
---     file_ignore_patterns = {'node_modules', 'coverage'},
---   }
--- }
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = {'node_modules', 'coverage'},
+  }
+}
 EOF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,6 +251,14 @@ EOF
 
 let g:neovide_cursor_trail_length=0.0
 let g:neovide_cursor_animation_length=0.03
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" utilsnips 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions
