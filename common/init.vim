@@ -20,7 +20,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'itchyny/lightline.vim'
 Plug 'buoto/gotests-vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 
 " colorscheme
@@ -117,8 +117,8 @@ imap jj <Esc>
 imap kk <Esc>O
 nmap vv :vsplit<CR>,l
 nmap <C-s> :source ~/.config/nvim/init.vim<CR>
-vmap <leader>y "*y
-nmap <leader>p "*p
+vmap <leader>y "+y
+nmap <leader>p "+p
 nmap <leader>o :NERDTreeToggle<CR>
 nmap <leader>O :NERDTreeFind<CR>
 nmap <leader><space> :nohlsearch<cr>
