@@ -14,14 +14,14 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'romgrk/barbar.nvim'
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
 Plug 'itchyny/lightline.vim'
 Plug 'buoto/gotests-vim'
 Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'SirVer/ultisnips'
-
+Plug 'SirVer/ultisnips'
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
@@ -259,6 +259,14 @@ let g:neovide_cursor_animation_length=0.03
 let g:UltiSnipsExpandTrigger="<c-space>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Wilder config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Key bindings can be changed, see below
+call wilder#setup({'modes': [':', '/', '?']})
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions
