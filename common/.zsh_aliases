@@ -1,7 +1,7 @@
 # general aliases
 alias vim="nvim"
 alias zrc="vim ~/.zshrc"
-alias d="cd ~/dev"
+alias d="jump_to_directory"
 alias lm="ls -l --block-size=M"
 alias notes="vim ~/notes/\`ls ~/notes|fzf\`"
 alias pbcopy='xclip -selection clipboard'
@@ -54,4 +54,12 @@ alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 function aws-switch-profile() {
   export AWS_PROFILE=`cat ~/.aws/credentials|grep "\[.*\]"|awk -F'[][]' '{print $2}'|fzf`
   rg -A3 -NI "$AWS_PROFILE" ~/.aws/credentials
+}
+
+# Jump to any directory
+function jump_to_directory() {
+  base_path="/home/arjunmahishi/work/" # should end with slash
+  base_path_escaped="$(echo $base_path | sed 's/\//\\\//g')"
+
+  cd $base_path$(find $base_path -type d | grep -v "\/\?.git" | sed "s/$base_path_escaped//g" | fzf)
 }

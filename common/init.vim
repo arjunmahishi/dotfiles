@@ -14,6 +14,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 " Plug 'jremmen/vim-ripgrep'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
@@ -22,6 +23,8 @@ Plug 'buoto/gotests-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'jbyuki/venn.nvim'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
@@ -29,6 +32,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'arjunmahishi/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 
@@ -53,6 +57,9 @@ set colorcolumn=121
 set lazyredraw
 set splitbelow
 set splitright
+set mouse=a
+set encoding=utf8
+set guifont=Fira\ Code:h12
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " status line config (lightline)
@@ -158,6 +165,9 @@ au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
 au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 
+" Vim script
+au filetype vim nmap <leader>r :source %<CR>
+
 " Ack specific mapping
 nmap <leader>a :Rg "<c-r><c-w>"<CR>
 
@@ -227,10 +237,10 @@ nmap <silent> gr <Plug>(coc-references)
 
 let bufferline = get(g:, 'bufferline', {})
 let bufferline.animation = v:false
-let bufferline.icons = v:false
+" let bufferline.icons = v:false
 let bufferline.closable = v:true
 let bufferline.clickable = v:true
-let bufferline.icon_close_tab = ''
+let bufferline.icon_close_tab = 'x'
 let bufferline.icon_close_tab_modified = '🔥'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -267,6 +277,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 " Key bindings can be changed, see below
 call wilder#setup({'modes': [':', '/', '?']})
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" multi select
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions
