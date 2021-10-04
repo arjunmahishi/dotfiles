@@ -33,17 +33,6 @@ function gdiff() {
     git diff master..$branch --no-prefix -U999999 "$@"
 }
 
-# K8s 
-function kexec() {
-    pod=`kubectl get pods --namespace $1|grep -v NAME|fzf|awk '{print $1}'`
-    kubectl exec -it $pod --namespace $1 -- sh
-}
-
-function fsed() {
-    out=`cat $3|sed 's/$1/$2/g'`
-    echo $out > $3
-}
-
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
 
@@ -52,7 +41,7 @@ alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 
 # AWS
 function aws-switch-profile() {
-  export AWS_PROFILE=`cat ~/.aws/credentials|grep "\[.*\]"|awk -F'[][]' '{print $2}'|fzf`
+  export AWS_PROFILE=$(cat ~/.aws/credentials | grep "\[.*\]" | awk -F'[][]' '{print $2}' | fzf)
   rg -A3 -NI "$AWS_PROFILE" ~/.aws/credentials
 }
 
