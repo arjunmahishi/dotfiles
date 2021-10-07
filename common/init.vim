@@ -188,6 +188,9 @@ nmap g9 :BufferLast<CR>
 nmap <C-x> :BufferClose<CR>
 nmap <leader>d :Gdiffsplit<CR>
 
+" Format JSON jq
+au filetype json nmap <leader>f :%!jq '.' %<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
