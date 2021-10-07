@@ -25,6 +25,8 @@ Plug 'SirVer/ultisnips'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'jbyuki/venn.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-neorg/neorg'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
@@ -248,19 +250,47 @@ let bufferline.icon_close_tab_modified = '🔥'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
-require('telescope').setup{
-  defaults = {
-    file_ignore_patterns = {'node_modules', 'coverage'},
+  require('telescope').setup{
+    defaults = {
+      file_ignore_patterns = {'node_modules', 'coverage'},
+    }
   }
-}
+
+  require('neorg').setup {
+    -- Tell Neorg what modules to load
+    load = {
+        ["core.defaults"] = {}, -- Load all the default modules
+        ["core.norg.concealer"] = {}, -- Allows for use of icons
+        ["core.norg.dirman"] = { -- Manage your directories with Neorg
+            config = {
+                workspaces = {
+                    my_workspace = "~/neorg"
+                }
+            }
+        }
+    },
+  }
+
+  -- Tree sitter parser for norg
+  require('nvim-treesitter.parsers').get_parser_configs().norg = {
+      install_info = {
+          url = "https://github.com/nvim-neorg/tree-sitter-norg",
+          files = { "src/parser.c", "src/scanner.cc" },
+          branch = "main"
+      },
+  }
+
+  require('nvim-treesitter.configs').setup {
+    ensure_installed = { "norg" },
+  }
 EOF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neovide config 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:neovide_cursor_trail_length=0.0
-let g:neovide_cursor_animation_length=0.03
+"
+" let g:neovide_cursor_trail_length=0.0
+" let g:neovide_cursor_animation_length=0.03
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " utilsnips 
