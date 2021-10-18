@@ -286,9 +286,9 @@ lua << EOF
       },
   }
 
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = { "norg" },
-  }
+  -- require('nvim-treesitter.configs').setup {
+  --   ensure_installed = { "norg" },
+  -- }
 EOF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
