@@ -125,6 +125,7 @@ let hlstate=0
 imap jj <Esc>
 imap kk <Esc>O
 nmap vv :vsplit<CR>,l
+nmap tt :tabnew<CR>
 nmap <C-s> :source ~/.config/nvim/init.vim<CR>
 vmap <leader>y "+y
 nmap <leader>p "+p
@@ -193,6 +194,9 @@ au filetype json nmap <leader>f :%!jq '.' %<CR>
 
 " Format HCL files with hclfmt
 au filetype hcl nmap <leader>f :%!hclfmt %<CR>
+
+" escape from nvim terminal
+tnoremap <Esc> <C-\><C-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC config
