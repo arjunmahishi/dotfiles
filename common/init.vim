@@ -15,7 +15,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'jremmen/vim-ripgrep'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
 Plug 'itchyny/lightline.vim'
@@ -27,6 +26,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'jbyuki/venn.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-neorg/neorg'
+Plug 'ThePrimeagen/vim-apm'
 
 " colorscheme
 Plug 'lifepillar/vim-gruvbox8'
