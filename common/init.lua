@@ -3,7 +3,7 @@
 ----------------------------------
 
 local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
+vim.call('plug#begin', '~/.vim/plugged')
 
 Plug('fatih/vim-go', { tag = '*' })
 Plug('preservim/nerdtree')
@@ -228,14 +228,16 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<c-j>'
 --   telescope
 ----------------------------------
 
-require('telescope').setup{
+local actions = require('telescope.actions')
+require('telescope').setup {
   defaults = {
     file_ignore_patterns = {'node_modules', 'coverage'},
+    mapping = { i = { ["<esc>"] = actions.close } }
   }
 }
 
-map('n', '<C-p>', ':Telescope find_files<CR>', {})
-map('n', '<C-f>', ':Telescope live_grep<CR>', {})
+map('n', '<C-p>', '<cmd>Telescope find_files<CR>', {})
+map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', {})
 
 ----------------------------------
 --   barbar
