@@ -1,3 +1,8 @@
+"""""""""""""""""""""""""""""""""""""
+"  THIS IS DEPRECATED IN FAVOR OF ./init.lua
+"  LUA FTW!!!
+"""""""""""""""""""""""""""""""""""""
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go', { 'tag': '*' }
