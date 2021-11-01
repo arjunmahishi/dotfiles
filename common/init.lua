@@ -155,6 +155,11 @@ vim.cmd [[
   au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 ]]
 
+-- lua
+vim.cmd [[
+  au filetype lua nmap <leader>r :w<CR>:luafile %<CR>
+]]
+
 ----------------------------------
 --     lualine
 ----------------------------------
@@ -291,12 +296,26 @@ vim.opt.shortmess:append('c')
 -- always show signcolumns
 vim.opt.signcolumn = 'yes'
 
-map('i', '<silent><expr> <TAB>', 'pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : coc#refresh()', noremap)
+map('i', '<silent><expr> <TAB>', 'pumvisible() ? "<C-n>" : <SID>_G.check_back_space() ? "<TAB>" : coc#refresh()', noremap)
 map('i', '<expr><S-TAB>', 'pumvisible() ? "<C-p>" : "<C-h>"', noremap)
 
-function check_back_space()
-  local col = col('.') - 1
-  return col ~= nil or getline('.')[col-1]:match '%s'
+-- function check_back_space()
+--   local col = col('.') - 1
+--   print(col ~= nil or getline('.')[col-1]:match('%s') ~= nil)
+--   return col ~= nil or getline('.')[col-1]:match('%s') ~= nil
+-- end
+
+-- function check_back_space()
+--     local col = vim.fn.col(".") - 1
+--     return col ~= 0 or vim.fn.getline(".")[col]:match("%s") ~= nil
+-- end
+-- function check_back_space()
+--     local col = vim.fn.col(".") - 1
+--     return vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+-- end
+function _G.check_back_space()
+  local col = vim.fn.col(".") - 1
+  return vim.fn.getline("."):sub(col, col):match("%s") ~= nil
 end
 
 -- ctrl+space to trigger complete
