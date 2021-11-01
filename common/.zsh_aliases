@@ -1,3 +1,6 @@
+# ctrl + p to open vim and run telescope
+bindkey -s '^p' 'vim +"Telescope find_files"\n'
+
 # general aliases
 alias vim="nvim"
 alias zrc="vim ~/.zshrc"
