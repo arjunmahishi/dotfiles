@@ -1,9 +1,19 @@
+--            _                      _    _    _    _
+--   __ _ _ _(_)_  _ _ _  _ __  __ _| |_ (_)__| |_ (_)
+--  / _` | '_| | || | ' \| '  \/ _` | ' \| (_-| ' \| |
+--  \__,_|_|_/ |\_,_|_||_|_|_|_\__,_|_||_|_/__|_||_|_|
+--         |__/
+--
+--                            https://arjunmahishi.com
+--                     https://github.com/arjunmahishi
+--                    https://twitter.com/arjunmahishi
+
 ----------------------------------
 --        Plugins
 ----------------------------------
 
 local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
+vim.call('plug#begin', '~/.vim/plugged')
 
 Plug('fatih/vim-go', { tag = '*' })
 Plug('preservim/nerdtree')
@@ -32,6 +42,7 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-neorg/neorg')
 Plug('ThePrimeagen/vim-apm')
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'neovim/nvim-lspconfig'
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -207,8 +218,10 @@ vim.cmd [[
 --    Wilder
 ----------------------------------
 
--- TODO: Render in a popup instead of on the statusline
-vim.call('wilder#setup', { modes =  {':', '/', '?'} })
+vim.cmd [[
+  call wilder#setup({'modes': [':', '/', '?']})
+  call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({ 'highlights': { 'border': 'Normal' }, 'border': 'rounded' })))
+]]
 
 ----------------------------------
 --    multi select
@@ -228,14 +241,16 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<c-j>'
 --   telescope
 ----------------------------------
 
-require('telescope').setup{
+local actions = require('telescope.actions')
+require('telescope').setup {
   defaults = {
     file_ignore_patterns = {'node_modules', 'coverage'},
+    mapping = { i = { ["<esc>"] = actions.close } }
   }
 }
 
-map('n', '<C-p>', ':Telescope find_files<CR>', {})
-map('n', '<C-f>', ':Telescope live_grep<CR>', {})
+map('n', '<C-p>', '<cmd>Telescope find_files<CR>', {})
+map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', {})
 
 ----------------------------------
 --   barbar
@@ -258,7 +273,7 @@ vim.g.bufferline = {
 ----------------------------------
 
 vim.g.coc_global_extensions = {
-  'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver',
+  'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver'
 }
 
 -- if hidden is not set, TextEdit might fail.
