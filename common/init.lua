@@ -42,7 +42,8 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-neorg/neorg')
 Plug('ThePrimeagen/vim-apm')
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig' -- TODO: yet to be configured
+Plug 'voldikss/vim-floaterm'
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -117,6 +118,9 @@ vim.cmd [[
 
 -- terminal
 map('t', '<Esc>', '<C-\\><C-n>', noremap)
+
+-- float term
+map('n', 'gt', ':FloatermToggle<cr>', noremap)
 
 -- golang
 vim.cmd [[
@@ -196,7 +200,7 @@ vim.g.go_highlight_extra_types = 1
 vim.g.go_highlight_operators = 1
 vim.g.go_fmt_autosave = 1
 vim.g.go_fmt_command = "goimports"
-vim.g.go_def_mapping_enabled = 0
+-- vim.g.go_def_mapping_enabled = 0
 vim.g.go_auto_type_info = 1
 
 ----------------------------------
@@ -303,7 +307,7 @@ map('n', '<silent> [c','<Plug>(coc-diagnostic-prev)', {})
 map('n', '<silent> ]c','<Plug>(coc-diagnostic-next)', {})
 
 -- remap keys for gotos
-map('n', '<silent> gd', '<Plug>(coc-definition)', {})
+-- map('n', '<silent> gd', '<Plug>(coc-definition)', {})
 map('n', '<silent> gy', '<Plug>(coc-type-definition)', {})
 map('n', '<silent> gi', '<Plug>(coc-implementation)', {})
 map('n', '<silent> gr', '<Plug>(coc-references)', {})
@@ -331,6 +335,13 @@ require('neorg').setup {
 ----------------------------------
 
 -- TODO: figure this shit out
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
 -- require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --     install_info = {
 --         url = "https://github.com/nvim-neorg/tree-sitter-norg",
