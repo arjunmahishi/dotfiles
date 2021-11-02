@@ -98,6 +98,11 @@ map('v', '<leader>y', '"+y', {})
 map('n', '<leader>p', '"+p', {})
 map('n', '<C-l>', ':nohlsearch<cr>', {})
 
+-- since space is used as the supream leader, make sure that is doesn't do anything
+-- else. Because no one should have that much power
+map('n', '<SPACE>', '<Nop>', noremap)
+map('v', '<SPACE>', '<Nop>', noremap)
+
 -- switching between panes
 map('n', '<leader>w', '<c-w><c-w>', noremap)
 map('n', '<leader>h', '<c-w>h', noremap)
