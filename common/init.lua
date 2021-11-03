@@ -1,4 +1,3 @@
---            _                      _    _    _    _
 --   __ _ _ _(_)_  _ _ _  _ __  __ _| |_ (_)__| |_ (_)
 --  / _` | '_| | || | ' \| '  \/ _` | ' \| (_-| ' \| |
 --  \__,_|_|_/ |\_,_|_||_|_|_|_\__,_|_||_|_/__|_||_|_|
@@ -45,6 +44,12 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'neovim/nvim-lspconfig' -- TODO: yet to be configured
 Plug 'voldikss/vim-floaterm'
 
+-- auto completion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-buffer'
+
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
 Plug('ayu-theme/ayu-vim')
@@ -80,6 +85,7 @@ vim.opt.mouse = 'a'
 vim.opt.encoding = 'utf8'
 vim.opt.guifont = 'Fira Code'
 vim.opt.showmode = false
+vim.opt.scrolloff = 10
 
 ----------------------------------
 --     custom key mapping
@@ -210,7 +216,6 @@ vim.g.go_highlight_extra_types = 1
 vim.g.go_highlight_operators = 1
 vim.g.go_fmt_autosave = 1
 vim.g.go_fmt_command = "goimports"
--- vim.g.go_def_mapping_enabled = 0
 vim.g.go_auto_type_info = 1
 
 ----------------------------------
@@ -247,7 +252,7 @@ vim.g.VM_maps = { ['Find Under'] = '<C-d>', ['Find Subword Under'] = '<C-d>' }
 --   utilsnips
 ----------------------------------
 
-vim.g.UltiSnipsExpandTrigger = '<c-space>'
+vim.g.UltiSnipsExpandTrigger = '<c-,>'
 vim.g.UltiSnipsJumpForwardTrigger = '<c-k>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<c-j>'
 
@@ -286,7 +291,7 @@ vim.g.bufferline = {
 --   coc
 ----------------------------------
 
-vim.cmd 'runtime! coc-config.vim'
+-- vim.cmd 'runtime! coc-config.vim'
 
 ----------------------------------
 --   neorg
@@ -318,6 +323,7 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
 require('nvim-treesitter.parsers').get_parser_configs().norg = {
   install_info = {
     url = "https://github.com/nvim-neorg/tree-sitter-norg",
@@ -325,3 +331,66 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
     branch = "main"
   },
 }
+
+----------------------------------
+--   nvim LSP
+----------------------------------
+
+local nvim_lsp = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local cmp = require('cmp')
+
+local servers = { 'gopls' }
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'utilsnip' },
+    { name = 'nvim_lua' },
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+}
+
+-- iterate over each of the servers and setup each of them
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 }
+  }
+end
+
+vim.o.completeopt = 'menuone,noselect'

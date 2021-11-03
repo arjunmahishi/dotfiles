@@ -1,5 +1,4 @@
 # ctrl + p to open vim and run telescope
-bindkey -s '^p' 'vim +"Telescope find_files"\n'
 
 # general aliases
 alias vim="nvim"
@@ -13,6 +12,7 @@ alias pg_stop="pg_ctl -D /usr/local/var/postgresql@10 stop"
 alias pg_status="pg_ctl -D /usr/local/var/postgresql@10 status"
 alias python="python3"
 alias pip="pip3"
+alias tim='vim +"Telescope find_files"'
 
 # tmux 
 alias tmux="tmux -u2"
@@ -22,6 +22,8 @@ alias tl="tmux ls"
 
 # docker aliases
 alias dprune="docker container prune"
+
+bindkey -s '^p' 'tim\n'
 
 function gco() {
     if [[ $1 == "-b"  ]];then 
