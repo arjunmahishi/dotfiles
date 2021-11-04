@@ -84,9 +84,14 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.mouse = 'a'
 vim.opt.encoding = 'utf8'
-vim.opt.guifont = 'Fira Code'
+vim.opt.guifont = 'Fira Code Nerd'
 vim.opt.showmode = false
 vim.opt.scrolloff = 10
+vim.opt.hlsearch = false
+
+vim.cmd [[
+  au TextYankPost * silent! lua vim.highlight.on_yank()
+]]
 
 ----------------------------------
 --     custom key mapping
