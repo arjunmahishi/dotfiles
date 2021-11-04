@@ -49,6 +49,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -352,6 +353,8 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'utilsnip' },
     { name = 'nvim_lua' },
+    { name = 'buffer' },
+    { name = 'path' },
   },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
