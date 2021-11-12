@@ -3,7 +3,6 @@
 # general aliases
 alias vim="nvim"
 alias zrc="vim ~/.zshrc"
-alias d="jump_to_directory"
 alias lm="ls -l --block-size=M"
 alias notes="vim ~/notes/\`ls ~/notes|fzf\`"
 alias pbcopy='xclip -selection clipboard'
@@ -24,6 +23,7 @@ alias tl="tmux ls"
 alias dprune="docker container prune"
 
 bindkey -s '^p' 'tim\n'
+bindkey -s '^f' 'jump_to_directory\n'
 
 function gco() {
     if [[ $1 == "-b"  ]];then 

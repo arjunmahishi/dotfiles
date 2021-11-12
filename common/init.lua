@@ -161,7 +161,7 @@ vim.cmd [[
 
 -- python
 vim.cmd [[
-  au filetype python nmap <leader>r :w<CR>:!python %<CR>
+  au filetype python nmap <leader>r :w<CR>:!python3 %<CR>
 ]]
 
 -- javascript
@@ -375,8 +375,8 @@ cmp.setup {
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+      -- elseif luasnip.expand_or_jumpable() then
+      --   luasnip.expand_or_jump()
       else
         fallback()
       end
