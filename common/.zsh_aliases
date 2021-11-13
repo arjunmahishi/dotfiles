@@ -50,10 +50,12 @@ function aws-switch-profile() {
   rg -A3 -NI "$AWS_PROFILE" ~/.aws/credentials
 }
 
-# Jump to any directory
 function jump_to_directory() {
-  base_path="/home/arjunmahishi/work/" # should end with slash
-  base_path_escaped="$(echo $base_path | sed 's/\//\\\//g')"
+  base_path=$HOME
+  [ -z "$JUMP_DIR" ] || base_path=$JUMP_DIR
+
+  # so that you dont see you $HOME path in every entry
+  base_path_escaped="$(echo $base_path | sed 's/\//\\\//g')" 
 
   cd $base_path$(find $base_path -type d | grep -v "\/\?.git" | sed "s/$base_path_escaped//g" | fzf)
 }
