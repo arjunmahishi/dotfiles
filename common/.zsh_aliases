@@ -1,17 +1,11 @@
-# ctrl + p to open vim and run telescope
-
 # general aliases
 alias vim="nvim"
 alias zrc="vim ~/.zshrc"
 alias lm="ls -l --block-size=M"
 alias notes="vim ~/notes/\`ls ~/notes|fzf\`"
 alias pbcopy='xclip -selection clipboard'
-alias pg_start="pg_ctl -D /usr/local/var/postgresql@10 start"
-alias pg_stop="pg_ctl -D /usr/local/var/postgresql@10 stop"
-alias pg_status="pg_ctl -D /usr/local/var/postgresql@10 status"
 alias python="python3"
 alias pip="pip3"
-alias tim='vim +"Telescope find_files"'
 
 # tmux 
 alias tmux="tmux -u2"
@@ -22,21 +16,9 @@ alias tl="tmux ls"
 # docker aliases
 alias dprune="docker container prune"
 
+# ctrl + p to open vim and run telescope
 bindkey -s '^p' 'tim\n'
-bindkey -s '^f' 'jump_to_directory\n'
-
-function gco() {
-    if [[ $1 == "-b"  ]];then 
-        git checkout -b $2
-    else
-        git checkout `git branch|fzf`
-    fi
-}
-
-function gdiff() {
-    branch=`git branch | grep \* | cut -d ' ' -f2`
-    git diff master..$branch --no-prefix -U999999 "$@"
-}
+alias tim='vim +"Telescope find_files"'
 
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
@@ -50,6 +32,10 @@ function aws-switch-profile() {
   rg -A3 -NI "$AWS_PROFILE" ~/.aws/credentials
 }
 
+# jump to any directory with <ctrl + f>
+# by default the base directory is set to your $HOME path
+# export JUMP_DIR="any/other/path" to override it
+bindkey -s '^f' 'jump_to_directory\n'
 function jump_to_directory() {
   base_path=$HOME
   [ -z "$JUMP_DIR" ] || base_path=$JUMP_DIR
