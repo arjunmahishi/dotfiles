@@ -77,10 +77,10 @@ _PATH="%{$fg_bold[white]%}%~%{$reset_color%}"
 
 if [[ $EUID -eq 0 ]]; then
   _USERNAME="%{$fg_bold[red]%}%n"
-  _LIBERTY="%{$fg[red]%}#"
+  _LIBERTY="%{$fg_bold[red]%}➜ "
 else
   _USERNAME="%{$fg_bold[white]%}%n"
-  _LIBERTY="%{$fg[green]%}$"
+  _LIBERTY="%{$fg_bold[green]%}➜ "
 fi
 _USERNAME="$_USERNAME%{$reset_color%}@%m"
 _LIBERTY="$_LIBERTY%{$reset_color%}"
@@ -94,7 +94,7 @@ bureau_precmd () {
 }
 
 setopt prompt_subst
-PROMPT='> $_LIBERTY '
+PROMPT='$_LIBERTY '
 RPROMPT='$_1RIGHT'
 
 autoload -U add-zsh-hook

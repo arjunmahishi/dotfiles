@@ -59,6 +59,8 @@ Plug('arcticicestudio/nord-vim')
 
 Plug('ryanoasis/vim-devicons')
 
+Plug('~/.vim/plugged/run-scheme.nvim')
+
 vim.call('plug#end')
 
 ----------------------------------
@@ -88,6 +90,7 @@ vim.opt.guifont = 'Fira Code Nerd'
 vim.opt.showmode = false
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = false
+vim.opt.inccommand = 'split'
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
@@ -127,17 +130,17 @@ map('n', '<C-j>', ':BufferPrevious<CR>', {})
 map('n', '<C-k>', ':BufferNext<CR>', {})
 map('n', '<C-x>', ':BufferClose<CR>', {})
 
--- formatting
-vim.cmd [[
-  au filetype json nmap <leader>f :%!jq '.' %<CR>
-  au filetype hcl nmap <leader>f :%!hclfmt %<CR>
-]]
-
 -- terminal
 map('t', '<Esc>', '<C-\\><C-n>', noremap)
 
 -- float term
 map('n', 'gt', ':FloatermToggle<cr>', noremap)
+
+-- formatting
+vim.cmd [[
+  au filetype json nmap <leader>f :%!jq '.' %<CR>
+  au filetype hcl nmap <leader>f :%!hclfmt %<CR>
+]]
 
 -- golang
 vim.cmd [[
@@ -176,6 +179,25 @@ vim.cmd [[
 vim.cmd [[
   au filetype lua nmap <leader>r :w<CR>:luafile %<CR>
 ]]
+
+----------------------------------
+--     automation
+----------------------------------
+
+-- format hcl files on save
+vim.cmd[[
+  au BufWritePost *.hcl* silent! exec "%!hclfmt %" | w
+]]
+
+----------------------------------
+--     custom commands
+----------------------------------
+
+local function command(name, cmd)
+  vim.cmd(string.format("command! %s %s", name, cmd))
+end
+
+command('Config', ':tabnew ~/.config/nvim/init.lua')
 
 ----------------------------------
 --     lualine
