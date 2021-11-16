@@ -1,3 +1,5 @@
+--
+--            _                      _    _    _    _
 --   __ _ _ _(_)_  _ _ _  _ __  __ _| |_ (_)__| |_ (_)
 --  / _` | '_| | || | ' \| '  \/ _` | ' \| (_-| ' \| |
 --  \__,_|_|_/ |\_,_|_||_|_|_|_\__,_|_||_|_/__|_||_|_|
@@ -41,8 +43,9 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-neorg/neorg')
 Plug('ThePrimeagen/vim-apm')
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'neovim/nvim-lspconfig' -- TODO: yet to be configured
+Plug 'neovim/nvim-lspconfig'
 Plug 'voldikss/vim-floaterm'
+Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 
 -- auto completion
 Plug 'hrsh7th/nvim-cmp'
@@ -91,6 +94,7 @@ vim.opt.showmode = false
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = false
 vim.opt.inccommand = 'split'
+vim.opt.wrap = false
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
@@ -185,9 +189,9 @@ vim.cmd [[
 ----------------------------------
 
 -- format hcl files on save
-vim.cmd[[
-  au BufWritePost *.hcl* silent! exec "%!hclfmt %" | w
-]]
+-- vim.cmd[[
+--   au BufWritePost *.hcl* silent! exec "%!hclfmt %" | w
+-- ]]
 
 ----------------------------------
 --     custom commands
@@ -198,6 +202,7 @@ local function command(name, cmd)
 end
 
 command('Config', ':tabnew ~/.config/nvim/init.lua')
+command('Notes', ':lua require("telescope.builtin").find_files({ search_dirs = {"~/notes"} })')
 
 ----------------------------------
 --     lualine
