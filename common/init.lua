@@ -46,6 +46,8 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'voldikss/vim-floaterm'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
+Plug 'junegunn/goyo.vim'
+Plug 'arjunmahishi/run-code.nvim'
 
 -- auto completion
 Plug 'hrsh7th/nvim-cmp'
@@ -61,8 +63,6 @@ Plug('arjunmahishi/onedark.vim')
 Plug('arcticicestudio/nord-vim')
 
 Plug('ryanoasis/vim-devicons')
-
-Plug('~/.vim/plugged/run-scheme.nvim')
 
 vim.call('plug#end')
 
@@ -110,7 +110,7 @@ local map = vim.api.nvim_set_keymap
 local noremap = { noremap = true }
 
 map('i', 'jj', '<Esc>', {})
-map('n', 'vv', ':vsplit<CR> l', {})
+map('n', 'vv', ':vnew<CR>', {})
 map('n', 'tt', ':tabnew<CR>', {})
 map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
