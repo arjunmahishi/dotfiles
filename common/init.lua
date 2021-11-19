@@ -95,6 +95,9 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = false
 vim.opt.inccommand = 'split'
 vim.opt.wrap = false
+-- vim.opt.list = true
+-- vim.opt.listchars = 'tab:→\ ,trail:∙,nbsp:•'
+-- vim.opt.listchars = { space = '•', tab = '→' }
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
