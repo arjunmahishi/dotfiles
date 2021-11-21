@@ -369,6 +369,16 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 }
 
 ----------------------------------
+--   run-code
+----------------------------------
+
+map('v', '<leader>r', ':RunCodeSelected<CR>', {})
+map('n', '<leader>r', ':RunCodeFile<CR>', {})
+vim.cmd [[
+  au filetype markdown nmap <leader>R :RunCodeBlock<CR>
+]]
+
+----------------------------------
 --   nvim LSP
 ----------------------------------
 
