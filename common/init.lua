@@ -119,6 +119,7 @@ map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
 map('n', '<leader>p', '"+p', {})
 map('n', '<C-l>', ':nohlsearch<cr>', {})
+map('n', '<leader>p', ':lua open_file_in_repo()<cr>', {})
 
 -- since space is used as the supream leader, make sure that is doesn't do anything
 -- else. Because no one should have that much power
@@ -206,6 +207,7 @@ end
 
 command('Config', ':tabnew ~/.config/nvim/init.lua')
 command('Notes', ':lua require("telescope.builtin").find_files({ search_dirs = {"~/notes"} })')
+command('NewNote', ':lua create_new_note()')
 
 ----------------------------------
 --     lualine
@@ -324,12 +326,6 @@ vim.g.bufferline = {
 }
 
 ----------------------------------
---   coc
-----------------------------------
-
--- vim.cmd 'runtime! coc-config.vim'
-
-----------------------------------
 --   neorg
 ----------------------------------
 
@@ -442,3 +438,17 @@ for _, lsp in ipairs(servers) do
 end
 
 vim.o.completeopt = 'menuone,noselect'
+
+----------------------------------
+--     Helper functions
+----------------------------------
+
+function create_new_note()
+  local file_name = vim.fn.input("enter file name > ")
+  vim.api.nvim_command(string.format(':e ~/notes/%s', file_name))
+end
+
+function open_file_in_repo()
+  local root = vim.fn.finddir('.git/..', ';')
+  require('telescope.builtin').find_files({ search_dirs = { root } })
+end
