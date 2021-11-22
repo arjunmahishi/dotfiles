@@ -18,7 +18,7 @@ alias dprune="docker container prune"
 
 # ctrl + p to open vim and run telescope
 bindkey -s '^p' 'tim\n'
-alias tim='vim +"Telescope find_files"'
+alias tim='vim +"lua telescope_into_dir()"'
 
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"

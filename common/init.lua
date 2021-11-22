@@ -119,7 +119,7 @@ map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
 map('n', '<leader>p', '"+p', {})
 map('n', '<C-l>', ':nohlsearch<cr>', {})
-map('n', '<leader>p', ':lua open_file_in_repo()<cr>', {})
+map('n', '<C-P>', ':lua open_file_in_repo()<cr>', {})
 
 -- since space is used as the supream leader, make sure that is doesn't do anything
 -- else. Because no one should have that much power
@@ -206,7 +206,7 @@ local function command(name, cmd)
 end
 
 command('Config', ':tabnew ~/.config/nvim/init.lua')
-command('Notes', ':lua require("telescope.builtin").find_files({ search_dirs = {"~/notes"} })')
+command('Notes', ':lua telescope_into_dir("~/notes")')
 command('NewNote', ':lua create_new_note()')
 
 ----------------------------------
@@ -306,8 +306,8 @@ require('telescope').setup {
   }
 }
 
-map('n', '<C-p>', '<cmd>Telescope find_files<CR>', {})
-map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', {})
+map('n', '<C-p>', '<cmd>lua telescope_into_dir(".")<CR>', {})
+map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 
 ----------------------------------
 --   barbar
@@ -439,6 +439,8 @@ end
 
 vim.o.completeopt = 'menuone,noselect'
 
+map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
+
 ----------------------------------
 --     Helper functions
 ----------------------------------
@@ -450,5 +452,9 @@ end
 
 function open_file_in_repo()
   local root = vim.fn.finddir('.git/..', ';')
-  require('telescope.builtin').find_files({ search_dirs = { root } })
+  telescope_into_dir(root)
+end
+
+function telescope_into_dir(dir)
+  require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
 end
