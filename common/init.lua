@@ -119,7 +119,7 @@ map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
 map('n', '<leader>p', '"+p', {})
 map('n', '<C-l>', ':nohlsearch<cr>', {})
-map('n', '<C-P>', ':lua open_file_in_repo()<cr>', {})
+map('n', '<leader>fd', ':lua open_file_in_repo()<cr>', {})
 
 -- since space is used as the supream leader, make sure that is doesn't do anything
 -- else. Because no one should have that much power
@@ -446,7 +446,7 @@ map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 ----------------------------------
 
 function create_new_note()
-  local file_name = vim.fn.input("enter file name > ")
+  local file_name = vim.fn.input('enter file name > ')
   vim.api.nvim_command(string.format(':e ~/notes/%s', file_name))
 end
 
@@ -457,4 +457,13 @@ end
 
 function telescope_into_dir(dir)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
+end
+
+function scratch_buffer()
+  vim.cmd ':vnew'
+  vim.bo.bufhidden = 'hide'
+  vim.bo.swapfile = false
+
+  local ftype = vim.fn.input('enter filetype > ')
+  vim.bo.filetype = ftype
 end
