@@ -18,7 +18,6 @@ vim.call('plug#begin', '~/.vim/plugged')
 
 Plug('fatih/vim-go', { tag = '*' })
 Plug('preservim/nerdtree')
-Plug('neoclide/coc.nvim', { ['do'] = 'yarn install --frozen-lockfile'})
 Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
@@ -225,7 +224,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+                  {'diagnostics', sources={'nvim_lsp'}}},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
