@@ -34,10 +34,8 @@ Plug('jvirtanen/vim-hcl')
 Plug('hashivim/vim-terraform')
 Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
-Plug('SirVer/ultisnips')
 Plug('gelguy/wilder.nvim', { ['do'] = ':UpdateRemotePlugins' })
 Plug('mg979/vim-visual-multi', { branch = 'master'})
-Plug('jbyuki/venn.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-neorg/neorg')
 Plug('ThePrimeagen/vim-apm')
@@ -45,7 +43,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'voldikss/vim-floaterm'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
-Plug 'junegunn/goyo.vim'
 Plug 'arjunmahishi/run-code.nvim'
 
 -- auto completion
@@ -286,14 +283,6 @@ vim.cmd [[
 vim.g.VM_maps = { ['Find Under'] = '<C-d>', ['Find Subword Under'] = '<C-d>' }
 
 ----------------------------------
---   utilsnips
-----------------------------------
-
-vim.g.UltiSnipsExpandTrigger = '<c-,>'
-vim.g.UltiSnipsJumpForwardTrigger = '<c-k>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<c-j>'
-
-----------------------------------
 --   telescope
 ----------------------------------
 
@@ -391,7 +380,6 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'utilsnip' },
     { name = 'nvim_lua' },
     { name = 'buffer' },
     { name = 'path' },
