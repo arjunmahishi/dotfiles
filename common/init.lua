@@ -53,10 +53,11 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 
 -- colorscheme
-Plug('lifepillar/vim-gruvbox8')
-Plug('ayu-theme/ayu-vim')
+-- Plug('lifepillar/vim-gruvbox8')
+-- Plug('ayu-theme/ayu-vim')
 Plug('arjunmahishi/onedark.vim')
-Plug('arcticicestudio/nord-vim')
+-- Plug('arcticicestudio/nord-vim')
+-- Plug 'marko-cerovac/material.nvim'
 
 Plug('ryanoasis/vim-devicons')
 
@@ -98,6 +99,8 @@ vim.opt.wrap = false
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
 ]]
+
+vim.g.material_style = "deep ocean"
 
 ----------------------------------
 --     custom key mapping
