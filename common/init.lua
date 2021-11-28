@@ -16,6 +16,11 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.vim/plugged')
 
+Plug('nvim-lua/popup.nvim')
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim')
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
+
 Plug('fatih/vim-go', { tag = '*' })
 Plug('preservim/nerdtree')
 Plug('wakatime/vim-wakatime')
@@ -25,9 +30,6 @@ Plug('airblade/vim-gitgutter')
 Plug('mileszs/ack.vim')
 Plug('tomtom/tcomment_vim')
 Plug('tpope/vim-fugitive')
-Plug('nvim-lua/popup.nvim')
-Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim')
 Plug('romgrk/barbar.nvim')
 Plug('kyazdani42/nvim-web-devicons')
 Plug('jvirtanen/vim-hcl')
@@ -297,6 +299,8 @@ require('telescope').setup {
   }
 }
 
+require('telescope').load_extension('fzf')
+
 map('n', '<C-p>', '<cmd>lua telescope_into_dir(".")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 
@@ -304,17 +308,17 @@ map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 --   barbar
 ----------------------------------
 
-vim.g.bufferline = {
-  auto_hide = false,
-  tabpages = true,
-  closable = true,
-  clickable = true,
-  icons = true,
-  icon_separator_active = '▎',
-  icon_separator_inactive = '▎',
-  icon_close_tab = 'x',
-  icon_close_tab_modified = '🔥',
-}
+-- vim.g.bufferline = {
+--   auto_hide = false,
+--   tabpages = true,
+--   closable = true,
+--   clickable = true,
+--   icons = true,
+--   icon_separator_active = '▎',
+--   icon_separator_inactive = '▎',
+--   icon_close_tab = 'x',
+--   icon_close_tab_modified = '🔥',
+-- }
 
 ----------------------------------
 --   neorg
