@@ -16,10 +16,15 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.vim/plugged')
 
+-- telescope
 Plug('nvim-lua/popup.nvim')
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
+
+-- treesitter
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
+Plug('nvim-treesitter/playground')
 
 Plug('fatih/vim-go', { tag = '*' })
 Plug('preservim/nerdtree')
@@ -38,21 +43,20 @@ Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
 Plug('gelguy/wilder.nvim', { ['do'] = ':UpdateRemotePlugins' })
 Plug('mg979/vim-visual-multi', { branch = 'master'})
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-neorg/neorg')
 Plug('ThePrimeagen/vim-apm')
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'voldikss/vim-floaterm'
+Plug('nvim-lualine/lualine.nvim')
+Plug('neovim/nvim-lspconfig')
+Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
-Plug 'arjunmahishi/run-code.nvim'
+Plug('arjunmahishi/run-code.nvim')
 
 -- auto completion
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-nvim-lua')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
 
 -- colorscheme
 -- Plug('lifepillar/vim-gruvbox8')
