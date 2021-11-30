@@ -32,11 +32,9 @@ Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
 Plug('airblade/vim-gitgutter')
-Plug('mileszs/ack.vim')
 Plug('tomtom/tcomment_vim')
 Plug('tpope/vim-fugitive')
 Plug('romgrk/barbar.nvim')
-Plug('kyazdani42/nvim-web-devicons')
 Plug('jvirtanen/vim-hcl')
 Plug('hashivim/vim-terraform')
 Plug('buoto/gotests-vim')
@@ -44,7 +42,6 @@ Plug('AndrewRadev/splitjoin.vim')
 Plug('gelguy/wilder.nvim', { ['do'] = ':UpdateRemotePlugins' })
 Plug('mg979/vim-visual-multi', { branch = 'master'})
 Plug('nvim-neorg/neorg')
-Plug('ThePrimeagen/vim-apm')
 Plug('nvim-lualine/lualine.nvim')
 Plug('neovim/nvim-lspconfig')
 Plug('voldikss/vim-floaterm')
@@ -65,6 +62,7 @@ Plug('arjunmahishi/onedark.vim')
 -- Plug('arcticicestudio/nord-vim')
 -- Plug 'marko-cerovac/material.nvim'
 
+Plug('kyazdani42/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
 
 vim.call('plug#end')
@@ -154,6 +152,10 @@ vim.cmd [[
   au filetype json nmap <leader>f :%!jq '.' %<CR>
   au filetype hcl nmap <leader>f :%!hclfmt %<CR>
 ]]
+
+-- quickfix navigation
+map('n', '<leader>]', ':cnext<cr>', noremap)
+map('n', '<leader>[', ':cprevious<cr>', noremap)
 
 -- golang
 vim.cmd [[
@@ -374,7 +376,7 @@ local servers = { 'gopls' }
 cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      -- vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   sources = {
