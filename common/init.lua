@@ -170,27 +170,15 @@ vim.cmd [[
 
 -- ruby
 vim.cmd [[
-  au filetype ruby nmap <leader>r :w<CR>:!ruby %<CR>
   au filetype ruby nmap <leader>t :w<CR>:execute "!zeus rspec %:" . line(".")<CR>
   au filetype ruby nmap <leader>T :w<CR>:execute "!rspec %:" . line(".")<CR>
 ]]
 
--- python
-vim.cmd [[
-  au filetype python nmap <leader>r :w<CR>:!python3 %<CR>
-]]
-
 -- javascript
 vim.cmd [[
-  au filetype javascript nmap <leader>r :w<CR>:!node %<CR>
   au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
   au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
   au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
-]]
-
--- lua
-vim.cmd [[
-  au filetype lua nmap <leader>r :w<CR>:luafile %<CR>
 ]]
 
 ----------------------------------
