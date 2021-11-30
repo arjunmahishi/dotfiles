@@ -31,7 +31,7 @@ Plug('preservim/nerdtree')
 Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
-Plug('airblade/vim-gitgutter')
+Plug('lewis6991/gitsigns.nvim')
 Plug('tomtom/tcomment_vim')
 Plug('tpope/vim-fugitive')
 Plug('romgrk/barbar.nvim')
@@ -271,7 +271,7 @@ vim.cmd [[
 ----------------------------------
 
 vim.cmd [[
-  call wilder#setup({'modes': [':', '/', '?']})
+  call wilder#setup({'modes': [':', '?']})
   call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({ 'highlights': { 'border': 'Normal' }, 'border': 'rounded' })))
 ]]
 
@@ -373,6 +373,31 @@ local cmp = require('cmp')
 
 local servers = { 'gopls' }
 
+local mapping = {
+  ['<CR>'] = cmp.mapping.confirm {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = true,
+  },
+  ['<Tab>'] = function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+      -- elseif luasnip.expand_or_jumpable() then
+      --   luasnip.expand_or_jump()
+    else
+      fallback()
+    end
+  end,
+  ['<S-Tab>'] = function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    elseif luasnip.jumpable(-1) then
+      luasnip.jump(-1)
+    else
+      fallback()
+    end
+  end,
+}
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -385,45 +410,18 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'path' },
   },
-  mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
+  mapping = mapping
 }
 
--- FIXME: ':' is not working, moving across suggestions dont work with '/'
--- -- Use buffer source for `/`
--- cmp.setup.cmdline('/', {
---   sources = {
---     { name = 'buffer' }
---   }
--- })
+-- Use buffer source for `/`
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  },
+  mapping = mapping
+})
+
+-- FIXME: ':' is not working
 --
 -- -- Use cmdline & path source for ':'
 -- cmp.setup.cmdline(':', {
@@ -431,7 +429,8 @@ cmp.setup {
 --     { name = 'path' }
 --   }, {
 --     { name = 'cmdline' }
---   })
+--   }),
+--   mapping = mapping
 -- })
 
 -- iterate over each of the servers and setup each of them
@@ -445,6 +444,12 @@ end
 vim.o.completeopt = 'menu,menuone,noselect'
 
 map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
+
+----------------------------------
+--     gitsigns
+----------------------------------
+
+require('gitsigns').setup()
 
 ----------------------------------
 --     Helper functions
