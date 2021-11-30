@@ -200,7 +200,7 @@ local function command(name, cmd)
   vim.cmd(string.format("command! %s %s", name, cmd))
 end
 
-command('Config', ':tabnew ~/.config/nvim/init.lua')
+command('Config', ':lua open_config()')
 command('Notes', ':lua telescope_into_dir("~/notes")')
 command('NewNote', ':lua create_new_note()')
 
@@ -417,6 +417,23 @@ cmp.setup {
   },
 }
 
+-- FIXME: ':' is not working, moving across suggestions dont work with '/'
+-- -- Use buffer source for `/`
+-- cmp.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+--
+-- -- Use cmdline & path source for ':'
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline' }
+--   })
+-- })
+
 -- iterate over each of the servers and setup each of them
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -425,7 +442,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 
 map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 
@@ -454,4 +471,13 @@ function scratch_buffer()
 
   local ftype = vim.fn.input('enter filetype > ')
   vim.bo.filetype = ftype
+end
+
+function open_config()
+  if vim.fn.bufname() ~= "" then
+    vim.api.nvim_command("tabnew ~/.config/nvim/init.lua")
+    return
+  end
+
+  vim.api.nvim_command("edit ~/.config/nvim/init.lua")
 end
