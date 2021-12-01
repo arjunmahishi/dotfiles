@@ -47,6 +47,7 @@ Plug('neovim/nvim-lspconfig')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('arjunmahishi/run-code.nvim')
+Plug('ThePrimeagen/git-worktree.nvim')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
@@ -219,10 +220,9 @@ require'lualine'.setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp'}}},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_b = {'branch', 'diff'},
+    lualine_c = {{ 'filename', path = 1 }},
+    lualine_x = {'encoding', 'filetype', {'diagnostics', sources={'nvim_lsp'}}},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
@@ -294,25 +294,16 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
+require("telescope").load_extension("git_worktree")
 
 map('n', '<C-p>', '<cmd>lua telescope_into_dir(".")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 
 ----------------------------------
---   barbar
+--   git-worktree
 ----------------------------------
 
--- vim.g.bufferline = {
---   auto_hide = false,
---   tabpages = true,
---   closable = true,
---   clickable = true,
---   icons = true,
---   icon_separator_active = '▎',
---   icon_separator_inactive = '▎',
---   icon_close_tab = 'x',
---   icon_close_tab_modified = '🔥',
--- }
+map('n', '<C-g>', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {})
 
 ----------------------------------
 --   neorg
