@@ -48,6 +48,7 @@ Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('arjunmahishi/run-code.nvim')
 Plug('ThePrimeagen/git-worktree.nvim')
+Plug('rcarriga/nvim-notify')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
@@ -441,6 +442,16 @@ map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 ----------------------------------
 
 require('gitsigns').setup()
+
+----------------------------------
+--     notify
+----------------------------------
+
+vim.notify = require("notify")
+
+require("notify").setup({
+  stages = "fade",
+})
 
 ----------------------------------
 --     Helper functions
