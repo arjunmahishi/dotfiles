@@ -39,7 +39,6 @@ Plug('jvirtanen/vim-hcl')
 Plug('hashivim/vim-terraform')
 Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
-Plug('gelguy/wilder.nvim', { ['do'] = ':UpdateRemotePlugins' })
 Plug('mg979/vim-visual-multi', { branch = 'master'})
 Plug('nvim-neorg/neorg')
 Plug('nvim-lualine/lualine.nvim')
@@ -56,6 +55,7 @@ Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
 
 -- colorscheme
 -- Plug('lifepillar/vim-gruvbox8')
@@ -155,7 +155,8 @@ vim.cmd [[
   au filetype hcl nmap <leader>f :%!hclfmt %<CR>
 ]]
 
--- quickfix navigation
+-- quickfix
+map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 map('n', '<leader>]', ':cnext<cr>', noremap)
 map('n', '<leader>[', ':cprevious<cr>', noremap)
 
@@ -269,15 +270,6 @@ vim.cmd [[
 ]]
 
 ----------------------------------
---    Wilder
-----------------------------------
-
-vim.cmd [[
-  call wilder#setup({'modes': [':', '?']})
-  call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({ 'highlights': { 'border': 'Normal' }, 'border': 'rounded' })))
-]]
-
-----------------------------------
 --    multi select
 ----------------------------------
 
@@ -357,38 +349,37 @@ vim.cmd [[
 ]]
 
 ----------------------------------
---   nvim LSP
+--   nvim-cmp
 ----------------------------------
 
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cmp = require('cmp')
-
 local servers = { 'gopls' }
+
+-- returns a cmp select function based on the direction
+local function cmp_move(direction)
+  local move = cmp.select_next_item
+  if direction == "prev" then
+    move = cmp.select_prev_item
+  end
+
+  return function (fallback)
+    if cmp.visible() then
+      move()
+      return
+    end
+    fallback()
+  end
+end
 
 local mapping = {
   ['<CR>'] = cmp.mapping.confirm {
     behavior = cmp.ConfirmBehavior.Replace,
     select = true,
   },
-  ['<Tab>'] = function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
-    else
-      fallback()
-    end
-  end,
-  ['<S-Tab>'] = function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    elseif luasnip.jumpable(-1) then
-      luasnip.jump(-1)
-    else
-      fallback()
-    end
-  end,
+  ['<Tab>'] = cmp_move("next"),
+  ['<S-Tab>'] = cmp_move("prev"),
 }
 
 cmp.setup {
@@ -406,7 +397,7 @@ cmp.setup {
   mapping = mapping
 }
 
--- Use buffer source for `/`
+-- auto complete for search
 cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer' }
@@ -414,17 +405,15 @@ cmp.setup.cmdline('/', {
   mapping = mapping
 })
 
--- FIXME: ':' is not working
---
--- -- Use cmdline & path source for ':'
--- cmp.setup.cmdline(':', {
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   }),
---   mapping = mapping
--- })
+-- auto complete for commands
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  }),
+  mapping = mapping
+})
 
 -- iterate over each of the servers and setup each of them
 for _, lsp in ipairs(servers) do
@@ -435,8 +424,6 @@ for _, lsp in ipairs(servers) do
 end
 
 vim.o.completeopt = 'menu,menuone,noselect'
-
-map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 
 ----------------------------------
 --     gitsigns
