@@ -291,6 +291,7 @@ require('telescope').load_extension('fzf')
 require("telescope").load_extension("git_worktree")
 
 map('n', '<C-p>', '<cmd>lua telescope_into_dir(".")<CR>', {})
+map('n', '<leader>w', '<cmd>lua telescope_into_dir("~/work")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 
 ----------------------------------
@@ -357,6 +358,13 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local cmp = require('cmp')
 local servers = { 'gopls' }
 
+local cmp_icons = {
+  Text = " ", Method = " ", Function = " ", Constructor = " ", Field = " ", Variable = " ", Class = "ﴯ ",
+  Interface = " ", Module = " ", Property = "ﰠ ", Unit = " ", Value = " ", Enum = " ", Keyword = " ",
+  Snippet = " ", Color = " ", File = " ", Reference = " ", Folder = " ", EnumMember = " ",
+  Constant = " ", Struct = " ", Event = " ", Operator = " ", TypeParameter = " "
+}
+
 -- returns a cmp select function based on the direction
 local function cmp_move(direction)
   local move = cmp.select_next_item
@@ -385,7 +393,6 @@ local mapping = {
 cmp.setup {
   snippet = {
     expand = function(args)
-      -- vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   sources = {
@@ -394,7 +401,20 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'path' },
   },
-  mapping = mapping
+  mapping = mapping,
+  formatting = {
+    format = function(entry, item)
+      item.kind = cmp_icons[item.kind] or ""
+      item.menu = ({
+        buffer = "[B]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[Snippet]",
+        nvim_lua = "[Lua]",
+        latex_symbols = "[LaTeX]",
+      })[entry.source.name]
+      return item
+    end
+  }
 }
 
 -- auto complete for search
