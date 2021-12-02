@@ -199,12 +199,13 @@ vim.cmd [[
 ----------------------------------
 
 local function command(name, cmd)
-  vim.cmd(string.format("command! %s %s", name, cmd))
+  vim.cmd(string.format("command! -nargs=* %s %s", name, cmd))
 end
 
 command('Config', ':lua open_config()')
 command('Notes', ':lua telescope_into_dir("~/notes")')
 command('NewNote', ':lua create_new_note()')
+command('Scratch', ':lua scratch_buffer(<f-args>)')
 
 ----------------------------------
 --     lualine
@@ -471,12 +472,19 @@ function telescope_into_dir(dir)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
 end
 
-function scratch_buffer()
+function scratch_buffer(arg)
+  local ftype = arg
+  if ftype == nil then
+    ftype = vim.fn.input('enter filetype > ')
+  end
+
+  if ftype == "" then
+    return
+  end
+
   vim.cmd ':vnew'
   vim.bo.bufhidden = 'hide'
   vim.bo.swapfile = false
-
-  local ftype = vim.fn.input('enter filetype > ')
   vim.bo.filetype = ftype
 end
 
