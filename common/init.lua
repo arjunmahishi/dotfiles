@@ -48,6 +48,7 @@ Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('arjunmahishi/run-code.nvim')
 Plug('ThePrimeagen/git-worktree.nvim')
 Plug('rcarriga/nvim-notify')
+Plug('williamboman/nvim-lsp-installer')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
@@ -356,7 +357,6 @@ vim.cmd [[
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cmp = require('cmp')
-local servers = { 'gopls' }
 
 local cmp_icons = {
   Text = " ", Method = " ", Function = " ", Constructor = " ", Field = " ", Variable = " ", Class = "ﴯ ",
@@ -435,6 +435,13 @@ cmp.setup.cmdline(':', {
   mapping = mapping
 })
 
+
+vim.o.completeopt = 'menu,menuone,noselect'
+----------------------------------
+--     lsp config
+----------------------------------
+local servers = { 'gopls' }
+
 -- iterate over each of the servers and setup each of them
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -443,8 +450,10 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-vim.o.completeopt = 'menu,menuone,noselect'
-
+require("nvim-lsp-installer").on_server_ready(function(server)
+    local opts = {}
+    server:setup(opts)
+end)
 ----------------------------------
 --     gitsigns
 ----------------------------------
