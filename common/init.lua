@@ -390,8 +390,9 @@ local mapping = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = true,
   },
-  ['<Tab>'] = cmp_move("next"),
-  ['<S-Tab>'] = cmp_move("prev"),
+  ['<C-SPACE>'] = cmp.mapping.complete(),
+  -- ['<Tab>'] = cmp_move("next"),
+  -- ['<S-Tab>'] = cmp_move("prev"),
 }
 
 cmp.setup {
@@ -440,7 +441,7 @@ cmp.setup.cmdline(':', {
 })
 
 
-vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = 'menu,menuone'
 ----------------------------------
 --     lsp config
 ----------------------------------
