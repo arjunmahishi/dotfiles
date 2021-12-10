@@ -331,6 +331,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  indent = {
+    enable = true
+  }
 }
 
 require('nvim-treesitter.parsers').get_parser_configs().norg = {
@@ -452,8 +455,19 @@ for _, lsp in ipairs(servers) do
 end
 
 require("nvim-lsp-installer").on_server_ready(function(server)
-    local opts = {}
-    server:setup(opts)
+  local opts = {}
+
+  if server.name == 'sumneko_lua' then
+    opts.settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        }
+      }
+    }
+  end
+
+  server:setup(opts)
 end)
 ----------------------------------
 --     gitsigns
@@ -475,6 +489,10 @@ require("notify").setup({
 --     Helper functions
 ----------------------------------
 
+function telescope_into_dir(dir)
+  require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
+end
+
 function create_new_note()
   local file_name = vim.fn.input('enter file name > ')
   vim.api.nvim_command(string.format(':e ~/notes/%s', file_name))
@@ -483,10 +501,6 @@ end
 function open_file_in_repo()
   local root = vim.fn.finddir('.git/..', ';')
   telescope_into_dir(root)
-end
-
-function telescope_into_dir(dir)
-  require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
 end
 
 function scratch_buffer(arg)
