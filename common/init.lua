@@ -49,6 +49,7 @@ Plug('arjunmahishi/run-code.nvim')
 Plug('ThePrimeagen/git-worktree.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
+Plug('github/copilot.vim')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
