@@ -49,7 +49,7 @@ Plug('arjunmahishi/run-code.nvim')
 Plug('ThePrimeagen/git-worktree.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
-Plug('github/copilot.vim')
+-- Plug('github/copilot.vim')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
@@ -88,7 +88,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.incsearch = true
 vim.opt.smartcase = true
-vim.opt.colorcolumn = '121'
+vim.opt.colorcolumn = '81'
 vim.opt.lazyredraw = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
