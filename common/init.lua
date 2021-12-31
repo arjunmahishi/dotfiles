@@ -348,6 +348,13 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --   run-code
 ----------------------------------
 
+require('run-code').setup {
+  output = {
+    buffer = true,
+    split_cmd = '80vsplit',
+  }
+}
+
 map('v', '<leader>r', ':RunCodeSelected<CR>', {})
 map('n', '<leader>r', ':RunCodeFile<CR>', {})
 vim.cmd [[
