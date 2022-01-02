@@ -29,7 +29,7 @@ alias bandit="ssh bandit$1@bandit.labs.overthewire.org -p2220"
 # AWS
 function aws-switch-profile() {
   export AWS_PROFILE=$(cat ~/.aws/credentials | grep "\[.*\]" | awk -F'[][]' '{print $2}' | fzf)
-  rg -A3 -NI "$AWS_PROFILE" ~/.aws/credentials
+  echo $AWS_PROFILE
 }
 
 # jump to any directory with <ctrl + f>
