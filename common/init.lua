@@ -227,7 +227,10 @@ require'lualine'.setup {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff'},
     lualine_c = {{ 'filename', path = 1 }},
-    lualine_x = {'encoding', 'filetype', {'diagnostics', sources={'nvim_lsp'}}},
+    lualine_x = {'encoding', 'filetype', {
+      'diagnostics',
+      sources={'nvim_diagnostic'},
+    }},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
