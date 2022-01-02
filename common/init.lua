@@ -393,18 +393,20 @@ local function cmp_move(direction)
 end
 
 local mapping = {
-  ['<CR>'] = cmp.mapping.confirm {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = true,
-  },
+  ['<CR>'] = function(fallback)
+    if cmp.get_selected_entry() then
+      cmp.confirm()
+      return
+    end
+
+    fallback()
+  end,
   ['<C-SPACE>'] = cmp.mapping.complete(),
-  -- ['<Tab>'] = cmp_move("next"),
-  -- ['<S-Tab>'] = cmp_move("prev"),
 }
 
 cmp.setup {
   snippet = {
-    expand = function(args)
+    expand = function()
     end,
   },
   sources = {
@@ -426,7 +428,8 @@ cmp.setup {
       })[entry.source.name]
       return item
     end
-  }
+  },
+  preselect = cmp.PreselectMode.None,
 }
 
 -- auto complete for search
