@@ -58,6 +58,7 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
+Plug('L3MON4D3/LuaSnip')
 
 -- colorscheme
 -- Plug('lifepillar/vim-gruvbox8')
@@ -126,7 +127,7 @@ map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
 map('n', '<leader>p', '"+p', {})
 map('n', '<C-l>', ':nohlsearch<cr>', {})
-map('n', '<leader>fd', ':lua open_file_in_repo()<cr>', {})
+map('n', '<leader>fd', ':lua OpenFilesInRepo()<cr>', {})
 
 -- since space is used as the supream leader, make sure that is doesn't do anything
 -- else. Because no one should have that much power
@@ -197,6 +198,11 @@ vim.cmd [[
 --   au BufWritePost *.hcl* silent! exec "%!hclfmt %" | w
 -- ]]
 
+-- disable highlighting the 81st column while working on a markdown file
+vim.cmd[[
+  au filetype markdown set colorcolumn=-1
+]]
+
 ----------------------------------
 --     custom commands
 ----------------------------------
@@ -205,10 +211,10 @@ local function command(name, cmd)
   vim.cmd(string.format("command! -nargs=* %s %s", name, cmd))
 end
 
-command('Config', ':lua open_config()')
-command('Notes', ':lua telescope_into_dir("~/notes")')
-command('NewNote', ':lua create_new_note()')
-command('Scratch', ':lua scratch_buffer(<f-args>)')
+command('Config', ':lua OpenConfig()')
+command('Notes', ':lua TelescopeIntoDir("~/notes")')
+command('NewNote', ':lua CreateNewNote()')
+command('Scratch', ':lua ScratchBuffer(<f-args>)')
 
 ----------------------------------
 --     lualine
@@ -295,8 +301,8 @@ require('telescope').setup {
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("git_worktree")
 
-map('n', '<C-p>', '<cmd>lua telescope_into_dir(".")<CR>', {})
-map('n', '<leader>w', '<cmd>lua telescope_into_dir("~/work")<CR>', {})
+map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
+map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 
 ----------------------------------
@@ -353,8 +359,8 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 
 require('run-code').setup {
   output = {
-    buffer = true,
-    split_cmd = '80vsplit',
+    buffer = false,
+    -- split_cmd = '80vsplit',
   }
 }
 
@@ -363,6 +369,34 @@ map('n', '<leader>r', ':RunCodeFile<CR>', {})
 vim.cmd [[
   au filetype markdown nmap <leader>R :RunCodeBlock<CR>
 ]]
+
+----------------------------------
+--   luasnip
+----------------------------------
+
+local luasnip = require('luasnip')
+-- local ls_types = require("luasnip.util.types")
+require("luasnip.loaders.from_snipmate").load({ path = "./snippets" })
+--
+-- luasnip.config.set_config({
+-- 	history = true,
+-- 	-- Update more often, :h events for more info.
+-- 	updateevents = "TextChanged,TextChangedI",
+-- 	ext_opts = {
+-- 		[ls_types.choiceNode] = {
+-- 			active = {
+-- 				virt_text = { { "choiceNode", "Comment" } },
+-- 			},
+-- 		},
+-- 	},
+-- 	-- treesitter-hl has 100, use something higher (default is 200).
+-- 	ext_base_prio = 300,
+-- 	-- minimal increase in priority.
+-- 	ext_prio_increase = 1,
+-- 	enable_autosnippets = true,
+-- })
+--
+--
 
 ----------------------------------
 --   nvim-cmp
@@ -379,22 +413,6 @@ local cmp_icons = {
   Constant = " ", Struct = " ", Event = " ", Operator = " ", TypeParameter = " "
 }
 
--- returns a cmp select function based on the direction
-local function cmp_move(direction)
-  local move = cmp.select_next_item
-  if direction == "prev" then
-    move = cmp.select_prev_item
-  end
-
-  return function (fallback)
-    if cmp.visible() then
-      move()
-      return
-    end
-    fallback()
-  end
-end
-
 local mapping = {
   ['<CR>'] = function(fallback)
     if cmp.get_selected_entry() then
@@ -405,11 +423,19 @@ local mapping = {
     fallback()
   end,
   ['<C-SPACE>'] = cmp.mapping.complete(),
+  ['<C-k>'] = function(fallback)
+    if luasnip.expand_or_jumpable() then
+      luasnip.expand_or_jump()
+      return
+    end
+    fallback()
+  end,
 }
 
 cmp.setup {
   snippet = {
-    expand = function()
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
     end,
   },
   sources = {
@@ -417,6 +443,7 @@ cmp.setup {
     { name = 'nvim_lua' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = 'luasnip' },
   },
   mapping = mapping,
   formatting = {
@@ -455,9 +482,11 @@ cmp.setup.cmdline(':', {
 
 
 vim.o.completeopt = 'menu,menuone'
+
 ----------------------------------
 --     lsp config
 ----------------------------------
+
 local servers = { 'gopls' }
 
 -- iterate over each of the servers and setup each of them
@@ -503,21 +532,21 @@ require("notify").setup({
 --     Helper functions
 ----------------------------------
 
-function telescope_into_dir(dir)
+function TelescopeIntoDir(dir)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ search_dirs = { dir } }))
 end
 
-function create_new_note()
+function CreateNewNote()
   local file_name = vim.fn.input('enter file name > ')
   vim.api.nvim_command(string.format(':e ~/notes/%s', file_name))
 end
 
-function open_file_in_repo()
+function OpenFilesInRepo()
   local root = vim.fn.finddir('.git/..', ';')
-  telescope_into_dir(root)
+  TelescopeIntoDir(root)
 end
 
-function scratch_buffer(arg)
+function ScratchBuffer(arg)
   local ftype = arg
   if ftype == nil then
     ftype = vim.fn.input('enter filetype > ')
@@ -533,7 +562,7 @@ function scratch_buffer(arg)
   vim.bo.filetype = ftype
 end
 
-function open_config()
+function OpenConfig()
   if vim.fn.bufname() ~= "" then
     vim.api.nvim_command("tabnew ~/.config/nvim/init.lua")
     return
