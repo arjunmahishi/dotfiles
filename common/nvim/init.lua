@@ -118,6 +118,7 @@ vim.g.material_style = "deep ocean"
 vim.g.mapleader = ' '
 
 local map = vim.api.nvim_set_keymap
+local unmap = vim.api.nvim_del_keymap
 local noremap = { noremap = true }
 
 map('i', 'jj', '<Esc>', {})
@@ -189,6 +190,7 @@ vim.cmd [[
   au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 ]]
 
+-- Unmap default mapping
 ----------------------------------
 --     automation
 ----------------------------------
@@ -376,7 +378,7 @@ vim.cmd [[
 
 local luasnip = require('luasnip')
 -- local ls_types = require("luasnip.util.types")
-require("luasnip.loaders.from_snipmate").load({ path = "./snippets" })
+require("luasnip.loaders.from_snipmate").load()
 --
 -- luasnip.config.set_config({
 -- 	history = true,

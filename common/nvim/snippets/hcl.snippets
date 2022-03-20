@@ -1,0 +1,25 @@
+# Last9 openmetrics DSL snippets
+
+snippet e "extend block"
+	extends ${1:aws_alb_cloudwatch} "${2:my-extend-block}" {
+		module_uri = "https://github.com/last9/openmetrics-registry/releases/download/${3:0.0.2}/${4:aws_cloudwatch_sqs_v}${5:0.0.1}.hcl"
+		using = {
+			default = "${6:default}"
+		}
+		resources = file("${7}")
+	}
+
+snippet m "metric block"
+
+snippet s "scraper block"
+
+snippet c "config block"
+
+snippet v "var block"
+
+snippet cw "cloudwatch source block"
+
+snippet pr "promQL source block"
+
+snippet sql "SQL source block"
+
