@@ -21,6 +21,7 @@ Plug('nvim-lua/popup.nvim')
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
+Plug('nvim-telescope/telescope-github.nvim')
 
 -- treesitter
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
@@ -61,11 +62,11 @@ Plug('hrsh7th/cmp-cmdline')
 Plug('L3MON4D3/LuaSnip')
 
 -- colorscheme
--- Plug('lifepillar/vim-gruvbox8')
--- Plug('ayu-theme/ayu-vim')
+Plug('lifepillar/vim-gruvbox8')
+Plug('ayu-theme/ayu-vim')
 Plug('arjunmahishi/onedark.vim')
--- Plug('arcticicestudio/nord-vim')
--- Plug 'marko-cerovac/material.nvim'
+Plug('arcticicestudio/nord-vim')
+Plug 'marko-cerovac/material.nvim'
 
 Plug('kyazdani42/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
@@ -77,7 +78,7 @@ vim.call('plug#end')
 ----------------------------------
 
 vim.cmd 'syntax enable'
-vim.cmd 'colorscheme onedark'
+vim.cmd 'colorscheme ayu'
 
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
@@ -301,7 +302,8 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
-require("telescope").load_extension("git_worktree")
+require('telescope').load_extension('git_worktree')
+require('telescope').load_extension('gh')
 
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
 map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
