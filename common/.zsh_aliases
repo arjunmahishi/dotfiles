@@ -46,5 +46,15 @@ function jump_to_directory() {
   cd $base_path$(find $base_path -type d | grep -v "\/\?.git" | sed "s/$base_path_escaped//g" | fzf)
 }
 
+ONE_PLUS_BUDZ="E4:41:22:42:60:CE"
+function disconnect_earphones() {
+  bluetoothctl disconnect $ONE_PLUS_BUDZ
+}
+
+function connect_earphones() {
+  disconnect_earphones
+  bluetoothctl connect $ONE_PLUS_BUDZ
+}
+
 # declare env variables
 export GOTESTS_TEMPLATE="testify"
