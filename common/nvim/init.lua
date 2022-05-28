@@ -78,7 +78,8 @@ vim.call('plug#end')
 ----------------------------------
 
 vim.cmd 'syntax enable'
-vim.cmd 'colorscheme ayu'
+-- vim.cmd 'colorscheme ayu'
+vim.cmd 'colorscheme onedark'
 
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
