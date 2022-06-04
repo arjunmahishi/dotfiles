@@ -100,12 +100,10 @@ vim.opt.encoding = 'utf8'
 vim.opt.guifont = 'Fira Code Nerd'
 vim.opt.showmode = false
 vim.opt.scrolloff = 10
--- vim.opt.hlsearch = false
 vim.opt.inccommand = 'split'
 vim.opt.wrap = false
--- vim.opt.list = true
--- vim.opt.listchars = 'tab:→\ ,trail:∙,nbsp:•'
--- vim.opt.listchars = { space = '•', tab = '→' }
+vim.opt.dictionary = '/usr/share/dict/words'
+-- vim.opt.hlsearch = false
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
@@ -120,7 +118,6 @@ vim.g.material_style = "deep ocean"
 vim.g.mapleader = ' '
 
 local map = vim.api.nvim_set_keymap
-local unmap = vim.api.nvim_del_keymap
 local noremap = { noremap = true }
 
 map('i', 'jj', '<Esc>', {})
@@ -340,7 +337,7 @@ require('neorg').setup {
 
 -- TODO: figure this shit out
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  -- ensure_installed = "maintained",
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -435,6 +432,22 @@ local mapping = {
     end
     fallback()
   end,
+  ["<C-n>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+      return
+    end
+
+    fallback()
+  end, { "i", "s", "c" }),
+  ["<C-p>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+      return
+    end
+
+    fallback()
+  end, { "i", "s", "c" }),
 }
 
 cmp.setup {
