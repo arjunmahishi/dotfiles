@@ -167,7 +167,6 @@ map('n', '<leader>[', ':cprevious<cr>', noremap)
 vim.cmd [[
   au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
   au filetype go nmap <leader>T :w<CR>:GoTest<CR>
-  au filetype go nmap <leader>r :w<CR>:GoRun<CR>
   au filetype go nmap <leader>b :GoDebugBreakpoint<CR>
   au filetype go nmap <leader>d :GoDebugStart<CR>
   au filetype go nmap <leader>s :GoDebugStop<CR>
@@ -362,12 +361,14 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 require('run-code').setup {
   output = {
     buffer = false,
-    -- split_cmd = '80vsplit',
-  }
+    split_cmd = '80vsplit',
+  },
+  enable_custom_commands = true
 }
 
 map('v', '<leader>r', ':RunCodeSelected<CR>', {})
 map('n', '<leader>r', ':RunCodeFile<CR>', {})
+map('n', '<leader>R', ':RunCodeSetCmd<CR>', {})
 vim.cmd [[
   au filetype markdown nmap <leader>R :RunCodeBlock<CR>
 ]]
