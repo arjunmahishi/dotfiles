@@ -30,7 +30,6 @@ Plug('hashivim/vim-terraform')
 Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
 Plug('mg979/vim-visual-multi', { branch = 'master'})
-Plug('nvim-neorg/neorg')
 Plug('nvim-lualine/lualine.nvim')
 Plug('neovim/nvim-lspconfig')
 Plug('voldikss/vim-floaterm')
@@ -302,24 +301,6 @@ map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 map('n', '<C-g>', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {})
 
 ----------------------------------
---   neorg
-----------------------------------
-
-require('neorg').setup {
-  load = {
-      ["core.defaults"] = {}, -- Load all the default modules
-      ["core.norg.concealer"] = {}, -- Allows for use of icons
-      ["core.norg.dirman"] = { -- Manage your directories with Neorg
-          config = {
-              workspaces = {
-                  my_workspace = "~/neorg"
-              }
-          }
-      }
-  },
-}
-
-----------------------------------
 --   treesitter
 ----------------------------------
 
@@ -356,11 +337,18 @@ require('run-code').setup {
 }
 
 map('v', '<leader>r', ':RunCodeSelected<CR>', {})
-map('n', '<leader>r', ':RunCodeFile<CR>', {})
-map('n', '<leader>R', ':RunCodeSetCmd<CR>', {})
-vim.cmd [[
-  au filetype markdown nmap <leader>R :RunCodeBlock<CR>
-]]
+map('n', '<leader>rr', ':RunCodeFile<CR>', {})
+map('n', '<leader>rt', ':RunCodeLauncher<CR>', {})
+
+-- set custom commands
+map('n', '<leader>R1', ':RunCodeSetCustomCmd 1<CR>', {})
+map('n', '<leader>R2', ':RunCodeSetCustomCmd 2<CR>', {})
+map('n', '<leader>R3', ':RunCodeSetCustomCmd 3<CR>', {})
+
+-- run custom commands
+map('n', '<leader>r1', ':RunCodeCustomCmd 1<CR>', {})
+map('n', '<leader>r2', ':RunCodeCustomCmd 2<CR>', {})
+map('n', '<leader>r3', ':RunCodeCustomCmd 3<CR>', {})
 
 ----------------------------------
 --   luasnip
