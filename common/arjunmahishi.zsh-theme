@@ -11,6 +11,10 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
 
+virtualenv () {
+  [[ -n $VIRTUAL_ENV ]] && echo "($(basename $VIRTUAL_ENV))"
+}
+
 bureau_git_branch () {
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
@@ -94,7 +98,7 @@ bureau_precmd () {
 }
 
 setopt prompt_subst
-PROMPT='$_LIBERTY '
+PROMPT='$(virtualenv) $_LIBERTY '
 RPROMPT='$_1RIGHT'
 
 autoload -U add-zsh-hook

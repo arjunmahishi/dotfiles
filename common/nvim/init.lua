@@ -38,6 +38,7 @@ Plug('arjunmahishi/run-code.nvim')
 Plug('ThePrimeagen/git-worktree.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
+Plug('ruanyl/vim-gh-line')
 -- Plug('github/copilot.vim')
 
 -- auto completion
@@ -176,6 +177,10 @@ vim.cmd [[
   au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
 ]]
 
+-- Gdiff
+map('n', 'g2', ':diffget //2 | diffupdate <CR>', {})
+map('n', 'g3', ':diffget //3 | diffupdate <CR>', {})
+
 -- Unmap default mapping
 ----------------------------------
 --     automation
@@ -293,6 +298,7 @@ require('telescope').load_extension('gh')
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
 map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
+map('n', '<leader>tw', '<cmd>Telescope grep_string theme=ivy<CR>', noremap)
 
 ----------------------------------
 --   git-worktree
@@ -333,7 +339,9 @@ require('run-code').setup {
     buffer = false,
     split_cmd = '80vsplit',
   },
-  enable_custom_commands = true
+  filetype_cmd_map = {
+    python = "python3 <<-EOF\n%s\nEOF",
+  }
 }
 
 map('v', '<leader>r', ':RunCodeSelected<CR>', {})
@@ -349,6 +357,8 @@ map('n', '<leader>R3', ':RunCodeSetCustomCmd 3<CR>', {})
 map('n', '<leader>r1', ':RunCodeCustomCmd 1<CR>', {})
 map('n', '<leader>r2', ':RunCodeCustomCmd 2<CR>', {})
 map('n', '<leader>r3', ':RunCodeCustomCmd 3<CR>', {})
+map('n', '<leader>rp', ':RunCodeLastCustomCmd<CR>', {})
+map('n', '<leader>ro', ':RunCodeLastOutput<CR>', {})
 
 ----------------------------------
 --   luasnip

@@ -9,7 +9,8 @@ ZSH_THEME="arjunmahishi"
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
-  git virtualenv
+  git
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -38,3 +39,6 @@ export PATH="$PATH:$HOME/.local/bin"
 
 export WORKON_HOME=~/.venvs
 export PIP_VIRTUALENV_BASE=~/.venvs
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+alias goenv="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
