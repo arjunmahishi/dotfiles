@@ -39,6 +39,7 @@ Plug('ThePrimeagen/git-worktree.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
 Plug('ruanyl/vim-gh-line')
+Plug('L3MON4D3/LuaSnip', { tag = 'v<CurrentMajor>.*' })
 -- Plug('github/copilot.vim')
 
 -- auto completion
@@ -364,29 +365,7 @@ map('n', '<leader>ro', ':RunCodeLastOutput<CR>', {})
 --   luasnip
 ----------------------------------
 
-local luasnip = require('luasnip')
--- local ls_types = require("luasnip.util.types")
 require("luasnip.loaders.from_snipmate").load()
---
--- luasnip.config.set_config({
--- 	history = true,
--- 	-- Update more often, :h events for more info.
--- 	updateevents = "TextChanged,TextChangedI",
--- 	ext_opts = {
--- 		[ls_types.choiceNode] = {
--- 			active = {
--- 				virt_text = { { "choiceNode", "Comment" } },
--- 			},
--- 		},
--- 	},
--- 	-- treesitter-hl has 100, use something higher (default is 200).
--- 	ext_base_prio = 300,
--- 	-- minimal increase in priority.
--- 	ext_prio_increase = 1,
--- 	enable_autosnippets = true,
--- })
---
---
 
 ----------------------------------
 --   nvim-cmp
@@ -395,6 +374,7 @@ require("luasnip.loaders.from_snipmate").load()
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 local cmp_icons = {
   Text = " ", Method = " ", Function = " ", Constructor = " ", Field = " ", Variable = " ", Class = "ﴯ ",
