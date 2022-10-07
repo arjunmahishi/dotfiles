@@ -34,8 +34,8 @@ Plug('nvim-lualine/lualine.nvim')
 Plug('neovim/nvim-lspconfig')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
-Plug('arjunmahishi/run-code.nvim')
-Plug('ThePrimeagen/git-worktree.nvim')
+Plug('arjunmahishi/flow.nvim')
+Plug('arjunmahishi/k8s.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
 Plug('ruanyl/vim-gh-line')
@@ -293,7 +293,7 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('git_worktree')
+-- require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('gh')
 
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
@@ -305,7 +305,7 @@ map('n', '<leader>tw', '<cmd>Telescope grep_string theme=ivy<CR>', noremap)
 --   git-worktree
 ----------------------------------
 
-map('n', '<C-g>', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {})
+-- map('n', '<C-g>', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {})
 
 ----------------------------------
 --   treesitter
@@ -332,7 +332,7 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 }
 
 ----------------------------------
---   run-code
+--   flow.nvim
 ----------------------------------
 
 require('run-code').setup {

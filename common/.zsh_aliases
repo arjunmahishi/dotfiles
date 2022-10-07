@@ -56,5 +56,15 @@ function connect_earphones() {
   bluetoothctl connect $ONE_PLUS_BUDZ
 }
 
+KEYCHRON="DC:2C:26:38:0F:62"
+function disconnect_keyboard() {
+  bluetoothctl disconnect $KEYCHRON
+}
+
+function connect_keyboard() {
+  disconnect_keyboard
+  bluetoothctl connect $KEYCHRON
+}
+
 # declare env variables
 export GOTESTS_TEMPLATE="testify"
