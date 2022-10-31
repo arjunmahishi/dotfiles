@@ -17,7 +17,7 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-treesitter/playground')
 
 Plug('fatih/vim-go', { tag = '*' })
-Plug('preservim/nerdtree')
+Plug('nvim-tree/nvim-tree.lua')
 Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
@@ -40,6 +40,7 @@ Plug('rcarriga/nvim-notify')
 Plug('williamboman/nvim-lsp-installer')
 Plug('ruanyl/vim-gh-line')
 Plug('L3MON4D3/LuaSnip', { tag = 'v<CurrentMajor>.*' })
+Plug('jbyuki/venn.nvim')
 -- Plug('github/copilot.vim')
 
 -- auto completion
@@ -67,9 +68,13 @@ vim.call('plug#end')
 --        basic settings
 ----------------------------------
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.cmd 'syntax enable'
--- vim.cmd 'colorscheme ayu'
-vim.cmd 'colorscheme onedark'
+vim.cmd 'colorscheme ayu'
+-- vim.cmd 'colorscheme onedark'
+-- vim.cmd 'colorscheme gruvbox8_hard'
 
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
@@ -260,19 +265,29 @@ vim.g.go_fmt_command = "goimports"
 vim.g.go_auto_type_info = 1
 
 ----------------------------------
---    NERD tree
+--    nvim-tree
 ----------------------------------
 
-vim.g.NERDTreeMinimalUI = 1
-vim.g.NERDTreeShowHidden = 1
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
-map('n', '<leader>o', ':NERDTreeToggle<CR>', {})
-map('n', '<leader>O', ':NERDTreeFind<CR>', {})
-
--- automatically close NERDTree if thats the only thing open
-vim.cmd [[
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-]]
+map('n', '<leader>o', ':NvimTreeToggle<CR>', {})
+map('n', '<leader>O', ':NvimTreeFindFileToggle<CR>', {})
 
 ----------------------------------
 --    multi select
@@ -372,7 +387,7 @@ require("luasnip.loaders.from_snipmate").load()
 ----------------------------------
 
 local nvim_lsp = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -513,6 +528,24 @@ vim.notify = require("notify")
 require("notify").setup({
   stages = "fade",
 })
+
+----------------------------------
+--     venn
+----------------------------------
+
+map('v', '<leader>b', ':VBox<CR>', {})
+map('v', '<leader>f', ':VFill<CR>', {})
+
+----------------------------------
+--     k8s.nvim
+----------------------------------
+
+require('k8s').setup {
+  kube_config_dir = '/tmp/kubeconfig'
+}
+
+map('n', '<leader>kc', ':K8sKubeConfig<CR>', {})
+map('n', '<leader>kn', ':K8sNamespaces<CR>', {})
 
 ----------------------------------
 --     Helper functions
