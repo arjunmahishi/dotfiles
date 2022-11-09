@@ -72,9 +72,9 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.cmd 'syntax enable'
-vim.cmd 'colorscheme ayu'
+-- vim.cmd 'colorscheme ayu'
 -- vim.cmd 'colorscheme onedark'
--- vim.cmd 'colorscheme gruvbox8_hard'
+vim.cmd 'colorscheme gruvbox8_hard'
 
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
@@ -168,6 +168,7 @@ vim.cmd [[
   au filetype go nmap <leader>n :GoDebugNext<CR>
   au filetype go nmap <leader>c :GoDebugContinue<CR>
   au filetype go nmap <leader>i <Plug>(go-info)
+  au filetype go nmap gr :GoRename<CR>
 ]]
 
 -- ruby
