@@ -66,5 +66,13 @@ function connect_keyboard() {
   bluetoothctl connect $KEYCHRON
 }
 
+function get_bettery_percent() {
+  echo $(upower -i $(upower -e | grep $1) | grep percentage | awk '{print $2}')
+}
+
+function batteries() {
+  echo "[k: $(get_bettery_percent 'keyboard'), m: $(get_bettery_percent 'mouse')]"
+}
+
 # declare env variables
 export GOTESTS_TEMPLATE="testify"

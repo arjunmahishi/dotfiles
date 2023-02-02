@@ -41,7 +41,7 @@ Plug('williamboman/nvim-lsp-installer')
 Plug('ruanyl/vim-gh-line')
 Plug('L3MON4D3/LuaSnip', { tag = 'v<CurrentMajor>.*' })
 Plug('jbyuki/venn.nvim')
--- Plug('github/copilot.vim')
+Plug('github/copilot.vim')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
