@@ -310,7 +310,7 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 -- require('telescope').load_extension('git_worktree')
-require('telescope').load_extension('gh')
+-- require('telescope').load_extension('gh')
 
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
 map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
@@ -351,31 +351,34 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --   flow.nvim
 ----------------------------------
 
-require('run-code').setup {
+local sql_configs = require('flow.util').read_sql_config('/home/arjun/.db_config.json')
+
+require('flow').setup {
   output = {
     buffer = false,
     split_cmd = '80vsplit',
   },
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
-  }
+  },
+  sql_configs = sql_configs,
 }
 
-map('v', '<leader>r', ':RunCodeSelected<CR>', {})
-map('n', '<leader>rr', ':RunCodeFile<CR>', {})
-map('n', '<leader>rt', ':RunCodeLauncher<CR>', {})
+map('v', '<leader>r', ':FlowRunSelected<CR>', {})
+map('n', '<leader>rr', ':FlowRunFile<CR>', {})
+map('n', '<leader>rt', ':FlowLauncher<CR>', {})
 
 -- set custom commands
-map('n', '<leader>R1', ':RunCodeSetCustomCmd 1<CR>', {})
-map('n', '<leader>R2', ':RunCodeSetCustomCmd 2<CR>', {})
-map('n', '<leader>R3', ':RunCodeSetCustomCmd 3<CR>', {})
+map('n', '<leader>R1', ':FlowSetCustomCmd 1<CR>', {})
+map('n', '<leader>R2', ':FlowSetCustomCmd 2<CR>', {})
+map('n', '<leader>R3', ':FlowSetCustomCmd 3<CR>', {})
 
 -- run custom commands
-map('n', '<leader>r1', ':RunCodeCustomCmd 1<CR>', {})
-map('n', '<leader>r2', ':RunCodeCustomCmd 2<CR>', {})
-map('n', '<leader>r3', ':RunCodeCustomCmd 3<CR>', {})
-map('n', '<leader>rp', ':RunCodeLastCustomCmd<CR>', {})
-map('n', '<leader>ro', ':RunCodeLastOutput<CR>', {})
+map('n', '<leader>r1', ':FlowRunCustomCmd 1<CR>', {})
+map('n', '<leader>r2', ':FlowRunCustomCmd 2<CR>', {})
+map('n', '<leader>r3', ':FlowRunCustomCmd 3<CR>', {})
+map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
+map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
 
 ----------------------------------
 --   luasnip
