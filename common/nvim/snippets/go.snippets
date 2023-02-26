@@ -293,3 +293,8 @@ snippet mar "json marshal"
 	if err != nil {
 		${2:return err}
 	}
+
+snippet trun "t.run boilerplate"
+	t.Run("${1}", func(t *testing.T) {
+		${2}
+	})

@@ -51,6 +51,7 @@ Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
 Plug('L3MON4D3/LuaSnip')
+Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -310,12 +311,14 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 -- require('telescope').load_extension('git_worktree')
--- require('telescope').load_extension('gh')
+require('telescope').load_extension('gh')
+-- require('telescope').load_extension('luasnip')
 
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
 map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
 map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
 map('n', '<leader>tw', '<cmd>Telescope grep_string theme=ivy<CR>', noremap)
+-- map('n', '<C-O>', '<cmd>Telescope luasnip theme=ivy<CR>', noremap)
 
 ----------------------------------
 --   git-worktree
