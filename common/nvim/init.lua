@@ -160,17 +160,17 @@ map('n', '<leader>]', ':cnext<cr>', noremap)
 map('n', '<leader>[', ':cprevious<cr>', noremap)
 
 -- golang
-vim.cmd [[
-  au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
-  au filetype go nmap <leader>T :w<CR>:GoTest<CR>
-  au filetype go nmap <leader>b :GoDebugBreakpoint<CR>
-  au filetype go nmap <leader>d :GoDebugStart<CR>
-  au filetype go nmap <leader>s :GoDebugStop<CR>
-  au filetype go nmap <leader>n :GoDebugNext<CR>
-  au filetype go nmap <leader>c :GoDebugContinue<CR>
-  au filetype go nmap <leader>i <Plug>(go-info)
-  au filetype go nmap gr :GoRename<CR>
-]]
+-- vim.cmd [[
+--   au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
+--   au filetype go nmap <leader>T :w<CR>:GoTest<CR>
+--   au filetype go nmap <leader>b :GoDebugBreakpoint<CR>
+--   au filetype go nmap <leader>d :GoDebugStart<CR>
+--   au filetype go nmap <leader>s :GoDebugStop<CR>
+--   au filetype go nmap <leader>n :GoDebugNext<CR>
+--   au filetype go nmap <leader>c :GoDebugContinue<CR>
+--   au filetype go nmap <leader>i <Plug>(go-info)
+--   au filetype go nmap gr :GoRename<CR>
+-- ]]
 
 -- ruby
 vim.cmd [[
@@ -188,6 +188,13 @@ vim.cmd [[
 -- Gdiff
 map('n', 'g2', ':diffget //2 | diffupdate <CR>', {})
 map('n', 'g3', ':diffget //3 | diffupdate <CR>', {})
+
+-- LSP
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
+map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {})
+map('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', {})
+map('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', {})
+
 
 -- Unmap default mapping
 ----------------------------------
@@ -257,14 +264,14 @@ require'lualine'.setup {
 --     vim-go
 ----------------------------------
 
-vim.g.go_highlight_fields = 1
-vim.g.go_highlight_functions = 1
-vim.g.go_highlight_function_calls = 1
-vim.g.go_highlight_extra_types = 1
-vim.g.go_highlight_operators = 1
-vim.g.go_fmt_autosave = 1
-vim.g.go_fmt_command = "goimports"
-vim.g.go_auto_type_info = 1
+-- vim.g.go_highlight_fields = 1
+-- vim.g.go_highlight_functions = 1
+-- vim.g.go_highlight_function_calls = 1
+-- vim.g.go_highlight_extra_types = 1
+-- vim.g.go_highlight_operators = 1
+-- vim.g.go_fmt_autosave = 1
+-- vim.g.go_fmt_command = "goimports"
+-- vim.g.go_auto_type_info = 1
 
 ----------------------------------
 --    nvim-tree
