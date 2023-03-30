@@ -16,7 +16,7 @@ Plug('nvim-telescope/telescope-github.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug('nvim-treesitter/playground')
 
-Plug('fatih/vim-go', { tag = '*' })
+-- Plug('fatih/vim-go', { tag = '*' })
 Plug('nvim-tree/nvim-tree.lua')
 Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
@@ -117,7 +117,7 @@ local map = vim.api.nvim_set_keymap
 local noremap = { noremap = true }
 
 map('i', 'jj', '<Esc>', {})
-map('n', 'vv', ':vnew<CR>', {})
+map('n', 'vv', ':vsplit<CR>', {})
 map('n', 'tt', ':tabnew<CR>', {})
 map('n', '<C-s>', ':source ~/.config/nvim/init.lua<CR>', {})
 map('v', '<leader>y', '"+y', {})
@@ -171,6 +171,13 @@ map('n', '<leader>[', ':cprevious<cr>', noremap)
 --   au filetype go nmap <leader>i <Plug>(go-info)
 --   au filetype go nmap gr :GoRename<CR>
 -- ]]
+
+vim.cmd([[
+  augroup GoAutocmds
+    autocmd!
+    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !goimports -w %')
+  augroup END
+]])
 
 -- ruby
 vim.cmd [[
@@ -589,7 +596,7 @@ function ScratchBuffer(arg)
     return
   end
 
-  vim.cmd ':vnew'
+  vim.cmd ':vsplit'
   vim.bo.bufhidden = 'hide'
   vim.bo.swapfile = false
   vim.bo.filetype = ftype

@@ -15,6 +15,7 @@ alias tl="tmux ls"
 
 # docker aliases
 alias dprune="docker container prune"
+alias dexec="cont=\$(docker ps | grep -v 'CONTAINER' | fzf | awk '{print \$1}') && docker exec -it \$cont /bin/sh"
 
 # ctrl + p to open vim and run telescope
 bindkey -s '^p' 'tim\n'

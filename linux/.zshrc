@@ -52,3 +52,5 @@ set -o vi
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 nvm use 16.14.0 --silent
+
+eval "$(github-copilot-cli alias -- "$0")"
