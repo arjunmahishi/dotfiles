@@ -175,6 +175,7 @@ map('n', '<leader>[', ':cprevious<cr>', noremap)
 vim.cmd([[
   augroup GoAutocmds
     autocmd!
+    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !gofmt -w %')
     autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !goimports -w %')
   augroup END
 ]])
@@ -368,7 +369,7 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --   flow.nvim
 ----------------------------------
 
-local sql_configs = require('flow.util').read_sql_config('/home/arjun/.db_config.json')
+-- local sql_configs = require('flow.util').read_sql_config('/home/arjun/.db_config.json')
 
 require('flow').setup {
   output = {
@@ -378,7 +379,7 @@ require('flow').setup {
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
-  sql_configs = sql_configs,
+  -- sql_configs = sql_configs,
 }
 
 map('v', '<leader>r', ':FlowRunSelected<CR>', {})
