@@ -202,7 +202,8 @@ map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {})
 map('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', {})
 map('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', {})
-
+map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {})
+map('n', '<leader>rl', ':LspRestart<CR>', {})
 
 -- Unmap default mapping
 ----------------------------------
@@ -306,6 +307,14 @@ require("nvim-tree").setup({
 map('n', '<leader>o', ':NvimTreeToggle<CR>', {})
 map('n', '<leader>O', ':NvimTreeFindFileToggle<CR>', {})
 
+-- close nvim-tree when no other window is open 
+vim.cmd [[
+  augroup NvimTree
+    autocmd!
+    autocmd WinEnter * if (winnr("$") == 1 && &filetype == "NvimTree") | q | endif
+  augroup END
+]]
+
 ----------------------------------
 --    multi select
 ----------------------------------
@@ -369,7 +378,7 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --   flow.nvim
 ----------------------------------
 
--- local sql_configs = require('flow.util').read_sql_config('/home/arjun/.db_config.json')
+local sql_configs = require('flow.util').read_sql_config('/Users/arjunmahishi/.db_config.json')
 
 require('flow').setup {
   output = {
@@ -379,7 +388,7 @@ require('flow').setup {
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
-  -- sql_configs = sql_configs,
+  sql_configs = sql_configs,
 }
 
 map('v', '<leader>r', ':FlowRunSelected<CR>', {})
