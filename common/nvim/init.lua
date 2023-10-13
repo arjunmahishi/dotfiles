@@ -14,11 +14,11 @@ Plug('nvim-telescope/telescope-github.nvim')
 
 -- treesitter
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
-Plug('nvim-treesitter/playground')
+-- Plug('nvim-treesitter/playground')
 
 -- Plug('fatih/vim-go', { tag = '*' })
 Plug('nvim-tree/nvim-tree.lua')
-Plug('wakatime/vim-wakatime')
+-- Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
 Plug('lewis6991/gitsigns.nvim')
@@ -31,17 +31,21 @@ Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
 Plug('mg979/vim-visual-multi', { branch = 'master'})
 Plug('nvim-lualine/lualine.nvim')
-Plug('neovim/nvim-lspconfig')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug('arjunmahishi/flow.nvim')
 Plug('arjunmahishi/k8s.nvim')
 Plug('rcarriga/nvim-notify')
-Plug('williamboman/nvim-lsp-installer')
+-- Plug('williamboman/nvim-lsp-installer')
 Plug('ruanyl/vim-gh-line')
 Plug('L3MON4D3/LuaSnip', { tag = 'v<CurrentMajor>.*' })
 Plug('jbyuki/venn.nvim')
 Plug('github/copilot.vim')
+
+-- LSP
+Plug('neovim/nvim-lspconfig')
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
 
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
@@ -55,11 +59,6 @@ Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
-Plug('ayu-theme/ayu-vim')
-Plug('arjunmahishi/onedark.vim')
-Plug('arcticicestudio/nord-vim')
-Plug 'marko-cerovac/material.nvim'
-
 Plug('kyazdani42/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
 
@@ -73,8 +72,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.cmd 'syntax enable'
--- vim.cmd 'colorscheme ayu'
--- vim.cmd 'colorscheme onedark'
 vim.cmd 'colorscheme gruvbox8_hard'
 
 vim.opt.termguicolors = true
@@ -290,11 +287,11 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
+    -- mappings = {
+    --   list = {
+    --     { key = "u", action = "dir_up" },
+    --   },
+    -- },
   },
   renderer = {
     group_empty = true,
@@ -378,7 +375,7 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 --   flow.nvim
 ----------------------------------
 
-local sql_configs = require('flow.util').read_sql_config('/Users/arjunmahishi/.db_config.json')
+-- local sql_configs = require('flow.util').read_sql_config('/Users/arjunmahishi/.db_config.json')
 
 require('flow').setup {
   output = {
@@ -388,7 +385,7 @@ require('flow').setup {
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
-  sql_configs = sql_configs,
+  -- sql_configs = sql_configs,
 }
 
 map('v', '<leader>r', ':FlowRunSelected<CR>', {})
@@ -529,21 +526,9 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-require("nvim-lsp-installer").on_server_ready(function(server)
-  local opts = {}
+require("mason").setup()
+require("mason-lspconfig").setup()
 
-  if server.name == 'sumneko_lua' then
-    opts.settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' }
-        }
-      }
-    }
-  end
-
-  server:setup(opts)
-end)
 ----------------------------------
 --     gitsigns
 ----------------------------------
