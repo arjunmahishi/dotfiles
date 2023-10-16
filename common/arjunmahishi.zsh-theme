@@ -10,6 +10,7 @@ ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%}▾%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DISABLED="%{$fg_bold[grey]%}●%{$reset_color%}"
 
 virtualenv () {
   [[ -n $VIRTUAL_ENV ]] && echo "($(basename $VIRTUAL_ENV))"
@@ -23,6 +24,13 @@ bureau_git_branch () {
 
 bureau_git_status() {
   _STATUS=""
+
+  # if git status is disabled for the repo, append a grey dot and return
+  if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" == "1" ]];then
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DISABLED"
+    echo $_STATUS
+    return
+  fi
 
   # check status of files
   _INDEX=$(command git status --porcelain 2> /dev/null)
