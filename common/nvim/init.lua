@@ -45,8 +45,8 @@ Plug('williamboman/mason-lspconfig.nvim')
 -- debugger
 Plug('mfussenegger/nvim-dap')
 Plug('rcarriga/nvim-dap-ui')
--- Plug('theHamsta/nvim-dap-virtual-text')
--- Plug('nvim-telescope/telescope-dap.nvim')
+Plug('theHamsta/nvim-dap-virtual-text')
+Plug('nvim-telescope/telescope-dap.nvim')
 Plug('leoluz/nvim-dap-go')
 
 -- auto completion
@@ -61,8 +61,9 @@ Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
-Plug('kyazdani42/nvim-web-devicons')
+-- Plug('kyazdani42/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
+Plug('nvim-tree/nvim-web-devicons')
 
 vim.call('plug#end')
 
@@ -311,24 +312,7 @@ vim.g.VM_maps = { ['Find Under'] = '<C-d>', ['Find Subword Under'] = '<C-d>' }
 --   telescope
 ----------------------------------
 
-local actions = require('telescope.actions')
-require('telescope').setup {
-  defaults = {
-    file_ignore_patterns = {'node_modules', 'coverage'},
-    mapping = { i = { ["<esc>"] = actions.close } }
-  }
-}
-
-require('telescope').load_extension('fzf')
--- require('telescope').load_extension('git_worktree')
-require('telescope').load_extension('gh')
--- require('telescope').load_extension('luasnip')
-
-map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
-map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
-map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
-map('n', '<leader>tw', '<cmd>Telescope grep_string theme=ivy<CR>', noremap)
--- map('n', '<C-O>', '<cmd>Telescope luasnip theme=ivy<CR>', noremap)
+require('config.telescope')
 
 ----------------------------------
 --   git-worktree
@@ -508,7 +492,16 @@ require("config.lsp")
 --     gitsigns
 ----------------------------------
 
-require('gitsigns').setup()
+require('gitsigns').setup({
+  signs = {
+    add          = { text = '│', },
+    change       = { text = '│' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+})
 
 ----------------------------------
 --     notify
@@ -525,7 +518,7 @@ require("notify").setup({
 ----------------------------------
 
 map('v', '<leader>b', ':VBox<CR>', {})
-map('v', '<leader>f', ':VFill<CR>', {})
+map('v', '<leader>f', ':VsFill<CR>', {})
 
 ----------------------------------
 --     k8s.nvim
@@ -542,18 +535,7 @@ map('n', '<leader>kn', ':K8sNamespaces<CR>', {})
 --     debugger
 ----------------------------------
 
--- require('nvim-dap-virtual-text').setup()
-require('dapui').setup()
-require('dap-go').setup()
-
-map('n', '<leader>dc', ':lua require("dap").continue()<CR>', {})
-map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', {})
-map('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', {})
-map('n', '<leader>dn', ':lua require("dap").step_over()<CR>', {})
-
--- dap-go
-map('n', '<leader>dt', ':lua require("dap-go").debug_test()<CR>', {})
-
+require("config.debuggers")
 
 ----------------------------------
 --     Helper functions
