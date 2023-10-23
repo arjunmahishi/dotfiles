@@ -42,6 +42,13 @@ Plug('neovim/nvim-lspconfig')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 
+-- debugger
+Plug('mfussenegger/nvim-dap')
+Plug('rcarriga/nvim-dap-ui')
+-- Plug('theHamsta/nvim-dap-virtual-text')
+-- Plug('nvim-telescope/telescope-dap.nvim')
+Plug('leoluz/nvim-dap-go')
+
 -- auto completion
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
@@ -262,19 +269,6 @@ require'lualine'.setup {
 }
 
 ----------------------------------
---     vim-go
-----------------------------------
-
--- vim.g.go_highlight_fields = 1
--- vim.g.go_highlight_functions = 1
--- vim.g.go_highlight_function_calls = 1
--- vim.g.go_highlight_extra_types = 1
--- vim.g.go_highlight_operators = 1
--- vim.g.go_fmt_autosave = 1
--- vim.g.go_fmt_command = "goimports"
--- vim.g.go_auto_type_info = 1
-
-----------------------------------
 --    nvim-tree
 ----------------------------------
 
@@ -373,6 +367,9 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 -- local sql_configs = require('flow.util').read_sql_config('/Users/arjunmahishi/.db_config.json')
 
 require('flow').setup {
+  output = {
+    buffer = true,
+  },
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
@@ -540,6 +537,23 @@ require('k8s').setup {
 
 map('n', '<leader>kc', ':K8sKubeConfig<CR>', {})
 map('n', '<leader>kn', ':K8sNamespaces<CR>', {})
+
+----------------------------------
+--     debugger
+----------------------------------
+
+-- require('nvim-dap-virtual-text').setup()
+require('dapui').setup()
+require('dap-go').setup()
+
+map('n', '<leader>dc', ':lua require("dap").continue()<CR>', {})
+map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', {})
+map('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', {})
+map('n', '<leader>dn', ':lua require("dap").step_over()<CR>', {})
+
+-- dap-go
+map('n', '<leader>dt', ':lua require("dap-go").debug_test()<CR>', {})
+
 
 ----------------------------------
 --     Helper functions
