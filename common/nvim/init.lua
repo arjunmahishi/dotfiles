@@ -373,10 +373,6 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 -- local sql_configs = require('flow.util').read_sql_config('/Users/arjunmahishi/.db_config.json')
 
 require('flow').setup {
-  output = {
-    buffer = false,
-    split_cmd = '80vsplit',
-  },
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
@@ -409,8 +405,6 @@ require("luasnip.loaders.from_snipmate").load()
 --   nvim-cmp
 ----------------------------------
 
-local nvim_lsp = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -511,18 +505,7 @@ vim.o.completeopt = 'menu,menuone'
 --     lsp config
 ----------------------------------
 
-local servers = { 'gopls' }
-
--- iterate over each of the servers and setup each of them
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 }
-  }
-end
-
-require("mason").setup()
-require("mason-lspconfig").setup()
+require("config.lsp")
 
 ----------------------------------
 --     gitsigns
