@@ -11,6 +11,7 @@ Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 Plug('nvim-telescope/telescope-github.nvim')
+Plug('nvim-telescope/telescope-live-grep-args.nvim')
 
 -- treesitter
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
@@ -99,14 +100,13 @@ vim.opt.scrolloff = 10
 vim.opt.inccommand = 'split'
 vim.opt.wrap = false
 vim.opt.dictionary = '/usr/share/dict/words'
--- vim.opt.hlsearch = false
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
 ]]
 
-vim.g.material_style = "deep ocean"
-
+vim.cmd 'highlight Normal guibg=NONE ctermbg=NONE'
+vim.cmd 'highlight NonText guibg=NONE ctermbg=NONE'
 ----------------------------------
 --     custom key mapping
 ----------------------------------
