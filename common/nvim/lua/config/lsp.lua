@@ -1,8 +1,18 @@
 local nvim_lsp = require('lspconfig')
 
-
 require("mason").setup()
 require("mason-lspconfig").setup()
+require('lspsaga').setup({})
+
+local map = vim.api.nvim_set_keymap
+local noremap = { noremap = true }
+
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
+map('n', 'K', '<cmd>Lspsaga hover_doc<CR>', {})
+map('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', {})
+map('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', {})
+map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {})
+map('n', '<leader>rl', ':LspRestart<CR>', {})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities())
@@ -50,3 +60,4 @@ for _, lsp in ipairs(servers) do
     flags = { debounce_text_changes = 150 }
   }
 end
+

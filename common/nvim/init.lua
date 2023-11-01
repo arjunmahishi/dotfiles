@@ -42,6 +42,7 @@ Plug('github/copilot.vim')
 Plug('neovim/nvim-lspconfig')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
+Plug('nvimdev/lspsaga.nvim')
 
 -- debugger
 Plug('mfussenegger/nvim-dap')
@@ -196,14 +197,6 @@ vim.cmd [[
 -- Gdiff
 map('n', 'g2', ':diffget //2 | diffupdate <CR>', {})
 map('n', 'g3', ':diffget //3 | diffupdate <CR>', {})
-
--- LSP
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {})
-map('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', {})
-map('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', {})
-map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {})
-map('n', '<leader>rl', ':LspRestart<CR>', {})
 
 -- Unmap default mapping
 ----------------------------------

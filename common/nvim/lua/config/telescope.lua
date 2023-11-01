@@ -20,7 +20,7 @@ local noremap = { noremap = true }
 
 map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
 map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
-map('n', '<C-f>', '<cmd>Telescope live_grep theme=ivy<CR>', {})
+map('n', '<C-f>', "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", noremap)
 map('n', '<leader>tc', '<cmd>Telescope commands theme=ivy<CR>', noremap)
 map('n', '<leader>th', '<cmd>Telescope help_tags theme=ivy<CR>', noremap)
 map('n', '<leader>tb', '<cmd>Telescope buffers theme=ivy<CR>', noremap)

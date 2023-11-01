@@ -20,3 +20,11 @@ A collection of dotfiles I use/used across work/personal laptops
 - jq
 - fd
 - wget
+- doom emacs and emacs
+  ```
+  brew tap d12frosted/emacs-plus
+  brew install emacs-plus --with-native-comp --with-modern-doom3-icon
+
+  git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+  ~/.config/emacs/bin/doom install
+  ```
