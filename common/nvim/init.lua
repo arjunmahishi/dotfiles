@@ -63,9 +63,9 @@ Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
--- Plug('kyazdani42/nvim-web-devicons')
 Plug('ryanoasis/vim-devicons')
 Plug('nvim-tree/nvim-web-devicons')
+Plug('folke/tokyonight.nvim')
 
 vim.call('plug#end')
 
@@ -77,10 +77,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.cmd 'syntax enable'
-vim.cmd 'colorscheme gruvbox8_hard'
 
 vim.opt.termguicolors = true
-vim.opt.background = 'dark'
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cursorline = true
@@ -106,9 +104,25 @@ vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
 ]]
 
-vim.cmd 'highlight Normal guibg=NONE ctermbg=NONE'
-vim.cmd 'highlight NonText guibg=NONE ctermbg=NONE'
+
+---------------------------------
+--     colorscheme
 ----------------------------------
+
+require('tokyonight').setup({
+  on_colors = function(colors)
+    colors.gitSigns = {
+      add = colors.green,
+      change = colors.orange,
+      delete = colors.red,
+      conflict = '#e5c07b',
+    }
+  end
+})
+
+vim.cmd 'colorscheme tokyonight-night'
+
+---------------------------------
 --     custom key mapping
 ----------------------------------
 
@@ -160,19 +174,6 @@ map('n', '<leader>q', ':lua vim.lsp.diagnostic.set_loclist()<CR>', {})
 map('n', '<leader>]', ':cnext<cr>', noremap)
 map('n', '<leader>[', ':cprevious<cr>', noremap)
 
--- golang
--- vim.cmd [[
---   au filetype go nmap <leader>t :w<CR>:GoTestFunc<CR>
---   au filetype go nmap <leader>T :w<CR>:GoTest<CR>
---   au filetype go nmap <leader>b :GoDebugBreakpoint<CR>
---   au filetype go nmap <leader>d :GoDebugStart<CR>
---   au filetype go nmap <leader>s :GoDebugStop<CR>
---   au filetype go nmap <leader>n :GoDebugNext<CR>
---   au filetype go nmap <leader>c :GoDebugContinue<CR>
---   au filetype go nmap <leader>i <Plug>(go-info)
---   au filetype go nmap gr :GoRename<CR>
--- ]]
-
 vim.cmd([[
   augroup GoAutocmds
     autocmd!
@@ -181,37 +182,9 @@ vim.cmd([[
   augroup END
 ]])
 
--- ruby
-vim.cmd [[
-  au filetype ruby nmap <leader>t :w<CR>:execute "!zeus rspec %:" . line(".")<CR>
-  au filetype ruby nmap <leader>T :w<CR>:execute "!rspec %:" . line(".")<CR>
-]]
-
--- javascript
-vim.cmd [[
-  au filetype typescriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
-  au filetype javascriptreact nmap <leader>t :w<CR>:split term://jest %<CR>G
-  au filetype typescript nmap <leader>t :w<CR>:split term://jest %<CR>G
-]]
-
 -- Gdiff
 map('n', 'g2', ':diffget //2 | diffupdate <CR>', {})
 map('n', 'g3', ':diffget //3 | diffupdate <CR>', {})
-
--- Unmap default mapping
-----------------------------------
---     automation
-----------------------------------
-
--- format hcl files on save
--- vim.cmd[[
---   au BufWritePost *.hcl* silent! exec "%!hclfmt %" | w
--- ]]
-
--- disable highlighting the 81st column while working on a markdown file
-vim.cmd[[
-  au filetype markdown set colorcolumn=-1
-]]
 
 ----------------------------------
 --     custom commands
@@ -383,10 +356,11 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 
 local cmp_icons = {
-  Text = " ", Method = " ", Function = " ", Constructor = " ", Field = " ", Variable = " ", Class = "ﴯ ",
-  Interface = " ", Module = " ", Property = "ﰠ ", Unit = " ", Value = " ", Enum = " ", Keyword = " ",
-  Snippet = " ", Color = " ", File = " ", Reference = " ", Folder = " ", EnumMember = " ",
-  Constant = " ", Struct = " ", Event = " ", Operator = " ", TypeParameter = " "
+  Text = " ", Method = "ƒ", Function = "ƒ", Constructor = " ", Field = "",
+  Variable = "", Class = " ", Interface = " ", Module = " ", Property = " ",
+  Unit = " ", Value = " ", Enum = " ", Keyword = " ", Snippet = " ",
+  Color = " ", File = " ", Reference = " ", Folder = " ", EnumMember = " ",
+  Constant = " ", Struct = " ", Event = " ", Operator = " ", TypeParameter = "",
 }
 
 local mapping = {
@@ -452,6 +426,14 @@ cmp.setup {
     end
   },
   preselect = cmp.PreselectMode.None,
+  window = {
+    completion = {
+      border = 'rounded',
+    },
+    documentation = {
+      border = 'rounded',
+    },
+  },
 }
 
 -- auto complete for search
