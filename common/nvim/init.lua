@@ -17,7 +17,6 @@ Plug('nvim-telescope/telescope-live-grep-args.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 
 Plug('nvim-tree/nvim-tree.lua')
--- Plug('wakatime/vim-wakatime')
 Plug('tpope/vim-surround')
 Plug('jiangmiao/auto-pairs')
 Plug('lewis6991/gitsigns.nvim')
@@ -26,7 +25,6 @@ Plug('tpope/vim-fugitive')
 Plug('romgrk/barbar.nvim')
 Plug('buoto/gotests-vim')
 Plug('AndrewRadev/splitjoin.vim')
-Plug('mg979/vim-visual-multi', { branch = 'master'})
 Plug('nvim-lualine/lualine.nvim')
 Plug('voldikss/vim-floaterm')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
@@ -34,7 +32,6 @@ Plug('arjunmahishi/flow.nvim')
 Plug('arjunmahishi/k8s.nvim')
 Plug('rcarriga/nvim-notify')
 Plug('ruanyl/vim-gh-line')
-Plug('L3MON4D3/LuaSnip', { tag = 'v<CurrentMajor>.*' })
 Plug('jbyuki/venn.nvim')
 Plug('github/copilot.vim')
 
@@ -58,8 +55,6 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
-Plug('L3MON4D3/LuaSnip')
-Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -99,6 +94,7 @@ vim.opt.scrolloff = 10
 vim.opt.inccommand = 'split'
 vim.opt.wrap = false
 vim.opt.dictionary = '/usr/share/dict/words'
+vim.opt.signcolumn = 'yes:1'
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
@@ -243,11 +239,6 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
-    -- mappings = {
-    --   list = {
-    --     { key = "u", action = "dir_up" },
-    --   },
-    -- },
   },
   renderer = {
     group_empty = true,
@@ -279,12 +270,6 @@ vim.g.VM_maps = { ['Find Under'] = '<C-d>', ['Find Subword Under'] = '<C-d>' }
 ----------------------------------
 
 require('config.telescope')
-
-----------------------------------
---   git-worktree
-----------------------------------
-
--- map('n', '<C-g>', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {})
 
 ----------------------------------
 --   treesitter
@@ -343,17 +328,10 @@ map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
 map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
 
 ----------------------------------
---   luasnip
-----------------------------------
-
-require("luasnip.loaders.from_snipmate").load()
-
-----------------------------------
 --   nvim-cmp
 ----------------------------------
 
 local cmp = require('cmp')
-local luasnip = require('luasnip')
 
 local cmp_icons = {
   Text = " ", Method = "ƒ", Function = "ƒ", Constructor = " ", Field = "",
@@ -373,13 +351,6 @@ local mapping = {
     fallback()
   end,
   ['<C-SPACE>'] = cmp.mapping.complete(),
-  ['<C-k>'] = function(fallback)
-    if luasnip.expand_or_jumpable() then
-      luasnip.expand_or_jump()
-      return
-    end
-    fallback()
-  end,
   ["<C-n>"] = cmp.mapping(function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -399,17 +370,11 @@ local mapping = {
 }
 
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer' },
     { name = 'path' },
-    { name = 'luasnip' },
   },
   mapping = mapping,
   formatting = {
@@ -418,7 +383,6 @@ cmp.setup {
       item.menu = ({
         buffer = "[B]",
         nvim_lsp = "[LSP]",
-        luasnip = "[Snippet]",
         nvim_lua = "[Lua]",
         latex_symbols = "[LaTeX]",
       })[entry.source.name]
@@ -468,14 +432,7 @@ require("config.lsp")
 ----------------------------------
 
 require('gitsigns').setup({
-  signs = {
-    add          = { text = '│', },
-    change       = { text = '│' },
-    delete       = { text = '_' },
-    topdelete    = { text = '‾' },
-    changedelete = { text = '~' },
-    untracked    = { text = '┆' },
-  },
+  current_line_blame = true,
 })
 
 ----------------------------------

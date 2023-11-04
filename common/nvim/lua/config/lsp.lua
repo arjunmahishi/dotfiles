@@ -17,7 +17,7 @@ map('n', '<leader>rl', ':LspRestart<CR>', {})
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'gopls', 'lua_ls', 'vimls' }
+local servers = { 'gopls', 'lua_ls', 'vimls', 'tsserver' }
 
 -- iterate over each of the servers and setup each of them
 for _, lsp in ipairs(servers) do
@@ -50,6 +50,15 @@ for _, lsp in ipairs(servers) do
           },
         },
       },
+    }
+
+    return
+  end
+
+  if lsp == 'tsserver' then
+    nvim_lsp.tsserver.setup {
+      capabilities = capabilities,
+      flags = { debounce_text_changes = 150 }
     }
 
     return
