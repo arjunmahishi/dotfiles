@@ -1,0 +1,28 @@
+set scrolloff=5
+set incsearch
+
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+
+
+set relativenumber
+set number
+
+nmap <Space> <Leader>
+
+map Q gq
+imap jj <esc>
+map vv :vsplit<CR>
+map <C-p> :Files<CR>
+
+" navigation
+map <C-j> <action>(PreviousTab)
+map <C-k> <action>(NextTab)
+
+map <leader>tw <action>(FindUsages)
+map <C-p> <action>(SearchEverywhere)
+map / <action>(Find)
