@@ -11,6 +11,7 @@ Plug 'tpope/vim-surround'
 
 set relativenumber
 set number
+set smartcase
 
 nmap <Space> <Leader>
 
@@ -22,7 +23,13 @@ map <C-p> :Files<CR>
 " navigation
 map <C-j> <action>(PreviousTab)
 map <C-k> <action>(NextTab)
+map <leader>h <C-w>h
+map <leader>j <C-w>j
+map <leader>k <C-w>k
+map <leader>l <C-w>l
 
 map <leader>tw <action>(FindUsages)
-map <C-p> <action>(SearchEverywhere)
-map / <action>(Find)
+map <C-p> <action>(GotoFile)
+
+"" create a command to toggle git blame
+command! -nargs=0 Blame call <action>(Annotate)
