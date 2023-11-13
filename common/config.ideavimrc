@@ -33,3 +33,6 @@ map <C-p> <action>(GotoFile)
 
 "" create a command to toggle git blame
 command! -nargs=0 Blame call <action>(Annotate)
+
+" LSP STUFF
+map gr <action>(RenameElement)

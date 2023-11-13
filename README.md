@@ -28,3 +28,12 @@ A collection of dotfiles I use/used across work/personal laptops
   git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
   ~/.config/emacs/bin/doom install
   ```
+
+### Some commands
+
+```bash
+brew install tmux nvim fzf git-delta ripgrep htop jq fd wget
+
+# To install useful key bindings and fuzzy completion:
+$(brew --prefix)/opt/fzf/install
+```
