@@ -7,11 +7,13 @@ set incsearch
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'AndrewRadev/splitjoin.vim'
 
 
 set relativenumber
 set number
 set smartcase
+set hlsearch
 
 nmap <Space> <Leader>
 
@@ -19,6 +21,7 @@ map Q gq
 imap jj <esc>
 map vv :vsplit<CR>
 map <C-p> :Files<CR>
+map <C-l> :nohlsearch<CR>
 
 " navigation
 map <C-j> <action>(PreviousTab)

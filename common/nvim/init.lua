@@ -55,6 +55,8 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
+Plug('L3MON4D3/LuaSnip')
+Plug('benfowler/telescope-luasnip.nvim')
 
 -- colorscheme
 Plug('lifepillar/vim-gruvbox8')
@@ -251,7 +253,7 @@ require("nvim-tree").setup({
 map('n', '<leader>o', ':NvimTreeToggle<CR>', {})
 map('n', '<leader>O', ':NvimTreeFindFileToggle<CR>', {})
 
--- close nvim-tree when no other window is open 
+-- close nvim-tree when no other window is open
 vim.cmd [[
   augroup NvimTree
     autocmd!
@@ -328,10 +330,17 @@ map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
 map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
 
 ----------------------------------
+--   luasnip
+----------------------------------
+
+require("luasnip.loaders.from_snipmate").load()
+
+----------------------------------
 --   nvim-cmp
 ----------------------------------
 
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 local cmp_icons = {
   Text = " ", Method = "ƒ", Function = "ƒ", Constructor = " ", Field = "",
@@ -351,6 +360,13 @@ local mapping = {
     fallback()
   end,
   ['<C-SPACE>'] = cmp.mapping.complete(),
+  ['<C-k>'] = function(fallback)
+    if luasnip.expand_or_jumpable() then
+      luasnip.expand_or_jump()
+      return
+    end
+    fallback()
+  end,
   ["<C-n>"] = cmp.mapping(function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -370,11 +386,17 @@ local mapping = {
 }
 
 cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = 'luasnip' },
   },
   mapping = mapping,
   formatting = {
@@ -383,6 +405,7 @@ cmp.setup {
       item.menu = ({
         buffer = "[B]",
         nvim_lsp = "[LSP]",
+        luasnip = "[Snippet]",
         nvim_lua = "[Lua]",
         latex_symbols = "[LaTeX]",
       })[entry.source.name]

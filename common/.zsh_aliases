@@ -7,6 +7,9 @@ alias pbcopy='xclip -selection clipboard'
 alias python="python3"
 alias pip="pip3"
 
+# git
+alias gch="git checkout \$(git branch | grep -v \$(git branch --show-current) | fzf)"
+
 # tmux 
 alias tmux="tmux -u2"
 alias tm="tmux new -s $2"
