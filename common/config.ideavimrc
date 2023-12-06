@@ -39,3 +39,7 @@ command! -nargs=0 Blame call <action>(Annotate)
 
 " LSP STUFF
 map gr <action>(RenameElement)
+
+" running tests
+map <leader>t <action>(RunClass)
+map <leader>r <action>(Run)

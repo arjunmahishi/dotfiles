@@ -5,7 +5,6 @@ require("mason-lspconfig").setup()
 require('lspsaga').setup({})
 
 local map = vim.api.nvim_set_keymap
-local noremap = { noremap = true }
 
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {})
 map('n', 'K', '<cmd>Lspsaga hover_doc<CR>', {})
@@ -17,7 +16,9 @@ map('n', '<leader>rl', ':LspRestart<CR>', {})
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'gopls', 'lua_ls', 'vimls', 'tsserver' }
+local servers = {
+  'gopls', 'lua_ls', 'vimls', 'tsserver', 'jedi_language_server', 'eslint',
+}
 
 -- iterate over each of the servers and setup each of them
 for _, lsp in ipairs(servers) do
@@ -37,10 +38,7 @@ for _, lsp in ipairs(servers) do
       },
     }
 
-    return
-  end
-
-  if lsp == 'lua_ls' then
+  elseif lsp == 'lua_ls' then
     nvim_lsp.lua_ls.setup {
       capabilities = capabilities,
       settings = {
@@ -51,22 +49,12 @@ for _, lsp in ipairs(servers) do
         },
       },
     }
-
-    return
-  end
-
-  if lsp == 'tsserver' then
-    nvim_lsp.tsserver.setup {
+  else
+    -- default setup for all other servers
+    nvim_lsp[lsp].setup {
       capabilities = capabilities,
       flags = { debounce_text_changes = 150 }
     }
-
-    return
   end
-
-  nvim_lsp[lsp].setup {
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 }
-  }
 end
 
