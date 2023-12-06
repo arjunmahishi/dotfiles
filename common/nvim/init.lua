@@ -306,11 +306,12 @@ require('nvim-treesitter.parsers').get_parser_configs().norg = {
 require('flow').setup {
   output = {
     buffer = true,
-    size = 60,
+    -- size = 60,
   },
   filetype_cmd_map = {
     python = "python3 <<-EOF\n%s\nEOF",
   },
+  custom_cmd_dir = "~/.flow_cmds"
   -- sql_configs = sql_configs,
 }
 
