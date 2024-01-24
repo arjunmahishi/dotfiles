@@ -43,3 +43,6 @@ map gr <action>(RenameElement)
 " running tests
 map <leader>t <action>(RunClass)
 map <leader>r <action>(Run)
+
+" debugging
+map <leader>dp <action>(XDebugger.AttachToProcess)
