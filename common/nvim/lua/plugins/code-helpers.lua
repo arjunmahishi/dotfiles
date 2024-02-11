@@ -4,6 +4,7 @@ return {
   { "tpope/vim-commentary" },
   { "tpope/vim-surround" },
   { "tpope/vim-fugitive" },
+  { "jiangmiao/auto-pairs" },
   {
     "lewis6991/gitsigns.nvim",
     config = function()
@@ -22,13 +23,15 @@ return {
         filetype_cmd_map = {
           python = "python3 <<-EOF\n%s\nEOF",
         },
-        custom_cmd_dir = "~/.flow_cmds"
+        custom_cmd_dir = "/Users/armahishi/.flow_cmds"
         -- sql_configs = sql_configs,
       })
 
       map('v', '<leader>r', ':FlowRunSelected<CR>', {})
       map('n', '<leader>rr', ':FlowRunFile<CR>', {})
       map('n', '<leader>rt', ':FlowLauncher<CR>', {})
+      map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
+      map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
     end
   }
 }

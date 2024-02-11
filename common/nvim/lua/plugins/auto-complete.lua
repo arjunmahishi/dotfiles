@@ -9,7 +9,10 @@ end, { desc = "Super Tab" })
 
 -- nvim-cmp setup
 local function cmp_setup()
+  require("luasnip.loaders.from_snipmate").load()
+
   local cmp = require('cmp')
+  local luasnip = require('luasnip')
 
   local mapping = {
     ['<CR>'] = function(fallback)
@@ -37,17 +40,29 @@ local function cmp_setup()
 
       fallback()
     end, { "i", "s", "c" }),
-  }
+    ['<C-k>'] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+        return
+      end
+
+      fallback()
+    end, { "i", "s" }),
+    }
 
   cmp.setup({
-    snippet = {},
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
     mapping = mapping,
     sources = {
       { name = 'nvim_lsp' },
       { name = 'buffer' },
       { name = 'path' },
-      { name = 'vsnip' },
       { name = 'nvim_lua' },
+      { name = 'luasnip' },
     },
     window = {
       documentation = cmp.config.window.bordered(),
@@ -74,22 +89,22 @@ local function cmp_setup()
   })
 end
 
+-- require("luasnip.loaders.from_snipmate").lazy_load()
 
 return {
   {
-    "zbirenbaum/copilot.lua",
+    'zbirenbaum/copilot.lua',
     opts = {
       filetypes = { ["*"] = true },
       suggestion = {
         enabled = true,
         auto_trigger = false,
         debounce = 75,
-        keymap = {
-          accept = "<Tab>", next = "<S-Tab>",
-        },
+        keymap = { next = "<S-Tab>" },
       },
     },
   },
+  { 'L3MON4D3/LuaSnip' },
   { 'hrsh7th/nvim-cmp', config = cmp_setup },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-buffer' },

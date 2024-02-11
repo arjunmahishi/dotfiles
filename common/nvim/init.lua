@@ -4,7 +4,7 @@ vim.g.mapleader = ' '
 --       Setup lazy.nvim
 ------------------------------------
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = "/Users/armahishi/.nvim-plugins/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -18,6 +18,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
+  root = "/Users/armahishi/.nvim-plugins",
 	change_detection = {
 		notify = false,
 	},

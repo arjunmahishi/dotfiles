@@ -22,6 +22,7 @@ end
 hs.hotkey.bind({"cmd"}, "1", open_other_apps("iterm"))
 hs.hotkey.bind({"cmd"}, "2", open_other_apps("arc"))
 hs.hotkey.bind({"cmd"}, "3", open_other_apps("slack"))
+-- hs.hotkey.bind({"cmd"}, "4", open_other_apps("zed"))
 hs.hotkey.bind({"cmd"}, "4", open_other_apps("goland"))
 hs.hotkey.bind({"cmd"}, "5", open_other_apps("spotify"))
 hs.hotkey.bind({"cmd"}, "6", open_other_apps("Pritunl"))
