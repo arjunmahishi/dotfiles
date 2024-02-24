@@ -1,4 +1,5 @@
 local map = vim.api.nvim_set_keymap
+local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 
 return {
   { "tpope/vim-commentary" },
@@ -23,7 +24,7 @@ return {
         filetype_cmd_map = {
           python = "python3 <<-EOF\n%s\nEOF",
         },
-        custom_cmd_dir = "/Users/armahishi/.flow_cmds"
+        custom_cmd_dir = string.format("/Users/%s/.flow_cmds", username)
         -- sql_configs = sql_configs,
       })
 
