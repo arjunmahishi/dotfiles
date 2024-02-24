@@ -78,5 +78,11 @@ function batteries() {
   echo "[k: $(get_bettery_percent 'keyboard'), m: $(get_bettery_percent 'mouse')]"
 }
 
+function gh_repo_age() {
+  createdAt=$(gh repo view $1 --json createdAt | jq -r '.createdAt')
+  echo $(gdate +%s) $(gdate -d "$createdAt" +%s) |\
+    awk '{print ($1 - $2) / 86400 / 365 " years"}'
+}
+
 # declare env variables
 export GOTESTS_TEMPLATE="testify"
