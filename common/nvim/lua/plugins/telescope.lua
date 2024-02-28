@@ -2,8 +2,19 @@ return {
   'nvim-telescope/telescope.nvim', tag = '0.1.5',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope-live-grep-args.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+    {
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      config = function()
+        require('telescope').load_extension('live_grep_args')
+      end,
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
+      config = function()
+        require('telescope').load_extension('fzf')
+      end,
+    },
   },
   config = function()
     local actions = require('telescope.actions')
@@ -19,9 +30,6 @@ return {
         }
       },
     })
-
-    -- require('telescope').load_extension('fzf')
-    require('telescope').load_extension('live_grep_args')
 
     -- keymaps
     local map = vim.api.nvim_set_keymap
