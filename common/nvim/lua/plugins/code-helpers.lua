@@ -18,9 +18,6 @@ return {
     "arjunmahishi/flow.nvim",
     config = function()
       require('flow').setup({
-        output = {
-          buffer = true,
-        },
         filetype_cmd_map = {
           python = "python3 <<-EOF\n%s\nEOF",
         },
@@ -33,6 +30,14 @@ return {
       map('n', '<leader>rt', ':FlowLauncher<CR>', {})
       map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
       map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
+      map('n', '<leader>rq', ':FlowRunQuickCmd<CR>', {})
     end
+  },
+  { 'bennypowers/splitjoin.nvim',
+    lazy = true,
+    keys = {
+      { 'gj', function() require'splitjoin'.join() end, desc = 'Join the object under cursor' },
+      { 'g,', function() require'splitjoin'.split() end, desc = 'Split the object under cursor' },
+    },
   }
 }

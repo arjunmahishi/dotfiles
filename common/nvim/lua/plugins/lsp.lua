@@ -1,4 +1,6 @@
-SERVERS = { "gopls", "lua_ls", "jedi_language_server" }
+SERVERS = {
+  "gopls", "lua_ls", "jedi_language_server", "tsserver", "tailwindcss",
+}
 
 local function lsp_hover_handler()
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
