@@ -75,6 +75,7 @@ return {
             { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
             { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
             { "gr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
+            { "gR", "<cmd>lua vim.lsp.buf.references()<CR>" },
             { "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
             { "<leader>rl", "<cmd>LspRestart<CR>" },
         },

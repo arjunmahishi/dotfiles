@@ -24,6 +24,13 @@ return {
         file_ignore_patterns = {'node_modules', 'coverage'},
         mapping = { i = { ["<esc>"] = actions.close } }
       },
+
+      pickers = {
+        find_files = {
+          file_ignore_patterns = {'vendor/'}
+        }
+      },
+
       extensions = {
         live_grep_args = {
           theme = "ivy",

@@ -39,5 +39,32 @@ return {
       { 'gj', function() require'splitjoin'.join() end, desc = 'Join the object under cursor' },
       { 'g,', function() require'splitjoin'.split() end, desc = 'Split the object under cursor' },
     },
-  }
+  },
+  {
+    "leoluz/nvim-dap-go",
+    dependencies = {
+      { "mfussenegger/nvim-dap" },
+    },
+    config = function ()
+      require('dap-go').setup()
+
+      map('n', '<leader>dc', ':lua require("dap").continue()<CR>', {})
+      map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', {})
+      map('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', {})
+      map('n', '<leader>ds', ':lua require("dap").step_over()<CR>', {})
+      map('n', '<leader>di', ':lua require("dap").step_into()<CR>', {})
+      map('n', '<leader>do', ':lua require("dap").step_out()<CR>', {})
+    end,
+  },
+  -- {
+  --   "ray-x/go.nvim",
+  --   dependencies = {
+  --     { "mfussenegger/nvim-dap" },
+  --   },
+  --   config = function ()
+  --     require("go").setup()
+  --   end,
+  --   event = {"CmdlineEnter"},
+  --   ft = {"go", 'gomod'},
+  -- }
 }
