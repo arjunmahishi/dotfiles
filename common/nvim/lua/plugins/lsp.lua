@@ -48,36 +48,42 @@ local function lsp_config()
 end
 
 return {
-    -- Mason plugin for managing LSP servers and other tools
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
+  -- Mason plugin for managing LSP servers and other tools
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+    -- opts = {
+    --   registries = {
+    --     "github:rail/mason-registry@crlfmt",
+    --     "github:mason-org/mason-registry",
+    --   },
+    -- },
+  },
 
-    -- Mason LSPconfig to bridge between Mason and nvim-lspconfig
-    {
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = SERVERS, -- Ensure gopls is installed
-            })
-        end,
-    },
+  -- Mason LSPconfig to bridge between Mason and nvim-lspconfig
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = SERVERS, -- Ensure gopls is installed
+      })
+    end,
+  },
 
-    -- LSP configuration
-    {
-        "neovim/nvim-lspconfig",
-        init = lsp_hover_handler,
-        config = lsp_config,
-        keys = {
-            { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
-            { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
-            { "gr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
-            { "gR", "<cmd>lua vim.lsp.buf.references()<CR>" },
-            { "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
-            { "<leader>rl", "<cmd>LspRestart<CR>" },
-        },
+  -- LSP configuration
+  {
+    "neovim/nvim-lspconfig",
+    init = lsp_hover_handler,
+    config = lsp_config,
+    keys = {
+      { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>" },
+      { "K",          "<cmd>lua vim.lsp.buf.hover()<CR>" },
+      { "gr",         "<cmd>lua vim.lsp.buf.rename()<CR>" },
+      { "gR",         "<cmd>lua vim.lsp.buf.references()<CR>" },
+      { "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>" },
+      { "<leader>rl", "<cmd>LspRestart<CR>" },
     },
+  },
 }

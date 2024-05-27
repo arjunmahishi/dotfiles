@@ -92,18 +92,19 @@ end
 -- require("luasnip.loaders.from_snipmate").lazy_load()
 
 return {
-  {
-    'zbirenbaum/copilot.lua',
-    opts = {
-      filetypes = { ["*"] = true },
-      suggestion = {
-        enabled = true,
-        auto_trigger = false,
-        debounce = 75,
-        keymap = { next = "<S-Tab>" },
-      },
-    },
-  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   opts = {
+  --     filetypes = { ["*"] = true },
+  --     suggestion = {
+  --       enabled = true,
+  --       auto_trigger = false,
+  --       debounce = 75,
+  --       keymap = { next = "<S-Tab>" },
+  --     },
+  --   },
+  -- },
+  { 'github/copilot.vim' },
   { 'L3MON4D3/LuaSnip' },
   { 'hrsh7th/nvim-cmp', config = cmp_setup },
   { 'hrsh7th/cmp-nvim-lsp' },

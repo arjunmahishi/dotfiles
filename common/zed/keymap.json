@@ -1,0 +1,45 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-p": "file_finder::Toggle"
+    }
+  },
+  {
+    // normal and visual modes
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {}
+  },
+  {
+    // normal mode
+    "context": "Editor && vim_mode == normal && (vim_operator == none || vim_operator == n) && !VimWaiting",
+    "bindings": {
+      "K": "editor::Hover",
+      "v v": "pane::SplitRight"
+      // "ctrl-j": "editor::TabPrev",
+      // "ctrl-k": "editor::Tab"
+    }
+  },
+  {
+    // all visual modes
+    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+    "bindings": {
+      "g c": "editor::ToggleComments"
+    }
+  },
+  {
+    // insert mode
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore"
+    }
+  },
+  {
+    // switch tabs
+    "context": "Editor && vim_mode == normal && (vim_operator == none || vim_operator == n) && !VimWaiting",
+    "bindings": {
+      "ctrl-j": "pane::ActivatePrevItem",
+      "ctrl-k": "pane::ActivateNextItem"
+    }
+  }
+]

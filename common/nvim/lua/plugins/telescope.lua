@@ -21,7 +21,7 @@ return {
 
     require('telescope').setup({
       defaults = {
-        file_ignore_patterns = {'node_modules', 'coverage'},
+        file_ignore_patterns = {'node_modules', 'coverage', 'vendor'},
         mapping = { i = { ["<esc>"] = actions.close } }
       },
 

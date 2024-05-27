@@ -159,9 +159,12 @@ vim.opt.dictionary = '/usr/share/dict/words'
 vim.opt.signcolumn = 'yes:1'
 vim.opt.statusline = StatusLine()
 
+
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()
 ]]
 
 vim.cmd [[colorscheme tokyonight-night]]
-
+--
+-- make backgroud transparent
+vim.cmd[[ hi Normal guibg=none ]]
