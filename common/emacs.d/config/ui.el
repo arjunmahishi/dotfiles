@@ -10,7 +10,10 @@
 ;; set the font
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 150)
 
-(load-theme 'tango-dark)
+(use-package nordic-night-theme
+  :ensure t
+  :config
+  (load-theme 'nordic-night t))
 
 ;; Custom mode line
 (setq-default mode-line-format
@@ -53,8 +56,14 @@
   (setq ivy-wrap t)
   (setq ivy-height 20))
 
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
+;; (use-package ivy-rich
+;;   :init
+;;   (ivy-rich-mode 1))
 
-(use-package counsel :bind (("M-x" . counsel-M-x)))
+;; Smooth scrolling
+(setq scroll-margin 3
+  scroll-conservatively 101
+  scroll-step 1
+  scroll-preserve-screen-position t)
+
+(setq-default tab-width 4)

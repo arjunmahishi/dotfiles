@@ -8,12 +8,12 @@
   :config
   (evil-mode 1)
 
-  (define-key evil-insert-state-map (kbd "jj") 'evil-normal-state)
-  (define-key evil-normal-state-map (kbd "J") 'previous-buffer)
-  (define-key evil-normal-state-map (kbd "K") 'next-buffer)
+  (define-key evil-normal-state-map (kbd "C-j") 'previous-buffer)
+  (define-key evil-normal-state-map (kbd "C-k") 'next-buffer)
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-  (define-key evil-normal-state-map (kbd "C-x") 'kill-buffer)
-  (define-key evil-normal-state-map (kbd "vv") 'split-window-right))
+  (define-key evil-normal-state-map (kbd "C-S-p") 'counsel-find-file)
+  (define-key evil-normal-state-map (kbd "C-b") 'switch-to-buffer)
+  (define-key evil-normal-state-map (kbd "C-x") 'kill-buffer))
 
 ;; Additional Evil Mode customizations
 (use-package evil-surround
@@ -29,9 +29,6 @@
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "b" 'switch-to-buffer
-    "k" 'kill-buffer
-    "w" 'save-buffer
     "h" 'evil-window-left
     "l" 'evil-window-right
     "j" 'evil-window-down
