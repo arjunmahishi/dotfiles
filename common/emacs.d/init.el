@@ -11,6 +11,18 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; (add-to-list load-path (expand-file-name "packages/quelpa.el" user-emacs-directory))
+; (require 'quelpa)
+
+(use-package quelpa
+  :ensure t)
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
+
 ;; Load individual configuration files
 (load (expand-file-name "config/ui.el" user-emacs-directory))
 (load (expand-file-name "config/evil.el" user-emacs-directory))
@@ -27,7 +39,7 @@
  '(custom-safe-themes
    '("7c7026a406042e060bce2b56c77d715c3a4e608c31579d336cb825b09e60e827" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" default))
  '(package-selected-packages
-   '(nordic-night-theme go-mode company which-key lsp-mode key-chord evil-search-highlight-persist evil-leader evil-commentary evil-surround evil)))
+   '(lsp-ui git-gutter-fringe git-gutter editorconfig quelpa-use-package quelpa copilot magit nordic-night-theme go-mode company which-key lsp-mode key-chord evil-search-highlight-persist evil-leader evil-commentary evil-surround evil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

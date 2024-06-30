@@ -1,4 +1,3 @@
-;; Install and configure Projectile
 (use-package projectile
     :diminish projectile-mode
     :config
@@ -14,3 +13,7 @@
 (use-package counsel-projectile
     :config
     (counsel-projectile-mode))
+
+(use-package magit
+  :ensure t
+  :commands (magit-status magit-get-current-branch))

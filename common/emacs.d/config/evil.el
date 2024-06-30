@@ -2,6 +2,7 @@
 
 ;; Install and enable Evil Mode
 (use-package evil
+  :ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -13,7 +14,8 @@
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
   (define-key evil-normal-state-map (kbd "C-S-p") 'counsel-find-file)
   (define-key evil-normal-state-map (kbd "C-b") 'switch-to-buffer)
-  (define-key evil-normal-state-map (kbd "C-x") 'kill-buffer))
+  (define-key evil-normal-state-map (kbd "C-x") 'kill-buffer)
+  (define-key evil-normal-state-map (kbd "K") 'lsp-ui-doc-show))
 
 ;; Additional Evil Mode customizations
 (use-package evil-surround

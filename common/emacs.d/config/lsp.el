@@ -1,6 +1,11 @@
 (use-package lsp-mode
   :ensure t)
 
+(use-package lsp-ui
+  :ensure t
+  :config
+  (setq lsp-ui-doc-enable t))
+
 (use-package go-mode
   :ensure t
   :hook ((go-mode . lsp-deferred)
