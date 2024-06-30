@@ -1,3 +1,7 @@
 sync.sh
 mac/.DS_Store
 common/zed/.tmp*
+common/emacs.d/elpa
+common/emacs.d/auto-save-list
+common/emacs.d/projectile-bookmarks.eld
+common/emacs.d/recentf
