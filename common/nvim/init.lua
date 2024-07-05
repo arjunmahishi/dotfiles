@@ -20,9 +20,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
   root = string.format("/Users/%s/.nvim-plugins", username),
-	change_detection = {
-		notify = false,
-	},
+  change_detection = {
+    notify = false,
+  },
 })
 
 ------------------------------------
@@ -167,4 +167,4 @@ vim.cmd [[
 vim.cmd [[colorscheme tokyonight-night]]
 --
 -- make backgroud transparent
-vim.cmd[[ hi Normal guibg=none ]]
+-- vim.cmd [[ hi Normal guibg=none ]]

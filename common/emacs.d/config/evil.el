@@ -13,8 +13,10 @@
   (define-key evil-normal-state-map (kbd "C-k") 'next-buffer)
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
   (define-key evil-normal-state-map (kbd "C-S-p") 'counsel-find-file)
-  (define-key evil-normal-state-map (kbd "C-b") 'switch-to-buffer)
+  (define-key evil-normal-state-map (kbd "C-b") 'ivy-switch-buffer)
   (define-key evil-normal-state-map (kbd "C-x") 'kill-buffer)
+  (define-key evil-normal-state-map (kbd "C-f") 'counsel-projectile-rg)
+  (define-key evil-normal-state-map (kbd "M-p") 'counsel-projectile-switch-project)
   (define-key evil-normal-state-map (kbd "K") 'lsp-ui-doc-show))
 
 ;; Additional Evil Mode customizations

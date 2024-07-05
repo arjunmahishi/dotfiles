@@ -40,6 +40,10 @@
 
    ;; Percentage in buffer
    '(:eval (format " %3d%%%%" (/ (* 100 (point)) (point-max)))) "  "
+
+   ;; git branch using magit
+   '(:eval (when (and (buffer-file-name) (fboundp 'magit-get-current-branch))
+			 (concat "  " (magit-get-current-branch))))
 ))
 
 (use-package ivy
@@ -48,13 +52,32 @@
          ("C-p" . ivy-previous-line))
   :config
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers nil)
   (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-ignore-order)))
   (setq ivy-initial-inputs-alist nil)
   (setq ivy-wrap t)
   (setq ivy-height 20))
+
+(use-package counsel
+  :ensure t
+  :config
+  (ivy-mode 1)
+  (defun counsel-fd (&optional initial-input)
+    "Search for a file using fd."
+    (interactive)
+    (counsel-require-program "fd")
+    (let ((counsel-fd-base-command
+           "fd --type f --hidden --follow --exclude .git --color never "))
+      (ivy-read "Find file: "
+                (split-string (shell-command-to-string counsel-fd-base-command) "\n" t)
+                :initial-input initial-input
+                :matcher #'counsel--find-file-matcher
+                :action #'counsel-find-file-action
+                :preselect (counsel--preselect-file)
+                :require-match t
+                :history 'file-name-history
+                :keymap counsel-find-file-map
+                :caller 'counsel-fd))))
 
 ;; Smooth scrolling
 (setq scroll-margin 3

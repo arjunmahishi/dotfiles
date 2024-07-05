@@ -30,6 +30,11 @@
 (load (expand-file-name "config/file-management.el" user-emacs-directory))
 (load (expand-file-name "config/auto-complete.el" user-emacs-directory))
 (load (expand-file-name "config/lsp.el" user-emacs-directory))
+(load (expand-file-name "config/cockroach.el" user-emacs-directory))
+
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

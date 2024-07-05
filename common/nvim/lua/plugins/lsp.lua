@@ -20,6 +20,20 @@ local function lsp_on_attach()
   })
 end
 
+local function gopls_on_new_config(new_config, new_root_dir)
+  if new_root_dir == '/Users/armahishi/dev/work/db/cockroach' then
+    new_config.settings.gopls.env = {
+      GOPACKAGESDRIVER = './build/bazelutil/gopackagesdriver.sh'
+    }
+    new_config.settings.gopls.directoryFilters = {
+      "-bazel-bin",
+      "-bazel-out",
+      "-bazel-testlogs",
+      "-bazel-mypkg",
+    }
+  end
+end
+
 local function lsp_config()
   local lspconfig = require('lspconfig')
 
@@ -41,6 +55,13 @@ local function lsp_config()
           },
         },
       }
+    end
+
+    -- gopls override - this attaches a custom on_new_config handler
+    -- to add the GOPACKAGESDRIVER env variable when the go module's
+    -- root directory is the cockroachDB repo
+    if server == "gopls" then
+      config.on_new_config = gopls_on_new_config
     end
 
     lspconfig[server].setup(config)
