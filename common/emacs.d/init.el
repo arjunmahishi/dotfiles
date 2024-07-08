@@ -31,6 +31,7 @@
 (load (expand-file-name "config/auto-complete.el" user-emacs-directory))
 (load (expand-file-name "config/lsp.el" user-emacs-directory))
 (load (expand-file-name "config/cockroach.el" user-emacs-directory))
+(load (expand-file-name "config/system.el" user-emacs-directory))
 
 (require 'server)
 (unless (server-running-p)

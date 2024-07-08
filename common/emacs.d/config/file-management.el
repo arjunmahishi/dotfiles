@@ -6,9 +6,9 @@
     ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     ;; Recommended keymap prefix on macOS
     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-    (setq projectile-project-search-path '("~/dev/"))
     (setq projectile-switch-project-action #'projectile-dired)
-	(setq projectile-generic-command "fd . -0 --type f --color=never"))
+	(setq projectile-generic-command "fd . -0 --type f --color=never")
+	(add-to-list 'projectile-globally-ignored-directories "node_modules"))
 
 ;; Integrate Projectile with Ivy
 (use-package counsel-projectile
