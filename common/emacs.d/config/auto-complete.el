@@ -21,3 +21,10 @@
   (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
   (setq copilot-indent-offset-warning-disable t)
   (setq copilot-idle-delay 1))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+  (yas-reload-all))

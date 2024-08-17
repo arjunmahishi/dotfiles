@@ -20,6 +20,22 @@ local function lsp_on_attach()
   })
 end
 
+local function gopls_on_attach(client, bufnr)
+  lsp_on_attach()
+
+  -- local watch_ignored = {
+  --   "\\.bazel$",
+  --   "_bazel$",
+  --   "\\.cache$",
+  --   "\\.git$",
+  --   "c-deps$",
+  -- }
+  --
+  -- for _, pattern in ipairs(watch_ignored) do
+  --   vim.lsp.handlers["workspace/didChangeWatchedFiles"].add(pattern)
+  -- end
+end
+
 local function gopls_on_new_config(new_config, new_root_dir)
   if new_root_dir == '/Users/armahishi/dev/work/db/cockroach' then
     new_config.settings.gopls.env = {
@@ -62,6 +78,7 @@ local function lsp_config()
     -- root directory is the cockroachDB repo
     if server == "gopls" then
       config.on_new_config = gopls_on_new_config
+      config.on_attach = gopls_on_attach
     end
 
     lspconfig[server].setup(config)

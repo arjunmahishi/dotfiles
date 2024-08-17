@@ -45,7 +45,7 @@
  '(custom-safe-themes
    '("7c7026a406042e060bce2b56c77d715c3a4e608c31579d336cb825b09e60e827" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" default))
  '(package-selected-packages
-   '(lsp-ui git-gutter-fringe git-gutter editorconfig quelpa-use-package quelpa copilot magit nordic-night-theme go-mode company which-key lsp-mode key-chord evil-search-highlight-persist evil-leader evil-commentary evil-surround evil)))
+   '(good-scroll yasnippet lsp-ui git-gutter-fringe git-gutter editorconfig quelpa-use-package quelpa copilot magit nordic-night-theme go-mode company which-key lsp-mode key-chord evil-search-highlight-persist evil-leader evil-commentary evil-surround evil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

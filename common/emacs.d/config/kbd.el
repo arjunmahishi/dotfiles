@@ -5,4 +5,5 @@
   (key-chord-mode 1)
 
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
-  (key-chord-define evil-normal-state-map "vv" 'evil-window-vsplit))
+  (key-chord-define evil-normal-state-map "vv" 'evil-window-vsplit)
+  (key-chord-define evil-normal-state-map "gr" 'lsp-rename))

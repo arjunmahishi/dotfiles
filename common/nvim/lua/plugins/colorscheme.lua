@@ -11,5 +11,7 @@ return {
         }
       end
     end
-  }
+  },
+  { "tjdevries/colorbuddy.nvim" },
+  { "luisiacc/gruvbox-baby" },
 }

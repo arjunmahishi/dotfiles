@@ -114,3 +114,9 @@
   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [224] nil nil '(center repeated)))
+
+;; install and enable good-scroll
+(use-package good-scroll
+  :ensure t
+  :config
+  (good-scroll-mode 1))

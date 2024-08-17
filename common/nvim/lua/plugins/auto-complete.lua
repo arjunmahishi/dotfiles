@@ -1,11 +1,11 @@
 -- use tab interchangably for indenting text and accepting copilot suggestions
-vim.keymap.set('i', '<Tab>', function()
-  if require("copilot.suggestion").is_visible() then
-    require("copilot.suggestion").accept()
-  else
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
-  end
-end, { desc = "Super Tab" })
+-- vim.keymap.set('i', '<Tab>', function()
+--   if require("copilot.suggestion").is_visible() then
+--     require("copilot.suggestion").accept()
+--   else
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+--   end
+-- end, { desc = "Super Tab" })
 
 -- nvim-cmp setup
 local function cmp_setup()
@@ -48,7 +48,7 @@ local function cmp_setup()
 
       fallback()
     end, { "i", "s" }),
-    }
+  }
 
   cmp.setup({
     snippet = {
@@ -71,7 +71,7 @@ local function cmp_setup()
   })
 
   -- command line completion
-  cmp.setup.cmdline({'/', '?'}, {
+  cmp.setup.cmdline({ '/', '?' }, {
     mapping = mapping,
     sources = {
       { name = 'path' },
@@ -84,7 +84,7 @@ local function cmp_setup()
     sources = cmp.config.sources({
       { name = 'path' }
     }, {
-        { name = 'cmdline' }
+      { name = 'cmdline' }
     }),
   })
 end
@@ -106,7 +106,7 @@ return {
   -- },
   { 'github/copilot.vim' },
   { 'L3MON4D3/LuaSnip' },
-  { 'hrsh7th/nvim-cmp', config = cmp_setup },
+  { 'hrsh7th/nvim-cmp',    config = cmp_setup },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-path' },

@@ -20,6 +20,7 @@
   :hook (
 	 (go-mode . lsp-deferred)
 	 (go-mode . company-mode)
+	 (go-mode . yas-minor-mode)
 	 (before-save . gofmt-before-save))
   :config
   (require 'lsp-go)

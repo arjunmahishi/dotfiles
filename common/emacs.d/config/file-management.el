@@ -7,7 +7,10 @@
     ;; Recommended keymap prefix on macOS
     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
     (setq projectile-switch-project-action #'projectile-dired)
-	(setq projectile-generic-command "fd . -0 --type f --color=never")
+	(setq projectile-enable-caching t)
+	(setq projectile-indexing-method 'alien)
+	(setq projectile-completion-system 'ido)
+	;; (setq projectile-generic-command "fd . -0 --type f --color=never")
 	(add-to-list 'projectile-globally-ignored-directories "node_modules"))
 
 ;; Integrate Projectile with Ivy
