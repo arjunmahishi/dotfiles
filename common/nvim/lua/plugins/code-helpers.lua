@@ -4,16 +4,7 @@ local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 return {
   { "tpope/vim-commentary" },
   { "tpope/vim-surround" },
-  { "tpope/vim-fugitive" },
   { "jiangmiao/auto-pairs" },
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup({
-        current_line_blame = true,
-      })
-    end,
-  },
   {
     "arjunmahishi/flow.nvim",
     config = function()
@@ -33,27 +24,59 @@ return {
       map('n', '<leader>rq', ':FlowRunQuickCmd<CR>', {})
     end
   },
-  { 'bennypowers/splitjoin.nvim',
+  {
+    'bennypowers/splitjoin.nvim',
     lazy = true,
     keys = {
-      { 'gj', function() require'splitjoin'.join() end, desc = 'Join the object under cursor' },
-      { 'g,', function() require'splitjoin'.split() end, desc = 'Split the object under cursor' },
+      { 'gj', function() require 'splitjoin'.join() end,  desc = 'Join the object under cursor' },
+      { 'g,', function() require 'splitjoin'.split() end, desc = 'Split the object under cursor' },
     },
   },
   {
-    "leoluz/nvim-dap-go",
+    "mfussenegger/nvim-dap",
     dependencies = {
-      { "mfussenegger/nvim-dap" },
+      { "nvim-neotest/nvim-nio" },
+      { "leoluz/nvim-dap-go" },
+      { "rcarriga/nvim-dap-ui" },
     },
-    config = function ()
-      require('dap-go').setup()
+    config = function()
+      local dap, dapui = require("dap"), require("dapui")
 
+      dapui.setup({
+        layouts = { {
+          elements = { {
+            id = "scopes",
+            size = 0.5
+          }, {
+            id = "repl",
+            size = 0.5
+          } },
+          position = "bottom",
+          size = 10
+        } },
+      })
+
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+
+      require('dap-go').setup()
       map('n', '<leader>dc', ':lua require("dap").continue()<CR>', {})
       map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', {})
       map('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', {})
       map('n', '<leader>ds', ':lua require("dap").step_over()<CR>', {})
       map('n', '<leader>di', ':lua require("dap").step_into()<CR>', {})
       map('n', '<leader>do', ':lua require("dap").step_out()<CR>', {})
+      map('n', '<leader>dx', ':lua require("dap").close()<CR>', {})
     end,
   },
   -- {

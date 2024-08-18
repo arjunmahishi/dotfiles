@@ -19,7 +19,8 @@ local function open_other_apps(name)
 end
 
 -- hs.hotkey.bind({"cmd"}, "1", open_primary_app())
-hs.hotkey.bind({"cmd"}, "1", open_other_apps("iterm"))
-hs.hotkey.bind({"cmd"}, "2", open_other_apps("arc"))
-hs.hotkey.bind({"cmd"}, "3", open_other_apps("spotify"))
-hs.hotkey.bind({"cmd"}, "4", open_other_apps("WhatsApp"))
+-- hs.hotkey.bind({ "cmd" }, "1", open_other_apps("iterm"))
+hs.hotkey.bind({ "cmd" }, "1", open_other_apps("kitty"))
+hs.hotkey.bind({ "cmd" }, "2", open_other_apps("arc"))
+hs.hotkey.bind({ "cmd" }, "3", open_other_apps("spotify"))
+hs.hotkey.bind({ "cmd" }, "4", open_other_apps("emacs"))
