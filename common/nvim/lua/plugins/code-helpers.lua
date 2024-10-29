@@ -1,8 +1,74 @@
 local map = vim.api.nvim_set_keymap
 local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 
+-- A function to cycle through nodes of a specific type. This uses treesitter's
+-- AST to find all the nodes.
+local function jump_to_node(target_node_type, direction)
+  local parser = vim.treesitter.get_parser(0)
+  local root = parser:parse()[1]:root()
+  local current_pos = vim.api.nvim_win_get_cursor(0)
+  local target_pos = nil
+
+  -- Collect all target nodes
+  local target_nodes = {}
+  for node in root:iter_children() do
+    if node:type() == target_node_type then
+      table.insert(target_nodes, { row = node:start() + 1, col = select(2, node:start()) })
+    end
+  end
+
+  -- Exit if no target found
+  if #target_nodes == 0 then return end
+
+  -- Find the target based on direction
+  for _, pos in ipairs(target_nodes) do
+    if (direction == "next" and (pos.row > current_pos[1] or (pos.row == current_pos[1] and pos.col > current_pos[2]))) or
+        (direction == "prev" and (pos.row < current_pos[1] or (pos.row == current_pos[1] and pos.col < current_pos[2]))) then
+      target_pos = pos
+      break
+    end
+  end
+
+  -- Wrap around if no target found in the specified direction
+  target_pos = target_pos or (direction == "next" and target_nodes[1] or target_nodes[#target_nodes])
+
+  -- Move to the target position
+  vim.api.nvim_win_set_cursor(0, { target_pos.row, target_pos.col })
+end
+
+-- map the function navigation keys
+map('n', ']f', '', {
+  callback = function()
+    jump_to_node("function_declaration", "next")
+  end
+})
+
+map('n', '[f', '', {
+  callback = function()
+    jump_to_node("function_declaration", "prev")
+  end
+})
+
+map('n', ']v', '', {
+  callback = function()
+    jump_to_node("variable_declaration", "next")
+  end
+})
+
+map('n', '[v', '', {
+  callback = function()
+    jump_to_node("variable_declaration", "prev")
+  end
+})
+
 return {
-  { "tpope/vim-commentary" },
+  {
+    "tpope/vim-commentary",
+    config = function()
+      -- setup commentstring for terraform
+      vim.api.nvim_command("autocmd FileType terraform setlocal commentstring=#\\ %s")
+    end,
+  },
   { "tpope/vim-surround" },
   { "jiangmiao/auto-pairs" },
   {
@@ -13,7 +79,6 @@ return {
           python = "python3 <<-EOF\n%s\nEOF",
         },
         custom_cmd_dir = string.format("/Users/%s/.flow_cmds", username)
-        -- sql_configs = sql_configs,
       })
 
       map('v', '<leader>r', ':FlowRunSelected<CR>', {})
@@ -79,15 +144,4 @@ return {
       map('n', '<leader>dx', ':lua require("dap").close()<CR>', {})
     end,
   },
-  -- {
-  --   "ray-x/go.nvim",
-  --   dependencies = {
-  --     { "mfussenegger/nvim-dap" },
-  --   },
-  --   config = function ()
-  --     require("go").setup()
-  --   end,
-  --   event = {"CmdlineEnter"},
-  --   ft = {"go", 'gomod'},
-  -- }
 }

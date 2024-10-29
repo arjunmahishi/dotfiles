@@ -2,6 +2,23 @@ SERVERS = {
   "gopls", "lua_ls", "jedi_language_server", "tsserver", "tailwindcss",
 }
 
+function LspLineDiagnostic()
+  local line = vim.fn.line(".")
+  local diagnostics = vim.lsp.diagnostic.get_line_diagnostics(line)
+  if #diagnostics == 0 then
+    return
+  end
+
+  local diagnostic = diagnostics[1]
+  local message = diagnostic.message
+
+  if diagnostic.source then
+    message = diagnostic.source .. ": " .. message
+  end
+
+  print(message)
+end
+
 local function lsp_hover_handler()
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
@@ -119,7 +136,6 @@ return {
       { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>" },
       { "K",          "<cmd>lua vim.lsp.buf.hover()<CR>" },
       { "gr",         "<cmd>lua vim.lsp.buf.rename()<CR>" },
-      { "gR",         "<cmd>lua vim.lsp.buf.references()<CR>" },
       { "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>" },
       { "<leader>rl", "<cmd>LspRestart<CR>" },
     },

@@ -7,6 +7,12 @@ return {
       })
     end,
   },
+  {
+    "jbyuki/venn.nvim",
+    config = function()
+      vim.api.nvim_set_keymap("v", "<leader>b", ":VBox<CR>", { noremap = true })
+    end,
+  },
   { "tpope/vim-fugitive" },
-  { "ruanyl/vim-gh-line" }
+  { "ruanyl/vim-gh-line" },
 }

@@ -23,7 +23,8 @@ return {
     require('telescope').setup({
       defaults = {
         file_ignore_patterns = { 'node_modules', 'coverage', 'vendor' },
-        mapping = { i = { ["<esc>"] = actions.close } }
+        mapping = { i = { ["<esc>"] = actions.close } },
+        theme = "ivy",
       },
 
       pickers = {
@@ -59,5 +60,7 @@ return {
       noremap)
     map('n', '<leader>tgb', '<cmd>Telescope git_branches theme=ivy<CR>', noremap)
     map('n', '<leader>tgs', '<cmd>Telescope git_status theme=ivy<CR>', noremap)
+    map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols theme=ivy<CR>', noremap)
+    map('n', 'gR', '<cmd>Telescope lsp_references theme=ivy<CR>', noremap)
   end,
 }
