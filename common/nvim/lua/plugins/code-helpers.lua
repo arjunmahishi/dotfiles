@@ -4,12 +4,9 @@ local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 -- A function to cycle through nodes of a specific type. This uses treesitter's
 -- AST to find all the nodes.
 local function jump_to_node(target_node_type, direction)
+  -- Collect all target nodes
   local parser = vim.treesitter.get_parser(0)
   local root = parser:parse()[1]:root()
-  local current_pos = vim.api.nvim_win_get_cursor(0)
-  local target_pos = nil
-
-  -- Collect all target nodes
   local target_nodes = {}
   for node in root:iter_children() do
     if node:type() == target_node_type then
@@ -20,20 +17,27 @@ local function jump_to_node(target_node_type, direction)
   -- Exit if no target found
   if #target_nodes == 0 then return end
 
-  -- Find the target based on direction
-  for _, pos in ipairs(target_nodes) do
-    if (direction == "next" and (pos.row > current_pos[1] or (pos.row == current_pos[1] and pos.col > current_pos[2]))) or
-        (direction == "prev" and (pos.row < current_pos[1] or (pos.row == current_pos[1] and pos.col < current_pos[2]))) then
-      target_pos = pos
-      break
+  -- find the nearest target node
+  local cur_pos = vim.api.nvim_win_get_cursor(0)
+  local nearest_node = 1
+  for i, pos in ipairs(target_nodes) do
+    if cur_pos[1] >= pos.row then
+      nearest_node = i
     end
   end
 
-  -- Wrap around if no target found in the specified direction
-  target_pos = target_pos or (direction == "next" and target_nodes[1] or target_nodes[#target_nodes])
+  -- move to the next/prev node
+  local incr = direction == "next" and 1 or -1
+  if nearest_node + incr > #target_nodes then
+    return vim.api.nvim_win_set_cursor(0, { target_nodes[1].row, target_nodes[1].col })
+  end
 
-  -- Move to the target position
-  vim.api.nvim_win_set_cursor(0, { target_pos.row, target_pos.col })
+  if nearest_node + incr < 1 then
+    return vim.api.nvim_win_set_cursor(0, { target_nodes[#target_nodes].row, target_nodes[#target_nodes].col })
+  end
+
+  return vim.api.nvim_win_set_cursor(0,
+    { target_nodes[nearest_node + incr].row, target_nodes[nearest_node + incr].col })
 end
 
 -- map the function navigation keys
