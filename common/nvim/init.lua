@@ -117,9 +117,25 @@ function StatusLine()
     ["t"] = "TERMINAL",
   }
 
-  return replace_vars("%{get(g:modes, mode())} · %f %r %m %=%l:%c · %p%% · ${git_branch}%{&filetype} ", {
-    git_branch = git_branch,
-  })
+  -- Check if LSP is active
+  -- local lsp_indicator = ""
+  -- local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  -- if #clients > 0 then
+  --   lsp_indicator = "LSP ✔"
+  -- else
+  --   lsp_indicator = "LSP ✖"
+  -- end
+
+  -- return replace_vars(
+  --   "%{get(g:modes, mode())} · %f %r %m · ${lsp_indicator} %=%l:%c · %p%% · ${git_branch}%{&filetype} ", {
+  --     git_branch = git_branch,
+  --     lsp_indicator = lsp_indicator,
+  --   })
+
+  return replace_vars(
+    "%{get(g:modes, mode())} · %f %r %m %=%l:%c · %p%% · ${git_branch}%{&filetype} ", {
+      git_branch = git_branch,
+    })
 end
 
 function TelescopeIntoDir(dir)
@@ -158,7 +174,6 @@ vim.opt.wrap = false
 vim.opt.dictionary = '/usr/share/dict/words'
 vim.opt.signcolumn = 'yes:1'
 vim.opt.statusline = StatusLine()
-
 
 vim.cmd [[
   au TextYankPost * silent! lua vim.highlight.on_yank()

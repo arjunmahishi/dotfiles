@@ -81,13 +81,14 @@ return {
       require('flow').setup({
         filetype_cmd_map = {
           python = "python3 <<-EOF\n%s\nEOF",
+          rust = "cargo run -q",
         },
         custom_cmd_dir = string.format("/Users/%s/.flow_cmds", username)
       })
 
       map('v', '<leader>r', ':FlowRunSelected<CR>', {})
       map('n', '<leader>rr', ':FlowRunFile<CR>', {})
-      map('n', '<leader>rt', ':FlowLauncher<CR>', {})
+      map('n', '<leader>rt', ':Telescope flow theme=ivy<CR>', {})
       map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
       map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
       map('n', '<leader>rq', ':FlowRunQuickCmd<CR>', {})

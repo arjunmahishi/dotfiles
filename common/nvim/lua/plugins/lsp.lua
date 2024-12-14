@@ -140,4 +140,11 @@ return {
       { "<leader>rl", "<cmd>LspRestart<CR>" },
     },
   },
+
+  -- stupid rust-analyzer doesn't work out of the box. We have to install the below plugin
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5',
+    lazy = false,
+  },
 }
