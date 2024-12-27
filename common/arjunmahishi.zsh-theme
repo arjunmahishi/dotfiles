@@ -23,16 +23,14 @@ bureau_git_branch () {
 }
 
 bureau_git_status() {
-  _STATUS=""
-
-  # if git status is disabled for the repo, append a grey dot and return
-  if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" == "1" ]];then
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DISABLED"
-    echo $_STATUS
+  # if git status is disabled for the repo, return an empty string
+  if [[ "$(command git config --get oh-my-zsh.show-status 2>/dev/null)" != "1" ]];then
+    echo ""
     return
   fi
 
   # check status of files
+  _STATUS=""
   _INDEX=$(command git status --porcelain 2> /dev/null)
   if [[ -n "$_INDEX" ]]; then
     if $(echo "$_INDEX" | command grep -q '^[AMRD]. '); then

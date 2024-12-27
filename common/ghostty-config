@@ -1,0 +1,8 @@
+theme = Github Dark
+background-opacity = 0.92
+
+font-family = "JetBrainsMono Nerd Font"
+font-size = 15
+font-thicken = true
+
+mouse-hide-while-typing = true
