@@ -1,5 +1,5 @@
 SERVERS = {
-  "gopls", "lua_ls", "jedi_language_server", "tsserver", "tailwindcss",
+  "gopls", "lua_ls", "jedi_language_server", "ts_ls", "tailwindcss",
 }
 
 function LspLineDiagnostic()
@@ -96,6 +96,11 @@ local function lsp_config()
     if server == "gopls" then
       config.on_new_config = gopls_on_new_config
       config.on_attach = gopls_on_attach
+    end
+
+    -- tailwindcss override - skip unwanted filetypes
+    if server == "tailwindcss" then
+      config.filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact" }
     end
 
     lspconfig[server].setup(config)

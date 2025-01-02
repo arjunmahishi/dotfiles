@@ -1,8 +1,13 @@
 theme = Github Dark
-background-opacity = 0.92
+background-opacity = 0.95
 
 font-family = "JetBrainsMono Nerd Font"
 font-size = 15
 font-thicken = true
 
 mouse-hide-while-typing = true
+
+macos-titlebar-style = hidden
+
+keybind = opt+left=unbind
+keybind = opt+right=unbind
