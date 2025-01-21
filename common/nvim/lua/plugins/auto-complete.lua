@@ -105,6 +105,17 @@ return {
   --   },
   -- },
   { 'github/copilot.vim' },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken",                          -- Only on MacOS or Linux
+    opts = {
+      model = "claude-3.5-sonnet",
+    }
+  },
   { 'L3MON4D3/LuaSnip' },
   { 'hrsh7th/nvim-cmp',    config = cmp_setup },
   { 'hrsh7th/cmp-nvim-lsp' },

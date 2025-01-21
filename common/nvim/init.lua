@@ -79,8 +79,8 @@ map('n', '<leader>[', ':cprevious<cr>', noremap)
 vim.cmd([[
   augroup GoAutocmds
     autocmd!
-    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !gofmt -w %')
     autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !goimports -w %')
+    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !crlfmt -w %')
   augroup END
 ]])
 

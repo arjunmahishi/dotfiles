@@ -1,5 +1,6 @@
 SERVERS = {
-  "gopls", "lua_ls", "jedi_language_server", "ts_ls", "tailwindcss",
+  -- "gopls", "lua_ls", "jedi_language_server", "ts_ls", "tailwindcss",
+  "gopls", "lua_ls", "jedi_language_server", "tailwindcss",
 }
 
 function LspLineDiagnostic()
@@ -114,12 +115,6 @@ return {
     config = function()
       require("mason").setup()
     end,
-    -- opts = {
-    --   registries = {
-    --     "github:rail/mason-registry@crlfmt",
-    --     "github:mason-org/mason-registry",
-    --   },
-    -- },
   },
 
   -- Mason LSPconfig to bridge between Mason and nvim-lspconfig

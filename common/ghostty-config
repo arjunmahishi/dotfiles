@@ -6,8 +6,8 @@ font-size = 15
 font-thicken = true
 
 mouse-hide-while-typing = true
-
 macos-titlebar-style = hidden
+link-url = true
 
 keybind = opt+left=unbind
 keybind = opt+right=unbind
