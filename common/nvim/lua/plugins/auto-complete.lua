@@ -92,18 +92,6 @@ end
 -- require("luasnip.loaders.from_snipmate").lazy_load()
 
 return {
-  -- {
-  --   'zbirenbaum/copilot.lua',
-  --   opts = {
-  --     filetypes = { ["*"] = true },
-  --     suggestion = {
-  --       enabled = true,
-  --       auto_trigger = false,
-  --       debounce = 75,
-  --       keymap = { next = "<S-Tab>" },
-  --     },
-  --   },
-  -- },
   { 'github/copilot.vim' },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -114,7 +102,56 @@ return {
     build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
       model = "claude-3.5-sonnet",
-    }
+      -- model = "gemini-2.0-flash-001",
+      contexts = {
+        jeeves = {
+          resolve = function()
+            return require('jeeves').collect_context()
+          end,
+        },
+      },
+    },
+    config = function(_, opts)
+      require("CopilotChat").setup(opts)
+      local model = require("CopilotChat").config.model
+      local chat = function()
+        vim.ui.input({ prompt = model .. ": " }, function(input)
+          if input then
+            vim.cmd("CopilotChat " .. input)
+          end
+        end)
+      end
+
+      vim.keymap.set("n", "<leader>i", chat, { desc = "Ask Copilot" })
+      vim.keymap.set("v", "<leader>i", chat, { desc = "Ask Copilot" })
+      vim.keymap.set("n", "<leader>c", "<cmd>CopilotChat<CR>", { desc = "Copilot Chat" })
+      vim.keymap.set("v", "<leader>c", "<cmd>CopilotChat<CR>", { desc = "Copilot Chat" })
+    end,
+  },
+  {
+    'angles-n-daemons/jeeves',
+    keys = {
+      {
+        mode = { 'v' },
+        'M', -- hit M in visual mode to add the selection to your context.
+        function()
+          require('jeeves').add_selection()
+        end,
+      },
+      {
+        mode = { 'n' },
+        'M', -- hit M in normal mode to remove the selection under your cursor.
+        function()
+          require('jeeves').remove_selections_under_cursor()
+        end,
+      },
+      {
+        '<leader>jc',
+        function()
+          require('jeeves').clear()
+        end,
+      },
+    },
   },
   { 'L3MON4D3/LuaSnip' },
   { 'hrsh7th/nvim-cmp',    config = cmp_setup },
