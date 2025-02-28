@@ -26,6 +26,7 @@ return {
         file_ignore_patterns = { 'node_modules', 'coverage', 'vendor' },
         mapping = { i = { ["<esc>"] = actions.close } },
         theme = "ivy",
+        path_display = { shorten = { len = 1, exclude = { -1, -2 } } },
       },
 
       pickers = {

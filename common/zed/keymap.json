@@ -5,11 +5,6 @@
       "ctrl-p": "file_finder::Toggle"
     }
   },
-  // {
-  //   // normal and visual modes
-  //   "context": "Editor && VimControl && !VimWaiting && !menu",
-  //   "bindings": {}
-  // },
   {
     // normal mode
     "context": "Editor && vim_mode == normal && (vim_operator == none || vim_operator == n) && !VimWaiting",

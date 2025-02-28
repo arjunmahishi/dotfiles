@@ -85,5 +85,15 @@ function gh_repo_age() {
     awk '{print ($1 - $2) / 86400 / 365 " years"}'
 }
 
+function aid() {
+  aider \
+    --no-auto-commits \
+    --cache-prompts \
+    --cache-keepalive-pings 12 \
+    --openai-api-key=$(cat ~/tokens/openai) \
+    --multiline \
+    $@
+}
+
 # declare env variables
 export GOTESTS_TEMPLATE="testify"

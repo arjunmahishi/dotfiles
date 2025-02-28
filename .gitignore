@@ -14,3 +14,4 @@ common/emacs.d/quelpa
 common/emacs.d/tree-sitter
 common/emacs.d/.cache
 common/emacs.d/config/#*
+.aider*

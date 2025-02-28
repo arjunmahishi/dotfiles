@@ -13,5 +13,4 @@ return {
     end
   },
   { "tjdevries/colorbuddy.nvim" },
-  { "luisiacc/gruvbox-baby" },
 }

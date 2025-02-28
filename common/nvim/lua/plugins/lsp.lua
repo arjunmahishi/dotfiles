@@ -1,6 +1,6 @@
 SERVERS = {
   -- "gopls", "lua_ls", "jedi_language_server", "ts_ls", "tailwindcss",
-  "gopls", "lua_ls", "jedi_language_server", "tailwindcss",
+  "gopls", "lua_ls", "jedi_language_server", "tailwindcss", "ts_ls",
 }
 
 function LspLineDiagnostic()
@@ -104,6 +104,10 @@ local function lsp_config()
       config.filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact" }
     end
 
+    if server == "ts_ls" then
+      config.filetypes = { "typescript", "typescriptreact" }
+    end
+
     lspconfig[server].setup(config)
   end
 end
@@ -136,8 +140,10 @@ return {
       { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>" },
       { "K",          "<cmd>lua vim.lsp.buf.hover()<CR>" },
       { "gr",         "<cmd>lua vim.lsp.buf.rename()<CR>" },
+      { "ga",         "<cmd>lua vim.lsp.buf.code_action()<CR>" },
       { "<leader>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>" },
       { "<leader>rl", "<cmd>LspRestart<CR>" },
+      { "<leader>e",  "<cmd>lua vim.diagnostic.open_float()<CR>" },
     },
   },
 
