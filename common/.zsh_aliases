@@ -11,7 +11,7 @@ alias psgrep="ps aux | grep -v grep | grep"
 # git
 alias gch="git checkout \$(git branch | grep -v \$(git branch --show-current) | fzf)"
 
-# tmux 
+# tmux
 alias tmux="tmux -u2"
 alias tm="tmux new -s $2"
 alias ta="tmux attach -t $2"
@@ -46,7 +46,7 @@ function jump_to_directory() {
   [ -z "$JUMP_DIR" ] || base_path=$JUMP_DIR
 
   # so that you dont see you $HOME path in every entry
-  base_path_escaped="$(echo $base_path | sed 's/\//\\\//g')" 
+  base_path_escaped="$(echo $base_path | sed 's/\//\\\//g')"
 
   cd $base_path$(find $base_path -type d | grep -v "\/\?.git" | sed "s/$base_path_escaped//g" | fzf)
 }
@@ -93,6 +93,39 @@ function aid() {
     --openai-api-key=$(cat ~/tokens/openai) \
     --multiline \
     $@
+}
+
+function aid_with_files() {
+  if [ "$#" -eq 0 ]; then
+    echo "Error: Please provide at least one file to focus on"
+    return 1
+  fi
+
+  local files=()
+  local other_args=()
+
+  # split the arguments into files and other flags
+  for arg in "$@"; do
+    if [[ -f "$arg" || -d "$arg" ]]; then
+      files+=("$arg")
+    else
+      other_args+=("$arg")
+    fi
+  done
+
+  if [ "${#files[@]}" -eq 0 ]; then
+    echo "Error: No valid files found among arguments"
+    return 1
+  fi
+
+  local temp_ignore_file="/tmp/temp_aiderignore"
+
+  echo "*" > "$temp_ignore_file"
+  for file in "${files[@]}"; do
+    echo "!$file" >> "$temp_ignore_file"
+  done
+
+  aid --aiderignore="$temp_ignore_file" "$@"
 }
 
 # declare env variables
