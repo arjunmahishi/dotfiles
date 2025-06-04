@@ -55,10 +55,10 @@ return {
     map('n', '<leader>t=', '<cmd>Telescope spell_suggest theme=ivy<CR>', noremap)
     map('n', '<leader>t/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<CR>', noremap)
     map('n', '<leader>tw',
-      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({postfix = \' -t all\'})<CR>',
+      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({postfix = \' -t all\', theme = "ivy"})<CR>',
       noremap)
     map('v', '<leader>tw',
-      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_visual_selection({postfix = \' -t all\'})<CR>',
+      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_visual_selection({postfix = \' -t all\', theme = "ivy"})<CR>',
       noremap)
     map('n', '<leader>tgb', '<cmd>Telescope git_branches theme=ivy<CR>', noremap)
     map('n', '<leader>tgs', '<cmd>Telescope git_status theme=ivy<CR>', noremap)

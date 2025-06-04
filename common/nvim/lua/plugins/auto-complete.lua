@@ -101,9 +101,9 @@ return {
     },
     build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
-      -- model = "gpt-4o",
+      model = "gpt-4o",
       -- model = "gemini-2.0-flash-001",
-      model = "claude-3.7-sonnet",
+      -- model = "claude-3.7-sonnet",
       contexts = {
         jeeves = {
           resolve = function()

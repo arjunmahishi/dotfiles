@@ -41,17 +41,17 @@ end
 local function gopls_on_attach(client, bufnr)
   lsp_on_attach()
 
-  -- local watch_ignored = {
-  --   "\\.bazel$",
-  --   "_bazel$",
-  --   "\\.cache$",
-  --   "\\.git$",
-  --   "c-deps$",
-  -- }
-  --
-  -- for _, pattern in ipairs(watch_ignored) do
-  --   vim.lsp.handlers["workspace/didChangeWatchedFiles"].add(pattern)
-  -- end
+  local watch_ignored = {
+    "-\\.bazel$",
+    "-_bazel$",
+    "-\\.cache$",
+    "-\\.git$",
+    "-c-deps$",
+  }
+
+  client.config.settings = client.config.settings or {}
+  client.config.settings.gopls = client.config.settings.gopls or {}
+  client.config.settings.gopls.directoryFilters = watch_ignored
 end
 
 local function gopls_on_new_config(new_config, new_root_dir)

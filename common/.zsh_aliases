@@ -90,17 +90,12 @@ function aid() {
     --no-auto-commits \
     --cache-prompts \
     --cache-keepalive-pings 12 \
-    --openai-api-key=$(cat ~/tokens/openai) \
+    --openai-api-key=$(cat ~/tokens/openai-crl) \
     --multiline \
     $@
 }
 
 function aid_with_files() {
-  if [ "$#" -eq 0 ]; then
-    echo "Error: Please provide at least one file to focus on"
-    return 1
-  fi
-
   local files=()
   local other_args=()
 
