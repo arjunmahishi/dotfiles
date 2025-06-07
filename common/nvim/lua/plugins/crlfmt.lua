@@ -2,7 +2,7 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
-      ensure_installed = { "crlfmt" },
+      ensure_installed = { "crlfmt", "stylua" },
     },
   },
   {
@@ -19,6 +19,7 @@ return {
       },
       formatters_by_ft = {
         go = { "crlfmt" },
+        lua = { "stylua" },
       },
     },
   },
