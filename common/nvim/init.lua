@@ -116,24 +116,26 @@ function StatusLine()
 		["t"] = "TERMINAL",
 	}
 
-	-- Check if LSP is active
-	-- local lsp_indicator = ""
-	-- local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-	-- if #clients > 0 then
-	--   lsp_indicator = "LSP ✔"
-	-- else
-	--   lsp_indicator = "LSP ✖"
-	-- end
+	-- Define a global function for LSP status
+	_G.GetLspStatus = function()
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
+		if #clients > 0 then
+			local names = {}
+			for _, client in pairs(clients) do
+				table.insert(names, client.name)
+			end
+			return table.concat(names, ",") .. " ✔"
+		else
+			return "LSP ✖"
+		end
+	end
 
-	-- return replace_vars(
-	--   "%{get(g:modes, mode())} · %f %r %m · ${lsp_indicator} %=%l:%c · %p%% · ${git_branch}%{&filetype} ", {
-	--     git_branch = git_branch,
-	--     lsp_indicator = lsp_indicator,
-	--   })
-
-	return replace_vars("%{get(g:modes, mode())} · %f %r %m %=%l:%c · %p%% · ${git_branch}%{&filetype} ", {
-		git_branch = git_branch,
-	})
+	return replace_vars(
+		"%{get(g:modes, mode())} · %f %r %m · %{v:lua.GetLspStatus()} %=%l:%c · %p%% · ${git_branch}%{&filetype} ",
+		{
+			git_branch = git_branch,
+		}
+	)
 end
 
 function TelescopeIntoDir(dir)
