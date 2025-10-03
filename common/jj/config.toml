@@ -7,3 +7,4 @@ email = "arjun.mahishi@gmail.com"
 [ui]
 pager = "delta"
 diff-formatter = ":git"
+default-command = ["log", "-r", "trunk()::"] # only shows master and it's childred

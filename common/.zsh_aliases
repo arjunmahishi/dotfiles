@@ -7,6 +7,7 @@ alias pbcopy='xclip -selection clipboard'
 alias python="python3"
 alias pip="pip3"
 alias psgrep="ps aux | grep -v grep | grep"
+alias z="zoxide"
 
 # git
 alias gch="git checkout \$(git branch | grep -v \$(git branch --show-current) | fzf)"

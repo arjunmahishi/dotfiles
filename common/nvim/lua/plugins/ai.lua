@@ -67,7 +67,7 @@ return {
 		lazy = false, -- load on startup
 		opts = {
 			terminal = {
-				enable = false,
+				provider = "none",
 			},
 		},
 		keys = {
