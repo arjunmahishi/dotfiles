@@ -68,19 +68,19 @@ bureau_git_status() {
   echo $_STATUS
 }
 
-bureau_git_prompt () {
-  local _branch=$(bureau_git_branch)
-  local _status=$(bureau_git_status)
-  local _result=""
-  if [[ "${_branch}x" != "x" ]]; then
-    _result="$ZSH_THEME_GIT_PROMPT_PREFIX$_branch"
-    if [[ "${_status}x" != "x" ]]; then
-      _result="$_result $_status"
-    fi
-    _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX"
-  fi
-  echo $_result
-}
+# bureau_git_prompt () {
+#   local _branch=$(bureau_git_branch)
+#   local _status=$(bureau_git_status)
+#   local _result=""
+#   if [[ "${_branch}x" != "x" ]]; then
+#     _result="$ZSH_THEME_GIT_PROMPT_PREFIX$_branch"
+#     if [[ "${_status}x" != "x" ]]; then
+#       _result="$_result $_status"
+#     fi
+#     _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX"
+#   fi
+#   echo $_result
+# }
 
 
 _PATH="%{$fg_bold[white]%}%~%{$reset_color%}"
@@ -100,11 +100,13 @@ _1RIGHT=""
 
 bureau_precmd () {
   print
-  print -rP "$_1LEFT $(bureau_git_prompt)"
+  # print -rP "$_1LEFT $(bureau_git_prompt)"
+  print -rP "$_1LEFT"
 }
 
 setopt prompt_subst
-PROMPT='$(virtualenv) $_LIBERTY '
+# PROMPT='$(virtualenv) $_LIBERTY '
+PROMPT='$_LIBERTY '
 RPROMPT='$_1RIGHT'
 
 autoload -U add-zsh-hook

@@ -8,3 +8,29 @@ email = "arjun.mahishi@gmail.com"
 pager = "delta"
 diff-formatter = ":git"
 default-command = ["log", "-r", "trunk()::"] # only shows master and it's childred
+
+[aliases]
+back = ["util", "exec", "--", "bash", "-c", """
+    if [[ $# -gt 0 ]]; then N=$1; shift; else N=1; fi
+    resolve () { jj log --no-graph -r@ -T'change_id.short() ++ "\\n"' "$@"; }
+    current=$(resolve)
+    jj op log --no-graph -T 'id.short() ++ "\\n"' | while read op; do
+        old=$(resolve --at-op $op)
+        if [[ $old != $current ]]; then
+            echo -n "$N      \r"
+            N=$(( $N - 1 ))
+            if [[ $N -eq 0 ]]; then
+                echo -n "        \r"
+                if ! jj edit $old 2>/dev/null; then
+                    # Handle temporary problem with evolution moving to the op log.
+                    old_commit="$(jj evolog -r $old --at-op $op --no-graph -n1 -T 'commit.commit_id().short() ++ ":"')"
+                    old_commit="${old_commit%%:*}"
+                    echo "$old not found, trying commit $old_commit"
+                    jj edit $old_commit
+                fi
+                exit 0
+            fi
+            current="$old"
+        fi
+    done
+""", "jj-back"]
