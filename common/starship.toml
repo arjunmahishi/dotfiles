@@ -37,9 +37,15 @@ truncation_symbol = "…/"
 [golang]
 symbol = ""
 format = '[$symbol $version]($style) '
+detect_extensions = []
+detect_files = ['go.mod']
+detect_folders = []
 
 [nodejs]
 format = '[$symbol$version]($style) '
+detect_extensions = []
+detect_files = ['package.json']
+detect_folders = []
 
 [python]
 format = '[$symbol$version]($style) '

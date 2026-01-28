@@ -1,4 +1,5 @@
 # general aliases
+alias ls='ls --color=auto'
 alias vim="nvim"
 alias zrc="vim ~/.zshrc"
 alias lm="ls -l --block-size=M"

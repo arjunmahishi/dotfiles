@@ -1,47 +1,5 @@
-##### load nvm
-
-export NVM_DIR="$HOME/.nvm"
-
-# nvm_lazy_load() {
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-# }
-#
-# nvm() {
-#   nvm_lazy_load
-#   nvm "$@"
-# }
-#
-# node() {
-#   nvm_lazy_load
-#   node "$@"
-# }
-#
-# npm() {
-#   nvm_lazy_load
-#   npm "$@"
-# }
-#
-# npx() {
-#   nvm_lazy_load
-#   npx "$@"
-# }
-
-##### setup compinit to run only once a day
-
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
 compinit -C
-
-##### GVM
-
-gvm_lazy_load() {
-  [[ -s "/Users/armahishi/.gvm/scripts/gvm" ]] && source "/Users/armahishi/.gvm/scripts/gvm"
-}
-
-gvm() {
-  gvm_lazy_load
-  gvm "$@"
-}
