@@ -48,6 +48,10 @@ Some useful jj commands:
 
 ## Exploration
 
+- When you are exploring code, always use the @general/@explore sub-agents. Never explore anything with just the main agent.
+  Think of exploration as questions you can hand of to a sub-agent. The sub-agent should do all the tool calling. The main agent should onlu
+  be concerned with asking the right targeted questions and getting the answer back. Every tool call the main agent makes reduces the quality of the
+  entire session
 - When working in Go code, always prefer using the godocs MCP over Web fetch
 - Use the tsq command to explore Golang code. This is expected to perform
   bettern than a regular read/grep based search. Do not use Read tool until after
