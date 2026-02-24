@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(tmux list-panes:*)",
+      "Bash(pgrep:*)",
+      "Bash(vhs:*)",
+      "Bash(jj show:*)"
+    ]
+  }
+}

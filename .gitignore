@@ -1,6 +1,7 @@
 sync.sh
 mac/.DS_Store
 common/zed/.tmp*
+settings.local.json
 
 common/emacs.d/elpa
 common/emacs.d/auto-save-list
