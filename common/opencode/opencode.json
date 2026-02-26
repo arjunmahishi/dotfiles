@@ -22,6 +22,10 @@
       "oauth": {}
     }
   },
+  "instructions": [
+    "persona/SOUL.md",
+    "persona/STYLE.md"
+  ],
   "agent": {},
   "plugin": ["@franlol/opencode-md-table-formatter"]
 }

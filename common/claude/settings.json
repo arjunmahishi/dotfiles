@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash",
+      "Skill",
+      "Fetch"
+    ]
+  },
+  "model": "claude-opus-4-6",
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "learning-opportunities@learning-opportunities": true
+  },
+  "extraKnownMarketplaces": {
+    "learning-opportunities": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/DrCatHicks/learning-opportunities.git"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754067099402
+  }
+}
