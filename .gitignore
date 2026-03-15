@@ -16,3 +16,5 @@ common/emacs.d/tree-sitter
 common/emacs.d/.cache
 common/emacs.d/config/#*
 .aider*
+
+common/jj/repos
