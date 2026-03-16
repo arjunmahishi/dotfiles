@@ -1,31 +1,41 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "godoc": {
-      "type": "local",
-      "command": ["godoc-mcp"],
-      "enabled": true,
+	"$schema": "https://opencode.ai/config.json",
+	"mcp": {
+		"godoc": {
+			"type": "local",
+			"command": ["godoc-mcp"],
+			"enabled": true
+		},
+		"gopls": {
+			"type": "local",
+			"command": ["gopls", "mcp"],
+			"enabled": true
+		},
+		"diffmcp": {
+			"type": "local",
+			"command": ["diffmcp", "mcp"],
+			"enabled": true
+		},
+		"Glean": {
+			"type": "remote",
+			"url": "https://cockroachlabs-be.glean.com/mcp/christian-glean",
+			"oauth": {}
+		},
+		"strava": {
+			"type": "local",
+			"command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
+			"enabled": true
     },
-    "gopls": {
-      "type": "local",
-      "command": ["gopls", "mcp"],
-      "enabled": true,
-    },
-    "diffmcp": {
-      "type": "local",
-      "command": ["diffmcp", "mcp"],
-      "enabled": true,
-    },
-    "Glean": {
+    "Support MCP": {
       "type": "remote",
-      "url": "https://cockroachlabs-be.glean.com/mcp/christian-glean",
+      "url": "http://localhost:5000/mcp",
       "oauth": {}
     }
-  },
-  "instructions": [
-    "persona/SOUL.md",
-    "persona/STYLE.md"
-  ],
-  "agent": {},
-  "plugin": ["@franlol/opencode-md-table-formatter"]
+	},
+	"instructions": ["persona/SOUL.md", "persona/STYLE.md"],
+	"agent": {},
+	"plugin": [
+		"@franlol/opencode-md-table-formatter",
+		"@mohak34/opencode-notifier@latest"
+	]
 }

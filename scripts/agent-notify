@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source_name="${1:-agent}"
+event_name="${2:-attention}"
+message="${3:-}"
+
+if [[ -z "$message" ]]; then
+  case "$event_name" in
+    permission|permission_prompt)
+      message="Permission required"
+      ;;
+    idle|idle_prompt|complete)
+      message="Session is ready"
+      ;;
+    error)
+      message="Session error"
+      ;;
+    question)
+      message="Question requires input"
+      ;;
+    *)
+      message="Needs attention"
+      ;;
+  esac
+fi
+
+title="${source_name}: ${event_name}"
+
+cache_root="${XDG_CACHE_HOME:-$HOME/.cache}/agent-notify"
+mkdir -p "$cache_root"
+
+dedupe_key="${source_name}|${event_name}|${message}"
+dedupe_hash=""
+
+if command -v shasum >/dev/null 2>&1; then
+  dedupe_hash="$(printf '%s' "$dedupe_key" | shasum | awk '{print $1}')"
+elif command -v sha1sum >/dev/null 2>&1; then
+  dedupe_hash="$(printf '%s' "$dedupe_key" | sha1sum | awk '{print $1}')"
+elif command -v cksum >/dev/null 2>&1; then
+  dedupe_hash="$(printf '%s' "$dedupe_key" | cksum | awk '{print $1}')"
+fi
+
+if [[ -n "$dedupe_hash" ]]; then
+  dedupe_file="$cache_root/$dedupe_hash"
+  if [[ -f "$dedupe_file" ]]; then
+    now="$(date +%s)"
+    prev="$(cat "$dedupe_file" 2>/dev/null || echo 0)"
+    if [[ $((now - prev)) -lt 3 ]]; then
+      exit 0
+    fi
+  fi
+  date +%s > "$dedupe_file"
+fi
+
+escaped_message="${message//$'\n'/ }"
+escaped_message="${escaped_message//$'\r'/ }"
+escaped_message="${escaped_message//\\/\\\\}"
+escaped_message="${escaped_message//\"/\\\"}"
+escaped_title="${title//$'\n'/ }"
+escaped_title="${escaped_title//$'\r'/ }"
+escaped_title="${escaped_title//\\/\\\\}"
+escaped_title="${escaped_title//\"/\\\"}"
+
+if command -v osascript >/dev/null 2>&1; then
+  osascript -e "display notification \"$escaped_message\" with title \"$escaped_title\"" >/dev/null
+  exit 0
+fi
+
+printf '\a' >&2

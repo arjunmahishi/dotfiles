@@ -1,0 +1,37 @@
+{
+  "sound": false,
+  "notification": false,
+  "suppressWhenFocused": true,
+  "command": {
+    "enabled": true,
+    "path": "agent-notify",
+    "args": ["opencode", "{event}", "{message}"],
+    "minDuration": 0
+  },
+  "events": {
+    "permission": {
+      "sound": false,
+      "notification": false
+    },
+    "complete": {
+      "sound": false,
+      "notification": false
+    },
+    "subagent_complete": {
+      "sound": false,
+      "notification": false
+    },
+    "error": {
+      "sound": false,
+      "notification": false
+    },
+    "question": {
+      "sound": false,
+      "notification": false
+    },
+    "user_cancelled": {
+      "sound": false,
+      "notification": false
+    }
+  }
+}

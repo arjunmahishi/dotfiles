@@ -2,13 +2,64 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "WebSearch",
       "Bash",
       "Skill",
-      "Fetch"
+      "Read",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "ListMcpResourcesTool",
+      "ReadMcpResourceTool",
+      "mcp__godocs__get_doc",
+      "mcp__gopls-mcp__go_diagnostics",
+      "mcp__gopls-mcp__go_file_context",
+      "mcp__gopls-mcp__go_package_api",
+      "mcp__gopls-mcp__go_search",
+      "mcp__gopls-mcp__go_symbol_references",
+      "mcp__gopls-mcp__go_workspace",
+      "mcp__glean_christian-glean__chat",
+      "mcp__glean_christian-glean__code_search",
+      "mcp__glean_christian-glean__employee_search",
+      "mcp__glean_christian-glean__gmail_search",
+      "mcp__glean_christian-glean__meeting_lookup",
+      "mcp__glean_christian-glean__memory",
+      "mcp__glean_christian-glean__read_document",
+      "mcp__glean_christian-glean__search",
+      "mcp__glean_christian-glean__user_activity",
+      "mcp__tmux__list-sessions",
+      "mcp__tmux__find-session",
+      "mcp__tmux__list-windows",
+      "mcp__tmux__list-panes",
+      "mcp__tmux__capture-pane",
+      "mcp__tmux__get-command-result",
+      "mcp__excalidraw__read_me",
+      "mcp__excalidraw__read_checkpoint"
     ]
   },
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-6[1m]",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "agent-notify claude permission_prompt \"Claude Code needs permission\""
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "agent-notify claude idle_prompt \"Claude Code is ready\""
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
@@ -23,6 +74,9 @@
     }
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "showClearContextOnPlanAccept": true,
+  "voiceEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754067099402

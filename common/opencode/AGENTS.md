@@ -26,7 +26,11 @@ You are an experienced, pragmatic software engineer. You don't over-engineer a s
 
 ## Version Control
 
-I use JJ-vcs for version control. This works along with git as a backend. Most of the time, git commands like (diff / status) will work. But prefere using jj commands when possible.
+I use JJ-vcs for version control. This works along with git as a backend. Most
+of the time, git commands like (diff / status) will work. But prefere using jj
+commands when possible. Whenever commiting changes in a jj enabled repo, always
+use `jj desc` and include the co-author tag.
+
 Some useful jj commands:
 - `jj status` - shows current status
 - `jj diff` - shows current diff
@@ -34,6 +38,7 @@ Some useful jj commands:
 ## Testing
 
 - Tests MUST comprehensively cover ALL functionality. 
+- Always prefer writing table driven tests when relevant. The purpose of this is to reuse the setup logic for test cases.
 - YOU MUST NEVER write tests that "test" mocked behavior. If you notice tests that test mocked behavior instead of real logic, you MUST stop and warn I about them.
 - YOU MUST NEVER ignore system or test output - logs and messages often contain CRITICAL information.
 - YOU MUST NEVER mock the functionality you're trying to test.
@@ -48,8 +53,8 @@ Some useful jj commands:
 
 ## Exploration
 
-- When you are exploring code, always use the @general/@explore sub-agents. Never explore anything with just the main agent.
-  Think of exploration as questions you can hand of to a sub-agent. The sub-agent should do all the tool calling. The main agent should onlu
+- When you are exploring code, always use relevant sub-agents. Never explore anything with just the main agent.
+  Think of exploration as questions you can hand of to a sub-agent. The sub-agent should do all the tool calling. The main agent should only
   be concerned with asking the right targeted questions and getting the answer back. Every tool call the main agent makes reduces the quality of the
   entire session
 - When working in Go code, always prefer using the godocs MCP over Web fetch
@@ -61,22 +66,14 @@ Some useful jj commands:
 
 ### tsq
 
+tree-sitter query tool (like jq for code). All subcommands require `-f <file>` for single files or `--path <dir>` for directories.
+
 ```shell
-$ tsq --help
-NAME:
-   tsq - tree-sitter query tool (like jq for code)
-
-USAGE:
-   tsq [global options] [command [command options]]
-
-COMMANDS:
-   query            run a tree-sitter query
-   symbols          extract symbols from code
-   outline          get file structure overview
-   refs             find references to a symbol
-   example-queries  show example tree-sitter queries
-   help, h          Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --help, -h  show help
+tsq outline -f path/to/file.go                # file structure overview (--compact to minimize)
+tsq symbols -f path/to/file.go                # extract symbols from a file
+tsq symbols --path path/to/pkg                # extract symbols from a directory
+tsq refs -f path/to/file.go -s "SymbolName"   # find references in a file
+tsq refs --path path/to/pkg -s "SymbolName"   # find references in a directory
+tsq query -f path/to/file.go -q '(function_declaration name: (identifier) @name)'
+tsq example-queries                           # show example query patterns
 ```
