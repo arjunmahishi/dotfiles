@@ -61,6 +61,25 @@ return {
 			},
 		},
 	},
+	{
+		dir = "~/.nvim-plugins/agent-bridge.nvim",
+		config = function()
+			require("bridge").setup({
+				processes = { "claude", "opencode", "roachdev" },
+			})
+		end,
+		keys = {
+			{ "<leader>bs", "<cmd>BridgeSend<cr>", mode = "n", desc = "Send to agent" },
+			{ "<leader>bs", ":'<,'>BridgeSend<cr>", mode = "v", desc = "Send to agent" },
+			{ "<leader>bc", "<cmd>BridgeConnect<cr>", desc = "Connect to tmux pane" },
+			{ "<leader>bt", "<cmd>BridgeStatus<cr>", desc = "Bridge status" },
+			{ "<leader>ba", "<cmd>BridgeComment<cr>", mode = "n", desc = "Add review comment" },
+			{ "<leader>ba", ":'<,'>BridgeComment<cr>", mode = "v", desc = "Add review comment" },
+			{ "<leader>br", "<cmd>BridgeReview<cr>", desc = "Review pending comments" },
+			{ "<leader>bx", "<cmd>BridgeSubmit<cr>", desc = "Submit review comments" },
+			{ "<leader>bd", "<cmd>BridgeDiscard<cr>", desc = "Discard review comments" },
+		},
+	},
 	-- {
 	-- 	"coder/claudecode.nvim",
 	-- 	dependencies = { "folke/snacks.nvim" },
