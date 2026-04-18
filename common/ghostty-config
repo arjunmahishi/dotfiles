@@ -17,3 +17,4 @@ shell-integration = detect
 
 keybind = opt+left=unbind
 keybind = opt+right=unbind
+keybind = shift+enter=text:\n

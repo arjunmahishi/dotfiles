@@ -62,7 +62,7 @@ return {
 		},
 	},
 	{
-		dir = "~/.nvim-plugins/agent-bridge.nvim",
+		"arjunmahishi/agent-bridge.nvim",
 		config = function()
 			require("bridge").setup({
 				processes = { "claude", "opencode", "roachdev" },

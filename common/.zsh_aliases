@@ -9,6 +9,8 @@ alias python="python3"
 alias pip="pip3"
 alias psgrep="ps aux | grep -v grep | grep"
 alias z="zoxide"
+alias pi="OPENROUTER_API_KEY=$(cat ~/tokens/openrouter) pi"
+alias oc="OPENCODE_ENABLE_EXA=1 opencode --port"
 
 # git
 alias gch="git checkout \$(git branch | grep -v \$(git branch --show-current) | fzf)"
