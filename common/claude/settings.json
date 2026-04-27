@@ -37,7 +37,7 @@
       "mcp__excalidraw__read_checkpoint"
     ]
   },
-  "model": "claude-opus-4-6[1m]",
+  "model": "claude-opus-4-7",
   "hooks": {
     "Notification": [
       {
@@ -76,8 +76,8 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "showClearContextOnPlanAccept": true,
-  "voiceEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754067099402
   }
