@@ -11,31 +11,21 @@
 			"command": ["gopls", "mcp"],
 			"enabled": true
 		},
-		"diffmcp": {
-			"type": "local",
-			"command": ["diffmcp", "mcp"],
-			"enabled": true
-		},
-		"Glean": {
-			"type": "remote",
-			"url": "https://cockroachlabs-be.glean.com/mcp/christian-glean",
-			"oauth": {}
-		},
 		"strava": {
 			"type": "local",
 			"command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
 			"enabled": true
-    },
-    "Support MCP": {
-      "type": "remote",
-      "url": "http://localhost:5000/mcp",
-      "oauth": {}
-    },
-    "chrome-devtools": {
-      "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp"],
-      "enabled": true
-    }
+		},
+		"Support MCP": {
+			"type": "remote",
+			"url": "http://localhost:5000/mcp",
+			"oauth": {}
+		},
+		"chrome-devtools": {
+			"type": "local",
+			"command": ["npx", "-y", "chrome-devtools-mcp"],
+			"enabled": true
+		}
 	},
 	"instructions": ["persona/SOUL.md", "persona/STYLE.md"],
 	"agent": {},

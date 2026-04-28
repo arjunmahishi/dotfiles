@@ -26,8 +26,8 @@ alias dprune="docker container prune"
 alias dexec="cont=\$(docker ps | grep -v 'CONTAINER' | fzf | awk '{print \$1}') && docker exec -it \$cont /bin/sh"
 
 # ctrl + p to open vim and run telescope
-bindkey -s '^p' 'tim\n'
-alias tim='vim +"lua TelescopeIntoDir()"'
+# bindkey -s '^p' 'tim\n'
+# alias tim='vim +"lua TelescopeIntoDir()"'
 
 # GO aliases
 alias go-build-all="~/scripts/go-build-all.sh"
