@@ -30,17 +30,17 @@ vim.diagnostic.config({
 })
 
 -- Set diagnostic highlight groups with gruvbox material colors
-vim.cmd([[highlight DiagnosticVirtualTextError guifg=Red]]) -- bright red
-vim.cmd([[highlight DiagnosticVirtualTextWarn guifg=Orange]]) -- bright orange
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "Red" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "Orange" })
 
 -- Function to restart LSP server
 local function restart_lsp()
 	-- Store the list of servers currently enabled
 	local servers = {}
-	for _, client in ipairs(vim.lsp.get_active_clients()) do
+	for _, client in ipairs(vim.lsp.get_clients()) do
 		if client.name ~= "GitHub Copilot" then
 			table.insert(servers, client.name)
-			vim.lsp.stop_client(client.id)
+			client:stop()
 		end
 	end
 	print("Stopped LSP servers: " .. table.concat(servers, ", "))
@@ -61,7 +61,6 @@ vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "<leader>rl", restart_lsp, { desc = "Restart LSP servers" })
-vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, opts)
 
 return {
 	{

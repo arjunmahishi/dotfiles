@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 
 local username = string.gsub(vim.fn.system("whoami"), "\n", "")
 local lazypath = string.format("/Users/%s/.nvim-plugins/lazy.nvim", username)
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -71,17 +71,9 @@ vim.cmd([[
 ]])
 
 -- quickfix
-map("n", "<leader>q", ":lua vim.lsp.diagnostic.set_loclist()<CR>", {})
+map("n", "<leader>q", ":lua vim.diagnostic.setloclist()<CR>", {})
 map("n", "<leader>]", ":cnext<cr>", noremap)
 map("n", "<leader>[", ":cprevious<cr>", noremap)
-
-vim.cmd([[
-  augroup GoAutocmds
-    autocmd!
-    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !goimports -w %')
-    autocmd BufWritePost *.go lua vim.api.nvim_command('silent! !crlfmt -w %')
-  augroup END
-]])
 
 -- Gdiff
 map("n", "g2", ":diffget //2 | diffupdate <CR>", {})
@@ -176,7 +168,7 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.statusline = StatusLine()
 
 vim.cmd([[
-  au TextYankPost * silent! lua vim.highlight.on_yank()
+  au TextYankPost * silent! lua vim.hl.on_yank()
 ]])
 
 -- make backgroud transparent

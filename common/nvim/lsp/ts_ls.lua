@@ -1,4 +1,4 @@
 return {
-	filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
+	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
 	cmd = { "typescript-language-server", "--stdio" },
 }

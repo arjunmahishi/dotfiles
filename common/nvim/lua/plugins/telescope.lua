@@ -47,7 +47,6 @@ return {
     local noremap = { noremap = true }
 
     map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
-    map('n', '<leader>w', '<cmd>lua TelescopeIntoDir("~/work")<CR>', {})
     map('n', '<C-f>', "<cmd>Telescope live_grep_args theme=ivy<CR>", noremap)
     map('n', '<leader>tc', '<cmd>Telescope commands theme=ivy<CR>', noremap)
     map('n', '<leader>th', '<cmd>Telescope help_tags theme=ivy<CR>', noremap)
