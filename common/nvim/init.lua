@@ -29,55 +29,60 @@ require("lazy").setup("plugins", {
 --        Custome key bindings
 ------------------------------------
 
-local map = vim.api.nvim_set_keymap
-local noremap = { noremap = true }
-
-map("i", "jj", "<Esc>", {})
-map("n", "vv", ":vsplit<CR>", {})
-map("n", "tt", ":tabnew<CR>", {})
-map("n", "<C-s>", ":source ~/.config/nvim/init.lua<CR>", {})
-map("v", "<leader>y", '"+y', {})
-map("n", "<leader>p", '"+p', {})
-map("n", "<C-l>", ":nohlsearch<cr>", {})
-map("n", "<leader>fd", ":lua OpenFilesInRepo()<cr>", {})
+vim.keymap.set("i", "jj", "<Esc>")
+vim.keymap.set("n", "vv", ":vsplit<CR>")
+vim.keymap.set("n", "tt", ":tabnew<CR>")
+vim.keymap.set("n", "<C-s>", ":source ~/.config/nvim/init.lua<CR>")
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>p", '"+p')
+vim.keymap.set("n", "<C-l>", ":nohlsearch<cr>")
+vim.keymap.set("n", "<leader>fd", function() OpenFilesInRepo() end)
 
 -- since space is used as the supream leader, make sure that is doesn't do anything
 -- else. Because no one should have that much power
-map("n", "<SPACE>", "<Nop>", noremap)
-map("v", "<SPACE>", "<Nop>", noremap)
+vim.keymap.set("n", "<SPACE>", "<Nop>", { noremap = true })
+vim.keymap.set("v", "<SPACE>", "<Nop>", { noremap = true })
 
 -- switching between panes
-map("n", "<leader>w", "<c-w><c-w>", noremap)
-map("n", "<leader>h", "<c-w>h", noremap)
-map("n", "<leader>j", "<c-w>j", noremap)
-map("n", "<leader>k", "<c-w>k", noremap)
-map("n", "<leader>l", "<c-w>l", noremap)
+vim.keymap.set("n", "<leader>w", "<c-w><c-w>", { noremap = true })
+vim.keymap.set("n", "<leader>h", "<c-w>h", { noremap = true })
+vim.keymap.set("n", "<leader>j", "<c-w>j", { noremap = true })
+vim.keymap.set("n", "<leader>k", "<c-w>k", { noremap = true })
+vim.keymap.set("n", "<leader>l", "<c-w>l", { noremap = true })
 
 -- BarBar
-map("n", "<C-j>", ":BufferPrevious<CR>", {})
-map("n", "<C-k>", ":BufferNext<CR>", {})
-map("n", "<C-x>", ":BufferClose<CR>", {})
+vim.keymap.set("n", "<C-j>", ":BufferPrevious<CR>")
+vim.keymap.set("n", "<C-k>", ":BufferNext<CR>")
+vim.keymap.set("n", "<C-x>", ":BufferClose<CR>")
 
 -- terminal
-map("t", "<Esc>", "<C-\\><C-n>", noremap)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 -- float term
-map("n", "gt", ":FloatermToggle<cr>", noremap)
+vim.keymap.set("n", "gt", ":FloatermToggle<cr>", { noremap = true })
 
 -- formatting
-vim.cmd([[
-  au filetype json nmap <leader>f :%!jq '.' %<CR>
-  au filetype hcl nmap <leader>f :%!hclfmt %<CR>
-]])
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "json",
+	callback = function()
+		vim.keymap.set("n", "<leader>f", ":%!jq '.' %<CR>", { buffer = true })
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "hcl",
+	callback = function()
+		vim.keymap.set("n", "<leader>f", ":%!hclfmt %<CR>", { buffer = true })
+	end,
+})
 
 -- quickfix
-map("n", "<leader>q", ":lua vim.diagnostic.setloclist()<CR>", {})
-map("n", "<leader>]", ":cnext<cr>", noremap)
-map("n", "<leader>[", ":cprevious<cr>", noremap)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>]", ":cnext<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>[", ":cprevious<cr>", { noremap = true })
 
 -- Gdiff
-map("n", "g2", ":diffget //2 | diffupdate <CR>", {})
-map("n", "g3", ":diffget //3 | diffupdate <CR>", {})
+vim.keymap.set("n", "g2", ":diffget //2 | diffupdate <CR>")
+vim.keymap.set("n", "g3", ":diffget //3 | diffupdate <CR>")
 
 ------------------------------------
 --        Helper functions
@@ -167,9 +172,11 @@ vim.opt.dictionary = "/usr/share/dict/words"
 vim.opt.signcolumn = "yes:1"
 vim.opt.statusline = StatusLine()
 
-vim.cmd([[
-  au TextYankPost * silent! lua vim.hl.on_yank()
-]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
 
 -- make backgroud transparent
-vim.cmd([[ hi Normal guibg=none ]])
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

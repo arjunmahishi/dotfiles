@@ -43,25 +43,22 @@ return {
     })
 
     -- keymaps
-    local map = vim.api.nvim_set_keymap
-    local noremap = { noremap = true }
-
-    map('n', '<C-p>', '<cmd>lua TelescopeIntoDir(".")<CR>', {})
-    map('n', '<C-f>', "<cmd>Telescope live_grep_args theme=ivy<CR>", noremap)
-    map('n', '<leader>tc', '<cmd>Telescope commands theme=ivy<CR>', noremap)
-    map('n', '<leader>th', '<cmd>Telescope help_tags theme=ivy<CR>', noremap)
-    map('n', '<leader>tb', '<cmd>Telescope buffers theme=ivy<CR>', noremap)
-    map('n', '<leader>t=', '<cmd>Telescope spell_suggest theme=ivy<CR>', noremap)
-    map('n', '<leader>t/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<CR>', noremap)
-    map('n', '<leader>tw',
-      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({postfix = \' -t all\', theme = "ivy"})<CR>',
-      noremap)
-    map('v', '<leader>tw',
-      '<cmd>lua require("telescope-live-grep-args.shortcuts").grep_visual_selection({postfix = \' -t all\', theme = "ivy"})<CR>',
-      noremap)
-    map('n', '<leader>tgb', '<cmd>Telescope git_branches theme=ivy<CR>', noremap)
-    map('n', '<leader>tgs', '<cmd>Telescope git_status theme=ivy<CR>', noremap)
-    map('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols theme=ivy<CR>', noremap)
-    map('n', 'gR', '<cmd>Telescope lsp_references theme=ivy<CR>', noremap)
+    vim.keymap.set('n', '<C-p>', function() TelescopeIntoDir(".") end)
+    vim.keymap.set('n', '<C-f>', "<cmd>Telescope live_grep_args theme=ivy<CR>")
+    vim.keymap.set('n', '<leader>tc', '<cmd>Telescope commands theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>th', '<cmd>Telescope help_tags theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>tb', '<cmd>Telescope buffers theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>t=', '<cmd>Telescope spell_suggest theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>t/', '<cmd>Telescope current_buffer_fuzzy_find theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>tw', function()
+      require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({ postfix = ' -t all', theme = "ivy" })
+    end)
+    vim.keymap.set('v', '<leader>tw', function()
+      require("telescope-live-grep-args.shortcuts").grep_visual_selection({ postfix = ' -t all', theme = "ivy" })
+    end)
+    vim.keymap.set('n', '<leader>tgb', '<cmd>Telescope git_branches theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>tgs', '<cmd>Telescope git_status theme=ivy<CR>')
+    vim.keymap.set('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols theme=ivy<CR>')
+    vim.keymap.set('n', 'gR', '<cmd>Telescope lsp_references theme=ivy<CR>')
   end,
 }

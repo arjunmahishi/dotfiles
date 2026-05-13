@@ -117,7 +117,7 @@ return {
 	{
 		"jbyuki/venn.nvim",
 		config = function()
-			vim.api.nvim_set_keymap("v", "<leader>b", ":VBox<CR>", { noremap = true })
+			vim.keymap.set("v", "<leader>b", ":VBox<CR>", { noremap = true })
 		end,
 	},
 	{ "tpope/vim-fugitive" },

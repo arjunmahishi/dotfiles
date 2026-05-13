@@ -1,4 +1,3 @@
-local map = vim.api.nvim_set_keymap
 local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 
 -- A function to cycle through nodes of a specific type. This uses treesitter's
@@ -6,6 +5,7 @@ local username = string.gsub(vim.fn.system('whoami'), '\n', '')
 local function jump_to_node(target_node_type, direction)
   -- Collect all target nodes
   local parser = vim.treesitter.get_parser(0)
+  if not parser then return end
   local root = parser:parse()[1]:root()
   local target_nodes = {}
   for node in root:iter_children() do
@@ -41,36 +41,22 @@ local function jump_to_node(target_node_type, direction)
 end
 
 -- map the function navigation keys
-map('n', ']f', '', {
-  callback = function()
-    jump_to_node("function_declaration", "next")
-  end
-})
-
-map('n', '[f', '', {
-  callback = function()
-    jump_to_node("function_declaration", "prev")
-  end
-})
-
-map('n', ']v', '', {
-  callback = function()
-    jump_to_node("variable_declaration", "next")
-  end
-})
-
-map('n', '[v', '', {
-  callback = function()
-    jump_to_node("variable_declaration", "prev")
-  end
-})
+vim.keymap.set('n', ']f', function() jump_to_node("function_declaration", "next") end)
+vim.keymap.set('n', '[f', function() jump_to_node("function_declaration", "prev") end)
+vim.keymap.set('n', ']v', function() jump_to_node("variable_declaration", "next") end)
+vim.keymap.set('n', '[v', function() jump_to_node("variable_declaration", "prev") end)
 
 return {
   {
     "tpope/vim-commentary",
     config = function()
       -- setup commentstring for terraform
-      vim.api.nvim_command("autocmd FileType terraform setlocal commentstring=#\\ %s")
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "terraform",
+        callback = function()
+          vim.bo.commentstring = "# %s"
+        end,
+      })
     end,
   },
   { "tpope/vim-surround" },
@@ -86,12 +72,12 @@ return {
         custom_cmd_dir = string.format("/Users/%s/.flow_cmds", username)
       })
 
-      map('v', '<leader>r', ':FlowRunSelected<CR>', {})
-      map('n', '<leader>rr', ':FlowRunFile<CR>', {})
-      map('n', '<leader>rt', ':Telescope flow theme=ivy<CR>', {})
-      map('n', '<leader>rp', ':FlowRunLastCmd<CR>', {})
-      map('n', '<leader>ro', ':FlowLastOutput<CR>', {})
-      map('n', '<leader>rq', ':FlowRunQuickCmd<CR>', {})
+      vim.keymap.set('v', '<leader>r', ':FlowRunSelected<CR>')
+      vim.keymap.set('n', '<leader>rr', ':FlowRunFile<CR>')
+      vim.keymap.set('n', '<leader>rt', ':Telescope flow theme=ivy<CR>')
+      vim.keymap.set('n', '<leader>rp', ':FlowRunLastCmd<CR>')
+      vim.keymap.set('n', '<leader>ro', ':FlowLastOutput<CR>')
+      vim.keymap.set('n', '<leader>rq', ':FlowRunQuickCmd<CR>')
     end
   },
   {
@@ -140,13 +126,13 @@ return {
       end
 
       require('dap-go').setup()
-      map('n', '<leader>dc', ':lua require("dap").continue()<CR>', {})
-      map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', {})
-      map('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', {})
-      map('n', '<leader>ds', ':lua require("dap").step_over()<CR>', {})
-      map('n', '<leader>di', ':lua require("dap").step_into()<CR>', {})
-      map('n', '<leader>do', ':lua require("dap").step_out()<CR>', {})
-      map('n', '<leader>dx', ':lua require("dap").close()<CR>', {})
+      vim.keymap.set('n', '<leader>dc', function() dap.continue() end)
+      vim.keymap.set('n', '<leader>db', function() dap.toggle_breakpoint() end)
+      vim.keymap.set('n', '<leader>dr', function() dap.repl.open() end)
+      vim.keymap.set('n', '<leader>ds', function() dap.step_over() end)
+      vim.keymap.set('n', '<leader>di', function() dap.step_into() end)
+      vim.keymap.set('n', '<leader>do', function() dap.step_out() end)
+      vim.keymap.set('n', '<leader>dx', function() dap.close() end)
     end,
   },
 }
