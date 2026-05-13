@@ -128,7 +128,7 @@ function StatusLine()
 	end
 
 	return replace_vars(
-		"%{get(g:modes, mode())} · %f %r %m · %{v:lua.GetLspStatus()} %=%l:%c · %p%% · ${git_branch}%{&filetype} ",
+		"%{get(g:modes, mode())} · %f %r %m · %{v:lua.GetLspStatus()} %{v:lua.vim.diagnostic.status()} %=%l:%c · %p%% · ${git_branch}%{&filetype} ",
 		{
 			git_branch = git_branch,
 		}
@@ -170,6 +170,7 @@ vim.opt.inccommand = "split"
 vim.opt.wrap = false
 vim.opt.dictionary = "/usr/share/dict/words"
 vim.opt.signcolumn = "yes:1"
+vim.opt.pumborder = true
 vim.opt.statusline = StatusLine()
 
 vim.api.nvim_create_autocmd("TextYankPost", {
