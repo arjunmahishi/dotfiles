@@ -30,6 +30,11 @@ of the time, git commands like (diff / status) will work. But prefere using jj
 commands when possible. Whenever commiting changes in a jj enabled repo, always
 use `jj desc` and include the co-author tag.
 
+Co-author tags by model provider:
+- Anthropic: `Co-authored-by: Claude <noreply@anthropic.com>`
+- OpenAI: `Co-authored-by: OpenAI <noreply@openai.com>`
+- All other providers: do not add a co-author tag.
+
 Some useful jj commands:
 - `jj status` - shows current status
 - `jj diff` - shows current diff

@@ -37,7 +37,7 @@
       "mcp__excalidraw__read_checkpoint"
     ]
   },
-  "model": "claude-opus-4-7",
+  "model": "claude-sonnet-5",
   "hooks": {
     "Notification": [
       {

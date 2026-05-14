@@ -1,0 +1,1 @@
+/opt/homebrew/lib/node_modules/hunkdiff/skills/hunk-review/SKILL.md

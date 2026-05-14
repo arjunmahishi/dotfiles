@@ -170,7 +170,7 @@ vim.opt.inccommand = "split"
 vim.opt.wrap = false
 vim.opt.dictionary = "/usr/share/dict/words"
 vim.opt.signcolumn = "yes:1"
-vim.opt.pumborder = true
+vim.opt.pumborder = "single"
 vim.opt.statusline = StatusLine()
 
 vim.api.nvim_create_autocmd("TextYankPost", {

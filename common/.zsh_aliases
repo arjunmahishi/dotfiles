@@ -4,7 +4,7 @@ alias vim="nvim"
 alias zrc="vim ~/.zshrc"
 alias lm="ls -l --block-size=M"
 alias notes="vim ~/notes/\`ls ~/notes|fzf\`"
-alias pbcopy='xclip -selection clipboard'
+alias cpwd='pwd | pbcopy'
 alias python="python3"
 alias pip="pip3"
 alias psgrep="ps aux | grep -v grep | grep"
@@ -125,6 +125,53 @@ function aid_with_files() {
   done
 
   aid --aiderignore="$temp_ignore_file" "$@"
+}
+
+# hunk
+alias hwatch='hunk diff --watch'
+
+# jj (jujutsu)
+alias jn='jj new'
+alias jdiff='jj show'
+alias jfetch='jj git fetch -b $(jj bookmark list --all-remotes -T "if(remote && remote != \"git\", name ++ \"\\n\")" | sort -u | fzf)'
+alias jpush='jj git push -b $(jj bookmark list --all-remotes -T "(name ++ \"\\n\")" | sort -u | fzf)'
+
+function jclean() {
+  local trunk_bookmark=$(jj log -r 'trunk()' --no-graph -T 'bookmarks' --limit 1)
+  local all_local=$(jj bookmark list -T 'name ++ "\n"' | grep -v '^$' | sort -u)
+  local with_remote=$(jj bookmark list --all-remotes -T 'if(remote && remote != "git", name ++ "\n")' | grep -v '^$' | sort -u)
+  local stale=$(comm -23 <(echo "$all_local") <(echo "$with_remote") | grep -v "^${trunk_bookmark}$")
+  if [[ -z "$stale" ]]; then
+    echo "No stale bookmarks found."
+    return 0
+  fi
+  echo "Stale bookmarks (no remote counterpart):"
+  echo "---------------------------------------"
+  echo "$stale"
+  echo "---------------------------------------"
+  echo -n "Forget these bookmarks? [y/N] "
+  read -r reply
+  if [[ "$reply" =~ ^[Yy]$ ]]; then
+    echo "$stale" | xargs jj bookmark forget
+  else
+    echo "Aborted."
+  fi
+}
+
+function jup() {
+  local trunk_bookmark=$(jj log -r 'trunk()' --no-graph -T 'bookmarks' --limit 1)
+  echo "Mutable commits that will be rebased onto ${trunk_bookmark}:"
+  echo "---------------------------------------"
+  jj log -r 'mutable()'
+  echo "---------------------------------------"
+  echo -n "Fetch ${trunk_bookmark} and rebase? [y/N] "
+  read -r reply
+  if [[ "$reply" =~ ^[Yy]$ ]]; then
+    jj git fetch -b "$trunk_bookmark"
+    jj rebase -s 'mutable()' -d 'trunk()'
+  else
+    echo "Aborted."
+  fi
 }
 
 # declare env variables

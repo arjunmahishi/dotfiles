@@ -32,5 +32,25 @@
 	"plugin": [
 		"@franlol/opencode-md-table-formatter",
 		"@mohak34/opencode-notifier@latest"
-	]
+	],
+	"provider": {
+		"google-vertex-anthropic": {
+			"models": {
+				"claude-fable-5": {
+					"name": "Claude Fable 5 (Vertex)",
+					"reasoning": true,
+					"temperature": false,
+					"tool_call": true,
+					"limit": { "context": 1000000, "output": 128000 }
+				}
+			}
+		},
+		"openai": {
+			"options": {
+				"headerTimeout": 60000,
+				"timeout": 600000,
+				"chunkTimeout": 60000
+			}
+		}
+	}
 }
