@@ -1,0 +1,20 @@
+{
+  "theme": {
+    "name": "opencode"
+  },
+  "scroll": {
+    "acceleration": true
+  },
+  "diffs": {
+    "wrap": "word"
+  },
+  "session": {
+    "sidebar": "hide",
+    "scrollbar": false,
+    "thinking": "hide"
+  },
+  "animations": true,
+  "tabs": {
+    "layout": "horizontal"
+  }
+}

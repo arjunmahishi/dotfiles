@@ -6,17 +6,21 @@ argument-hint: "Natural-language tone request"
 
 # Tim Henson Preset Generator
 
-This skill separates responsibilities:
+Generate Archetype Tim Henson X presets by researching a tone online, building the parameter set, and writing the binary preset file in one shot.
 
-- AI decides the tone and exact parameter overrides.
-- Script writes the binary preset file safely.
+## Workflow
+
+1. **Research** — Search the web for the tone (song, artist, genre, producer, gear, live rig, etc.). Gather concrete info.
+2. **Design** — Pick the amp, gain level, and effects that match the tone. Do NOT ask the user for confirmation unless the request is completely ambiguous.
+3. **Generate** — Pipe a JSON object to `stdin` and run `generate`. Use `--name` for the human-readable display name (spaces allowed). Always set `"name"` inside the JSON to the same human-readable string so the preset shows correctly in the plugin.
+4. **Verify** — Confirm the file was written to `AI generated/`. No Q&A loops.
 
 ## Rules
 
 1. Never edit existing source presets.
 2. Always create a new file in `/Library/Audio/Presets/Neural DSP/Archetype Tim Henson X/AI generated/`.
 3. Use `Default.xml` as fallback template when no template path is provided.
-4. JSON overrides are read from `stdin`.
+4. JSON overrides are read from `stdin`. Set `"name"` explicitly in the JSON to control the display name with spaces.
 5. Unknown parameter keys are rejected.
 
 ## Commands
@@ -73,3 +77,83 @@ Use only real plugin parameter names. Common groups:
 - Multivoicer: `multivoicerMode`, `multivoicerRoot`, `multivoicerQuantize`, `multivoicerTuning`, `multivoicerTone`, `multivoicerWidth`, `multivoicerOutput`, `multivoicerMidiEnabled`, `multivoicerUnison`, `multivoicerVoice1Active`, `multivoicerVoice1Level`, `multivoicerVoice1Pan`, `multivoicerVoice1Delay`, `multivoicerVoice1Detune`, `multivoicerVoice1Interval`, `multivoicerVoice1Semitones`, `multivoicerVoice2Active`, `multivoicerVoice2Level`, `multivoicerVoice2Pan`, `multivoicerVoice2Delay`, `multivoicerVoice2Detune`, `multivoicerVoice2Interval`, `multivoicerVoice2Semitones`, `multivoicerVoice3Active`, `multivoicerVoice3Level`, `multivoicerVoice3Pan`, `multivoicerVoice3Delay`, `multivoicerVoice3Detune`, `multivoicerVoice3Interval`, `multivoicerVoice3Semitones`, `multivoicerVoice4Active`, `multivoicerVoice4Level`, `multivoicerVoice4Pan`, `multivoicerVoice4Delay`, `multivoicerVoice4Detune`, `multivoicerVoice4Interval`, `multivoicerVoice4Semitones`
 
 For full authoritative keys from your installed version, run the `params` command.
+
+## Technical Details
+
+### Amp Selector (`selectedAmp`)
+- `0` → Acoustic amp (piezo/blend)
+- `1` → Rhythm amp (mid-gain, 2 channels)
+- `2` → Lead amp (high-gain)
+
+The only parameters that matter for a given preset are the ones for the selected amp; the others are ignored by the plugin.
+
+### Preset Name
+The `name` parameter inside the JSON controls the display name in the plugin GUI. Use spaces for readability (e.g. `"name": "Joe Satriani Surfing"`). The script will write the file with spaces in the filename too.
+
+### Genre Quick-Starts
+
+These are generic starting points — tweak to taste.
+
+**Clean / Ambient / Post-Rock**
+- `selectedAmp: 1` (Rhythm)
+- `rhythmGain: 0.25–0.40`
+- `compActive: true`, `compCompression: 0.35`, `compLevel: 0.7`
+- `chorusActive: true`, `chorusMix: 0.25–0.45`
+- `reverbActive: true`, `reverbMix: 0.30–0.50`, `reverbDecay: 0.6–0.9`, `reverbShimmer: 0.15–0.35`
+- `delayActive: true`, `delayTime: 350–550`, `delayMix: 0.20–0.35`, `delayFeedback: 0.25–0.40`
+- `gateActive: false` (let tails breathe)
+
+**Doom / Stoner / Psych Lead**
+- `selectedAmp: 2` (Lead)
+- `leadGain: 0.70–0.85`
+- `leadBass: 0.50–0.65`, `leadMiddle: 0.45`, `leadTreble: 0.35–0.50`
+- `boostActive: true`, `boostGain: 0.4–0.6`
+- `overdriveActive: true`, `overdriveDrive: 0.3–0.5`, `overdriveLevel: 0.6–0.8`
+- `delayActive: true`, `delayTime: 450–700`, `delayMix: 0.20–0.35`
+- `reverbActive: true`, `reverbMix: 0.25–0.40`, `reverbDecay: 0.5–0.7`
+- `gateActive: false`
+
+**Shred / High-Gain Lead**
+- `selectedAmp: 2`
+- `leadGain: 0.75–0.90`
+- `leadBass: 0.45`, `leadMiddle: 0.50`, `leadTreble: 0.55–0.65`
+- `leadPresence: 0.55–0.70`
+- `reverbActive: true`, `reverbMix: 0.15–0.25`, `reverbDecay: 0.4–0.6`
+- `delayActive: true`, `delayTime: 350–450`, `delayMix: 0.15–0.25`
+- `compActive: true`, `compCompression: 0.2–0.3`
+
+### Complete Example
+
+```bash
+# Progressive stoner lead — Gaupa solo
+
+echo '{
+  "name": "Gaupa Fabersvan Solo",
+  "selectedAmp": 2,
+  "leadGain": 0.75,
+  "leadBass": 0.55,
+  "leadMiddle": 0.5,
+  "leadTreble": 0.45,
+  "leadPresence": 0.5,
+  "leadOutput": 0.8,
+  "compActive": true,
+  "compCompression": 0.3,
+  "compLevel": 0.75,
+  "boostActive": true,
+  "boostGain": 0.5,
+  "overdriveActive": true,
+  "overdriveDrive": 0.4,
+  "overdriveLevel": 0.7,
+  "delayActive": true,
+  "delayTime": 550,
+  "delayMix": 0.3,
+  "delayFeedback": 0.35,
+  "reverbActive": true,
+  "reverbMix": 0.3,
+  "reverbDecay": 0.6,
+  "chorusActive": true,
+  "chorusMix": 0.2,
+  "inputGain": 0.8,
+  "gateActive": false
+}' | python3 "/Users/arjunmahishi/.config/opencode/skills/tim-henson-presets/tim_henson_skill.py" generate --name "Gaupa Fabersvan Solo"
+```

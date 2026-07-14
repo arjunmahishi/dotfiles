@@ -150,11 +150,16 @@ def normalize_override_value(value: object) -> str:
 
 
 def sanitize_name(name: str) -> str:
+    # Allow spaces so filenames and internal preset names are human-readable.
+    # Reject characters that break macOS filenames: / : ? * | < > \"
     clean = "".join(
-        ch if (ch.isascii() and (ch.isalnum() or ch in ("-", "_"))) else "_"
+        ch if (ch.isascii() and (ch.isalnum() or ch in (" ", "-", "_"))) else "_"
         for ch in name.strip()
     )
-    clean = clean.strip("_")
+    # Collapse multiple spaces/underscores and trim edges
+    while "  " in clean:
+        clean = clean.replace("  ", " ")
+    clean = clean.strip(" _")
     return clean or "ai_preset"
 
 

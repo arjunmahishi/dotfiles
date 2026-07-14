@@ -25,6 +25,27 @@
 			"type": "local",
 			"command": ["npx", "-y", "chrome-devtools-mcp"],
 			"enabled": true
+		},
+		"strava": {
+			"type": "local",
+			"command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
+			"enabled": true
+		},
+		"Support MCP": {
+			"type": "remote",
+			"url": "http://localhost:5000/mcp",
+			"oauth": {}
+		},
+		"playwright": {
+			"type": "local",
+			"command": [
+				"npx",
+				"-y",
+				"@playwright/mcp",
+				"--executable-path",
+				"/Users/arjunmahishi/Library/Caches/ms-playwright/chromium-1134/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+			],
+			"enabled": true
 		}
 	},
 	"permission": {
