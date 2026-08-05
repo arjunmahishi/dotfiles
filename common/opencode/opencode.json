@@ -27,7 +27,18 @@
 			"enabled": true
 		}
 	},
-	"instructions": ["persona/SOUL.md", "persona/STYLE.md"],
+	"permission": {
+		"external_directory": {
+			"/tmp/**": "allow",
+			"/private/tmp/**": "allow",
+			"~/plans/**": "allow",
+			"~/go/pkg/mod/**": "allow"
+		}
+	},
+	"instructions": [
+		"~/.config/opencode/persona/SOUL.md",
+		"~/.config/opencode/persona/STYLE.md"
+	],
 	"agent": {},
 	"plugin": [
 		"@franlol/opencode-md-table-formatter",
@@ -47,9 +58,9 @@
 		},
 		"openai": {
 			"options": {
-				"headerTimeout": 60000,
-				"timeout": 600000,
-				"chunkTimeout": 60000
+				"headerTimeout": 600000,
+				"timeout": 6000000,
+				"chunkTimeout": 600000
 			}
 		}
 	}
