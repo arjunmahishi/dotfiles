@@ -1,0 +1,29 @@
+onboarding = false
+
+[keys]
+focus_pane_left = ["prefix+h", "alt+left"]
+focus_pane_down = ["prefix+j", "alt+down"]
+focus_pane_up = ["prefix+k", "alt+up"]
+focus_pane_right = ["prefix+l", "alt+right"]
+
+previous_tab = ["prefix+p", "shift+left"]
+next_tab = "shift+right"
+new_tab = ["prefix+c", "prefix+n"]
+rename_tab = ["prefix+shift+t", "prefix+r"]
+
+previous_workspace = "ctrl+up"
+next_workspace = "ctrl+down"
+last_pane = ["ctrl+tab", "alt+tab"]
+
+previous_agent = "shift+up"
+next_agent = "shift+down"
+
+split_vertical = ["prefix+v", "prefix+|"]
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "popup"
+command = "$HOME/dev/personal/dotfiles/scripts/tmux/port-killer.sh"
+description = "kill process by listening port"
+width = "90%"
+height = "70%"

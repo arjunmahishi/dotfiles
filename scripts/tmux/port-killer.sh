@@ -37,7 +37,7 @@ run_picker() {
   entries="$(list_listening)"
 
   if [ -z "$entries" ]; then
-    tmux display-message "No processes with listening ports found"
+    printf "No processes with listening ports found\n"
     exit 0
   fi
 
@@ -62,14 +62,15 @@ main() {
   pid="$(echo "$selection" | awk '{print $1}')"
 
   if [ -z "$pid" ]; then
-    tmux display-message "Failed to extract PID"
+    printf "Failed to extract PID\n" >&2
     exit 1
   fi
 
   if kill -9 "$pid" 2>/dev/null; then
-    tmux display-message "Killed PID $pid"
+    printf "Killed PID %s\n" "$pid"
   else
-    tmux display-message "Failed to kill PID $pid (permission denied?)"
+    printf "Failed to kill PID %s (permission denied?)\n" "$pid" >&2
+    return 1
   fi
 }
 
