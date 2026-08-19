@@ -27,3 +27,19 @@ command = "$HOME/dev/personal/dotfiles/scripts/tmux/port-killer.sh"
 description = "kill process by listening port"
 width = "90%"
 height = "70%"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "popup"
+command = "$HOME/dev/personal/dotfiles/scripts/herdr/rename-agent.sh"
+description = "rename focused agent"
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[ui]
+pane_borders = true
+pane_gaps = false
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"

@@ -18,3 +18,4 @@ common/emacs.d/config/#*
 .aider*
 
 common/jj/repos
+common/opencode/opencode-notifier-state.json
