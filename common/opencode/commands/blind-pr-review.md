@@ -1,6 +1,6 @@
 ---
 description: Blindly review a GitHub pull request and return evidence-backed observations for the user to decide whether to post.
-agent: build
+agent: plan
 ---
 
 Use the `blind-pr-review` skill to review this GitHub pull request: $ARGUMENTS

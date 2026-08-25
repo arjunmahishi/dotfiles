@@ -39,6 +39,7 @@
 		"~/.config/opencode/persona/SOUL.md",
 		"~/.config/opencode/persona/STYLE.md"
 	],
+	"default_agent": "plan",
 	"agent": {},
 	"plugin": [
 		"@franlol/opencode-md-table-formatter",
