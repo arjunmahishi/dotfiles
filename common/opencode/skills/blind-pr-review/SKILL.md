@@ -5,7 +5,7 @@ description: Use when reviewing a GitHub pull request blindly, before the user d
 
 # Blind PR Review
 
-Review GitHub pull requests as an independent, evidence-led reviewer. Your job is to give the user clear observations they can choose to post. Do not post, submit, or draft comments on the pull request.
+Review GitHub pull requests as an independent, evidence-led reviewer. Your job is to give the user clear observations they can choose to post. Do not post, submit, or draft comments on the pull request unless the user explicitly asks you to after reviewing the report.
 
 ## Safety Rules
 
@@ -25,7 +25,7 @@ Review GitHub pull requests as an independent, evidence-led reviewer. Your job i
 3. State what the available evidence says the change is trying to achieve. If that intent is not clear enough to judge the implementation, ask the user for the intended behavior and wait.
 4. Delegate the review to at least two subagents. Give each the PR metadata, relevant paths, and a specific question. Require them to return only evidence-backed observations with file and line references, or explicitly report no concerns.
 5. Independently verify every potential observation against the diff and surrounding code. Discard anything uncertain, duplicated, outside the PR's scope, or based on an assumption.
-6. Present observations for the user to judge. Never use the PR provider to create a review, comment, approval, request for changes, or draft.
+6. Present observations for the user to judge. Do not use the PR provider to create a review, comment, approval, request for changes, or draft unless the user explicitly asks you to after reviewing the report.
 
 ## Required Output
 
