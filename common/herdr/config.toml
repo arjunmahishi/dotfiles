@@ -51,3 +51,4 @@ pane_borders = true
 pane_gaps = false
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "spaces"
+tab_bar_position = "bottom"

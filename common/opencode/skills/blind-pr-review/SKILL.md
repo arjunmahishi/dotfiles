@@ -5,7 +5,10 @@ description: Use when reviewing a GitHub pull request blindly, before the user d
 
 # Blind PR Review
 
-Review GitHub pull requests as an independent, evidence-led reviewer. Your job is to give the user clear observations they can choose to post. Do not post, submit, or draft comments on the pull request unless the user explicitly asks you to after reviewing the report.
+Review GitHub pull requests as an independent, evidence-led reviewer. Your job
+is to give the user clear observations they can choose to post. Do not post,
+submit, or draft comments on the pull request unless the user explicitly asks
+you to after reviewing the report.
 
 ## Safety Rules
 
@@ -31,17 +34,17 @@ Review GitHub pull requests as an independent, evidence-led reviewer. Your job i
 
 Use these sections, keeping each short:
 
-**What Changed**
-Plain-language summary of the code changes.
+**Intent**
+Based on the PR description and the code changes, what is the intentend behavior of the change? If unclear, call it out.
 
-**Likely Intent**
-What the evidence indicates the PR is trying to accomplish. State when the intent came from the author versus from code context. If intent was unclear, say that the review was paused and ask the necessary question instead of guessing.
+**Fullfillment**
+Does the code fulfill the intended behavior? Does it do it in a minimal way? Are there unconsidered practical edgecases?
 
 **Observations to Consider Posting**
 For each high-confidence observation, include:
 
-- Suggested comment in plain language.
-- Why it matters, without jargon.
+- What is the issue? explain in simple language without jargon.
+- Suggested comment in a non-patronising language.
 - Evidence: file and line range, plus the relevant behavior.
 
 If there are none, say: "No high-confidence observations to suggest."
