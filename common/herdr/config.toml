@@ -1,5 +1,8 @@
 onboarding = false
 
+# Installed plugins (reinstall manually on new machines and update this list when plugins change):
+# - ChmaraX/herdr-nvim
+
 [keys]
 focus_pane_left = ["prefix+h", "alt+left"]
 focus_pane_down = ["prefix+j", "alt+down"]
@@ -18,7 +21,7 @@ last_pane = ["ctrl+tab", "alt+tab"]
 previous_agent = "shift+up"
 next_agent = "shift+down"
 
-split_vertical = ["prefix+v", "prefix+|"]
+split_vertical = ["prefix+|"]
 
 [[keys.command]]
 key = "prefix+shift+k"
@@ -37,10 +40,22 @@ description = "rename focused agent"
 [[keys.command]]
 key = "prefix+shift+r"
 type = "popup"
-command = "$HOME/dev/personal/dotfiles/scripts/herdr/start-pr-reviews.sh"
+command = "$HOME/dev/personal/dotfiles/scripts/herdr/start-pr-reviews.sh rpi"
 description = "start blind PR reviews"
 width = "90%"
 height = "70%"
+
+[[keys.command]]
+key = "prefix+v"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "nvim sidebar"
+
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.pick-file"
+description = "open file from agent output"
 
 [theme]
 name = "catppuccin"

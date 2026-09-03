@@ -10,6 +10,7 @@ alias pip="pip3"
 alias psgrep="ps aux | grep -v grep | grep"
 alias z="zoxide"
 alias pi="OPENROUTER_API_KEY=$(cat ~/tokens/openrouter) pi"
+alias planpi='pi --tools read,grep,find,ls'
 alias oc="OPENCODE_ENABLE_EXA=1 opencode --port"
 
 # git

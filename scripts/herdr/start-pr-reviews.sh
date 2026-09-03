@@ -175,12 +175,12 @@ prepare_review() {
       agent_kind="$(jq -r '.result.agent.agent // empty' <<< "$agent_result")" || return 1
       existing_name="$(jq -r '.result.agent.name // empty' <<< "$agent_result")" || return 1
 
-      if [ "$agent_kind" = "opencode" ] && [ "$existing_name" = "$expected_name" ]; then
+      if [ "$agent_kind" = "$review_agent_kind" ] && [ "$existing_name" = "$expected_name" ]; then
         skipped_count=$((skipped_count + 1))
         return 0
       fi
 
-      if [ "$agent_kind" != "opencode" ]; then
+      if [ "$agent_kind" != "$review_agent_kind" ]; then
         printf "Review tab %s is occupied by %s\n" "$label" "${agent_kind:-another process}" >&2
         return 1
       fi
@@ -202,13 +202,21 @@ prepare_review() {
     pane_id="$(jq -r '.result.root_pane.pane_id' <<< "$tab_result")" || return 1
   fi
 
-  "$HERDR_BIN_PATH" pane run "$pane_id" "cd \"$HOME\" && ro --prompt \"/blind-pr-review $url\"" || return 1
+  case "$review_agent" in
+    ro)
+      "$HERDR_BIN_PATH" pane run "$pane_id" "cd \"$HOME\" && ro --prompt \"/blind-pr-review $url\"" || return 1
+      ;;
+    rpi)
+      "$HERDR_BIN_PATH" pane run "$pane_id" "cd \"$HOME\" && rpi \"Use the blind-pr-review skill to review this GitHub pull request: $url\"" || return 1
+      ;;
+  esac
+
   pending_names+=("$expected_name")
   pending_labels+=("$label")
   pending_pane_ids+=("$pane_id")
 }
 
-wait_for_opencode() {
+wait_for_agent() {
   local pane_id="$1"
   local label="$2"
   local attempts=0 agent_result agent_kind
@@ -216,7 +224,7 @@ wait_for_opencode() {
   while [ "$attempts" -lt 120 ]; do
     if agent_result="$("$HERDR_BIN_PATH" agent get "$pane_id" 2>/dev/null)"; then
       agent_kind="$(jq -r '.result.agent.agent // empty' <<< "$agent_result")" || return 1
-      if [ "$agent_kind" = "opencode" ]; then
+      if [ "$agent_kind" = "$review_agent_kind" ]; then
         return 0
       fi
     fi
@@ -225,7 +233,7 @@ wait_for_opencode() {
     attempts=$((attempts + 1))
   done
 
-  printf "OpenCode did not start for %s within 30 seconds\n" "$label" >&2
+  printf "%s did not start for %s within 30 seconds\n" "$review_agent" "$label" >&2
   return 1
 }
 
@@ -234,13 +242,28 @@ start_reviews() {
   index=0
 
   while [ "$index" -lt "${#pending_pane_ids[@]}" ]; do
-    wait_for_opencode "${pending_pane_ids[$index]}" "${pending_labels[$index]}" || return 1
+    wait_for_agent "${pending_pane_ids[$index]}" "${pending_labels[$index]}" || return 1
     "$HERDR_BIN_PATH" agent rename "${pending_pane_ids[$index]}" "${pending_names[$index]}" >/dev/null || return 1
     index=$((index + 1))
   done
 }
 
 main() {
+  case "${1:-}" in
+    ro)
+      review_agent="ro"
+      review_agent_kind="opencode"
+      ;;
+    rpi)
+      review_agent="rpi"
+      review_agent_kind="pi"
+      ;;
+    *)
+      printf "Usage: %s {ro|rpi}\n" "$0" >&2
+      return 1
+      ;;
+  esac
+
   if [ -z "${HERDR_BIN_PATH:-}" ]; then
     printf "HERDR_BIN_PATH is not available\n" >&2
     return 1
@@ -284,6 +307,8 @@ main() {
   printf "\n"
 }
 
+declare review_agent=""
+declare review_agent_kind=""
 declare reviews_workspace_id=""
 declare available_tab_id=""
 declare available_pane_id=""
