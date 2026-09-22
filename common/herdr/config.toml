@@ -61,6 +61,28 @@ description = "open file from agent output"
 name = "catppuccin"
 auto_switch = false
 
+# Apollo Guidance Computer palette.
+[theme.custom]
+accent = "#E5A83C"
+panel_bg = "#191A1B"
+sidebar_bg = "#101112"
+active_row_bg = "#44381F"
+selection_bg = "#514A37"
+surface0 = "#514A37"
+surface1 = "#44381F"
+surface_dim = "#877F64"
+overlay0 = "#877F64"
+overlay1 = "#A39978"
+text = "#EEE5C8"
+subtext0 = "#A39978"
+mauve = "#E5A83C"
+green = "#A4AC7A"
+yellow = "#E5A83C"
+red = "#C98265"
+blue = "#99ADA4"
+teal = "#99ADA4"
+peach = "#E5A83C"
+
 [ui]
 pane_borders = true
 pane_gaps = false

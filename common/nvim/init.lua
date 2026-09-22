@@ -179,5 +179,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- make backgroud transparent
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- Preserve the colorscheme foreground while keeping the terminal background.
+local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+normal.bg = nil
+vim.api.nvim_set_hl(0, "Normal", normal)

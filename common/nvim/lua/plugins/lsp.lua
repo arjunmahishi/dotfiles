@@ -29,9 +29,9 @@ vim.diagnostic.config({
 	},
 })
 
--- Set diagnostic highlight groups with gruvbox material colors
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "Red" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "Orange" })
+-- Use the active colorscheme for diagnostic virtual text.
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "DiagnosticError" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { link = "DiagnosticWarn" })
 
 -- Function to restart LSP server
 local function restart_lsp()

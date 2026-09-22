@@ -1,4 +1,6 @@
 theme = Github Dark
+background = #101112
+foreground = #D5C7A5
 # theme = gruvbox-material
 # background-opacity = 0.95
 

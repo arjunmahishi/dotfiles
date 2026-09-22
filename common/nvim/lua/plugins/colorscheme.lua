@@ -12,10 +12,17 @@ return {
 	-- 		end
 	-- 	end,
 	-- },
-	{ "tjdevries/colorbuddy.nvim" },
+	{
+		"tjdevries/colorbuddy.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("apollo")
+		end,
+	},
 	{
 		"sainnhe/gruvbox-material",
-		enabled = true,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			vim.g.gruvbox_material_transparent_background = 1
