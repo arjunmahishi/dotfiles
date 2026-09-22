@@ -16,5 +16,6 @@
   "animations": true,
   "tabs": {
     "layout": "horizontal"
-  }
+  },
+  "plugins": ["./herdr-opencode"]
 }

@@ -37,7 +37,7 @@
       "mcp__excalidraw__read_checkpoint"
     ]
   },
-  "model": "claude-sonnet-5",
+  "model": "sonnet",
   "hooks": {
     "Notification": [
       {
@@ -55,6 +55,18 @@
           {
             "type": "command",
             "command": "agent-notify claude idle_prompt \"Claude Code is ready\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/armahishi/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }
@@ -76,6 +88,7 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "showClearContextOnPlanAccept": true,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {

@@ -1,0 +1,20 @@
+{
+  "lastChangelogVersion": "1.4.0",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6.1-sol",
+  "defaultThinkingLevel": "medium",
+  "theme": "apollo-guidance-computer",
+  "hideThinkingBlock": true,
+  "terminal": {
+    "showTerminalProgress": false
+  },
+  "tuiMode": "regular",
+  "packages": [
+    "npm:@narumitw/pi-btw"
+  ],
+  "showHardwareCursor": false,
+  "transport": "auto",
+  "defaultTools": [
+    "+codemode"
+  ]
+}

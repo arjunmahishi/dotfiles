@@ -1,152 +1,42 @@
 return {
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
+		"saurabh-hirani/review.nvim",
 		dependencies = {
-			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+			"esmuellert/codediff.nvim",
+			"MunifTanjim/nui.nvim",
 		},
-		build = "make tiktoken", -- Only on MacOS or Linux
+		cmd = { "Review" },
+		keys = {
+			{ "<leader>Ro", "<cmd>Review<cr>", desc = "Review changes" },
+			{ "<leader>Rc", "<cmd>Review commits<cr>", desc = "Review commits" },
+			{ "<leader>Ra", "<cmd>Review annotate<cr>", desc = "Add review comment" },
+			{ "<leader>Ra", ":'<,'>Review annotate<cr>", mode = "v", desc = "Add review comment" },
+			{ "<leader>Rl", "<cmd>Review list<cr>", desc = "List review comments" },
+			{ "<leader>Re", "<cmd>Review export<cr>", desc = "Export review comments" },
+			{ "<leader>Rt", "<cmd>Review tmux<cr>", desc = "Send review to tmux pane" },
+			{ "<leader>Rm", "<cmd>Review marks<cr>", desc = "Toggle review marks" },
+		},
 		opts = {
-			-- model = "gpt-4o",
-			-- model = "gemini-2.0-flash-001",
-			model = "claude-4.5-sonnet",
-			-- model = "claude-4.5-opus",
-			contexts = {
-				jeeves = {
-					resolve = function()
-						return require("jeeves").collect_context()
-					end,
-				},
+			comment_types = {
+				fix = { key = "f", name = "Fix", icon = "!", hl = "DiagnosticError" },
+				question = { key = "q", name = "Question", icon = "?", hl = "DiagnosticWarn" },
+				note = { key = "n", name = "Note", icon = "*", hl = "DiagnosticInfo" },
 			},
-		},
-		config = function(_, opts)
-			require("CopilotChat").setup(opts)
-			local model = require("CopilotChat").config.model
-			local chat = function()
-				vim.ui.input({ prompt = model .. ": " }, function(input)
-					if input then
-						vim.cmd("CopilotChat " .. input)
-					end
-				end)
-			end
-
-			vim.keymap.set("n", "<leader>i", chat, { desc = "Ask Copilot" })
-			vim.keymap.set("v", "<leader>i", chat, { desc = "Ask Copilot" })
-			vim.keymap.set("n", "<leader>c", "<cmd>CopilotChat<CR>", { desc = "Copilot Chat" })
-			vim.keymap.set("v", "<leader>c", "<cmd>CopilotChat<CR>", { desc = "Copilot Chat" })
-		end,
-	},
-	{
-		"angles-n-daemons/jeeves",
-		keys = {
-			{
-				mode = { "v" },
-				"M", -- hit M in visual mode to add the selection to your context.
-				function()
-					require("jeeves").add_selection()
-				end,
+			popup = {
+				type_order = { "fix", "question", "note" },
+				default_type = "fix",
 			},
-			{
-				mode = { "n" },
-				"M", -- hit M in normal mode to remove the selection under your cursor.
-				function()
-					require("jeeves").remove_selections_under_cursor()
-				end,
+			-- Avoid conflicting with the file-comment mapping (<localleader>cf).
+			keymaps = { add_file_comment = "<localleader>cF" },
+			export = {
+				path_style = "absolute",
+				header = "Address the FIX comments and answer the QUESTION comments below. Make the smallest reasonable changes and run relevant tests.",
+				types = { "fix", "question" },
+				order = "categorized",
+				category_order = "config",
 			},
-			{
-				"<leader>jc",
-				function()
-					require("jeeves").clear()
-				end,
-			},
+			codediff = { restore_edit_on_close = true },
+			tmux = { send_enter = false },
 		},
-	},
-	{
-		"arjunmahishi/agent-bridge.nvim",
-		config = function()
-			require("bridge").setup({
-				processes = { "claude", "opencode", "roachdev" },
-			})
-		end,
-		keys = {
-			{ "<leader>bs", "<cmd>BridgeSend<cr>", mode = "n", desc = "Send to agent" },
-			{ "<leader>bs", ":'<,'>BridgeSend<cr>", mode = "v", desc = "Send to agent" },
-			{ "<leader>bc", "<cmd>BridgeConnect<cr>", desc = "Connect to tmux pane" },
-			{ "<leader>bt", "<cmd>BridgeStatus<cr>", desc = "Bridge status" },
-			{ "<leader>ba", "<cmd>BridgeComment<cr>", mode = "n", desc = "Add review comment" },
-			{ "<leader>ba", ":'<,'>BridgeComment<cr>", mode = "v", desc = "Add review comment" },
-			{ "<leader>br", "<cmd>BridgeReview<cr>", desc = "Review pending comments" },
-			{ "<leader>bx", "<cmd>BridgeSubmit<cr>", desc = "Submit review comments" },
-			{ "<leader>bd", "<cmd>BridgeDiscard<cr>", desc = "Discard review comments" },
-		},
-	},
-	-- {
-	-- 	"coder/claudecode.nvim",
-	-- 	dependencies = { "folke/snacks.nvim" },
-	-- 	config = true,
-	-- 	lazy = false, -- load on startup
-	-- 	opts = {
-	-- 		terminal = {
-	-- 			provider = "none",
-	-- 		},
-	-- 	},
-	-- 	keys = {
-	-- 		{ "<leader>a", nil, desc = "AI/Claude Code" },
-	-- 		{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-	-- 		{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-	-- 		{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-	-- 		{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-	-- 		{ "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-	-- 		{ "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-	-- 		{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-	-- 		{
-	-- 			"<leader>as",
-	-- 			"<cmd>ClaudeCodeTreeAdd<cr>",
-	-- 			desc = "Add file",
-	-- 			ft = { "NvimTree", "neo-tree", "oil" },
-	-- 		},
-	-- 		-- Diff management
-	-- 		{ "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-	-- 		{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
-	-- 	},
-	-- },
-	{
-		"NickvanDyke/opencode.nvim",
-		dependencies = {
-			-- Recommended for `ask()` and `select()`.
-			-- Required for `snacks` provider.
-			---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-			{ "folke/snacks.nvim", lazy = false, priority = 1000, opts = { input = {}, picker = {}, terminal = {} } },
-		},
-		config = function()
-			vim.g.opencode_opts = {
-				-- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition" on the type or field.
-			}
-
-			-- Required for `opts.events.reload`.
-			vim.o.autoread = true
-
-			-- Recommended/example keymaps.
-			vim.keymap.set({ "n", "x" }, "<C-a>", function()
-				require("opencode").ask("@this: ", { submit = true })
-			end, { desc = "Ask opencode…" })
-			vim.keymap.set({ "n", "x" }, "<C-x>", function()
-				require("opencode").select()
-			end, { desc = "Execute opencode action…" })
-			vim.keymap.set({ "n", "t" }, "<C-.>", function()
-				require("opencode").toggle()
-			end, { desc = "Toggle opencode" })
-
-			vim.keymap.set({ "n", "x" }, "go", function()
-				return require("opencode").operator("@this ")
-			end, { desc = "Add range to opencode", expr = true })
-			vim.keymap.set("n", "goo", function()
-				return require("opencode").operator("@this ") .. "_"
-			end, { desc = "Add line to opencode", expr = true })
-
-			-- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o…".
-			vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
-			vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
-		end,
 	},
 }

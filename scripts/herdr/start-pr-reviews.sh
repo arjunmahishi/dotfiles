@@ -82,7 +82,7 @@ pick_reviews() {
         --header-lines=1 \
         --no-sort \
         --prompt="Review PRs > " \
-        --header="tab: select | enter: start reviews" \
+        --header="↑/↓: navigate | tab: toggle selection (multi-select) | enter: review selected PRs" \
         --layout=reverse
 }
 
