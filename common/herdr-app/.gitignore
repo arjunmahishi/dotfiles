@@ -1,0 +1,15 @@
+/*
+!/.gitignore
+!/keys.json
+!/settings.json
+!/file-picker.json
+!/layouts/
+/layouts/*
+!/layouts/apollo.json
+!/themes/
+/themes/*
+!/themes/apollo-github-dark.json
+!/mods/
+/mods/*
+!/mods/apollo-agents/
+/mods/apollo-agents/gpui-kit.d.ts

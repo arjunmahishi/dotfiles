@@ -11,7 +11,7 @@ Install [Pi](https://pi.dev), then link the selected files from this checkout:
 ```sh
 # Run from the dotfiles repo root. Move any existing targets aside first.
 mkdir -p "$HOME/.pi/agent"
-for name in AGENTS.md settings.json keybindings.json extensions themes; do
+for name in AGENTS.md settings.json keybindings.json extensions themes prompts scripts; do
   ln -s "$PWD/common/pi/$name" "$HOME/.pi/agent/$name"
 done
 ```
@@ -23,6 +23,12 @@ The default provider/model in `settings.json` reflects my local setup and may
 not be available on another account. Choose an available model and authenticate
 with your own credentials. The configured npm package is `@narumitw/pi-btw`;
 `pi update --extensions` reconciles package installations.
+
+## Prompts
+
+- `sessions-retro.md`: `/sessions-retro [since]` analyzes the project's Pi
+  sessions for friction and proposes skill/AGENTS.md fixes; uses
+  `scripts/session-digest.py` (requires `python3`).
 
 ## Extensions
 

@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "1.4.0",
-  "defaultProvider": "openai-codex",
+  "lastChangelogVersion": "1.5.0",
+  "defaultProvider": "agenthub-openai",
   "defaultModel": "gpt-6.1-sol",
   "defaultThinkingLevel": "medium",
   "theme": "apollo-guidance-computer",
@@ -10,11 +10,13 @@
   },
   "tuiMode": "regular",
   "packages": [
-    "npm:@narumitw/pi-btw"
+    "npm:@narumitw/pi-btw",
+    "npm:@dietrichgebert/ponytail"
   ],
   "showHardwareCursor": false,
   "transport": "auto",
   "defaultTools": [
     "+codemode"
-  ]
+  ],
+  "deviceId": "b2a90337-c558-42ae-93f4-c53f169097c4"
 }
