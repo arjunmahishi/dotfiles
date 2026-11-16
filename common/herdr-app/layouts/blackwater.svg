@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300" viewBox="0 0 480 300">
+  <defs>
+    <radialGradient id="smoke"><stop stop-color="#343c2e"/><stop offset="1" stop-color="#111412"/></radialGradient>
+  </defs>
+  <rect width="480" height="300" fill="#141713"/>
+  <rect x="100" y="8" width="372" height="250" fill="url(#smoke)" stroke="#b7a16f"/>
+  <path d="M130 258l18-160 34-90m-35 98 61-47 38-51m-75 80-27-47M435 258l-20-120 21-130m-20 125-47-51-13-74" fill="none" stroke="#101310" stroke-width="9"/>
+  <rect x="8" y="48" width="82" height="23" rx="3" fill="#35402f"/>
+  <g fill="#e0d8c6" font-family="monospace" font-size="10">
+    <text x="14" y="27">Blackwater</text><text x="14" y="63">workspace</text>
+    <text x="113" y="31">~/blackwater</text><text x="113" y="48" fill="#b7a16f">❯</text>
+  </g>
+  <path d="M100 269h372M0 286h480" stroke="#484738"/>
+  <rect x="108" y="266" width="53" height="17" rx="3" fill="#35402f"/>
+</svg>
