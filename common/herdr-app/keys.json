@@ -22,6 +22,7 @@
     "cmd-shift-l": "layout.switch",
     "cmd-n": "space.new",
     "cmd-p": "mod.open:picker",
+    "cmd-shift-g": "mod.open:game-2048",
     "cmd-o": "mod.open:file-picker",
     "cmd-shift-p": "app.palette",
     "cmd-,": "app.settings",

@@ -15,7 +15,7 @@
   "defaultProvider": "agenthub-anthropic",
   "defaultModel": "claude-opus-5-5",
   "defaultThinkingLevel": "medium",
-  "theme": "apollo-guidance-computer",
+  "theme": "blackwater",
   "hideThinkingBlock": true,
   "terminal": {
     "showTerminalProgress": false
