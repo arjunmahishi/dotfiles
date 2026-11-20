@@ -1,8 +1,7 @@
 {
-  "lastChangelogVersion": "1.5.0",
-  "defaultProvider": "agenthub-openai",
-  "defaultModel": "gpt-6.1-sol",
-  "lastChangelogVersion": "1.5.2",
+  "lastChangelogVersion": "1.6.0",
+  "defaultProvider": "agenthub-anthropic",
+  "defaultModel": "claude-opus-5-5",
   "selfUpdateCommand": [
     "/opt/homebrew/bin/npm",
     "install",
@@ -12,8 +11,6 @@
     "--ignore-scripts",
     "{installSpec}"
   ],
-  "defaultProvider": "agenthub-anthropic",
-  "defaultModel": "claude-opus-5-5",
   "defaultThinkingLevel": "medium",
   "theme": "blackwater",
   "hideThinkingBlock": true,
