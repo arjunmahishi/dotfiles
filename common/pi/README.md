@@ -30,12 +30,27 @@ with your own credentials. The configured npm package is `@narumitw/pi-btw`;
   sessions for friction and proposes skill/AGENTS.md fixes; uses
   `scripts/session-digest.py` (requires `python3`).
 
+## Scripts
+
+Run `~/.pi/agent/scripts/session-metrics.py [session-id]` for one PR-ready line
+with human time, agent time, and logged cost by model (Python 3.11+). Omit the
+ID to use `$PI_SESSION_FILE` inside Pi.
+
+The script reads the latest persisted branch through its last user, assistant,
+or tool-result entry. Agent time runs from a user message to a reply that
+doesn't call tools, including the tools in between. Human time is the remaining
+elapsed time, including the gap before the first prompt and any time away.
+Costs are Pi's estimates, not bills; the total and model subtotals are rounded
+independently.
+
 ## Extensions
 
 - `jj-bookmark.ts`: shows the JJ bookmark in the footer; requires `jj`.
 - `rtk.ts`: rewrites shell commands through RTK; requires `rtk >= 0.23.0`.
 - `nvim-editor/`: edits drafts with Ctrl+G; requires `nvim`. See its README.
 - `session-tools/`: reads/searches local sessions when explicitly requested.
+- `session-metrics.ts`: `/session-metrics [session-id]` shows the same one-line
+  summary without calling a model. Omit the ID for the active saved session.
 - `tui.ts`: opens local files in the default browser on macOS.
 - `herdr-agent-state.ts`: Herdr-managed integration, enabled only in a Herdr
   environment. Herdr updates may overwrite this file.
